@@ -46,7 +46,7 @@ jobs:
       - name: Set Pages entrypoint
         run: cp dist/ami_presentation.html dist/index.html
 
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: dist
 
