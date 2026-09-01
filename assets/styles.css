@@ -1,0 +1,37 @@
+table td,
+table th {
+  font-size: 75%;
+}
+
+.reveal .slides table {
+  font-size: 0.8em;
+  line-height: 1.1;
+}
+
+.reveal .slides th,
+.reveal .slides td {
+  padding: 0.2rem 0.35rem;
+}
+
+ul,
+ol {
+  font-size: 80%;
+}
+
+.reveal .slides figure {
+  margin: 0 auto 0.6rem;
+  text-align: center;
+}
+
+.reveal .slides figure img {
+  display: block;
+  margin: 0 auto;
+}
+
+.reveal .slides figcaption,
+.reveal .slides p.caption {
+  font-size: 50%;
+  line-height: 1.2;
+  margin: 0.35rem auto 0;
+  text-align: center;
+}

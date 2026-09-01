@@ -1,0 +1,38 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Quarto: Render AMI presentation",
+      "type": "shell",
+      "command": "quarto render ami_presentation.qmd",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "XDG_CACHE_HOME": "${workspaceFolder}/.cache",
+          "DENO_DIR": "${workspaceFolder}/.cache/deno",
+          "QUARTO_CACHE_DIR": "${workspaceFolder}/.cache/quarto"
+        }
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Quarto: Preview AMI presentation",
+      "type": "shell",
+      "command": "quarto preview ami_presentation.qmd --no-browser",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "XDG_CACHE_HOME": "${workspaceFolder}/.cache",
+          "DENO_DIR": "${workspaceFolder}/.cache/deno",
+          "QUARTO_CACHE_DIR": "${workspaceFolder}/.cache/quarto"
+        }
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    }
+  ]
+}

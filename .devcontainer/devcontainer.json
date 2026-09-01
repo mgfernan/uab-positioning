@@ -1,0 +1,31 @@
+{
+  "name": "AMI Quarto",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "overrideCommand": true,
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": true,
+  "mounts": [
+    "source=ami-quarto-home-cache,target=/home/vscode/.cache,type=volume",
+    "source=ami-quarto-home-local,target=/home/vscode/.local,type=volume",
+    "source=ami-quarto-pip-cache,target=/home/vscode/.cache/pip,type=volume"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "quarto.quarto",
+        "yzhang.markdown-all-in-one",
+        "ms-python.python",
+        "ms-toolsai.jupyter"
+      ],
+      "settings": {
+        "files.trimTrailingWhitespace": true,
+        "quarto.render.renderOnSave": false,
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh"
+}

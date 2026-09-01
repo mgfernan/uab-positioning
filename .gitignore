@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+.quarto/
+.cache/
+.deno/
+.tmp/
+dist/
+*.html
+*_files/
+.ipynb_checkpoints/
+.DS_Store
+/.quarto/

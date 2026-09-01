@@ -1,0 +1,10 @@
+---
+title: "AMI Presentation"
+subtitle: "Master's Degree in Telecommunication Engineering"
+author: "UAB"
+from: markdown+emoji
+---
+
+{{< include slides/sections/introduction.qmd >}}
+
+{{< include slides/sections/references.qmd >}}

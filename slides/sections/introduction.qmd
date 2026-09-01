@@ -1,0 +1,14 @@
+### Introduction
+
+- Replace this slide with the presentation content.
+- Cite sources directly in slides, for example [@knuth1984texbook].
+
+### Quiz
+
+::: {.quiz}
+What is the purpose of this scaffold?
+
+- [x] To create a Quarto Reveal.js presentation
+- [ ] To deploy a web application
+- [ ] To generate a PDF report only
+:::

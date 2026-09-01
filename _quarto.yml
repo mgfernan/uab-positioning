@@ -1,0 +1,33 @@
+project:
+  title: "AMI Presentation"
+  output-dir: dist
+  resources:
+    - assets/
+    - docs/
+    - slides/
+
+bibliography: docs/references.bib
+csl: docs/chicago-author-date.csl
+link-citations: true
+
+format:
+  revealjs:
+    slide-number: true
+    preview-links: auto
+    css: assets/styles.css
+    footer: "UAB"
+    center: false
+    center-title-slide: false
+    chalkboard: true
+    slide-level: 3
+    embed-resources: false
+    code:
+      show: false
+
+revealjs-plugins:
+  - quiz
+
+editor: source
+
+filters:
+  - acronyms

@@ -1,0 +1,11 @@
+ipython
+ipywidgets
+jupyter
+jupyterlab-quarto
+matplotlib
+numpy
+pandas
+plotly==6.1.1
+pyyaml
+seaborn>=0.13
+tabulate
