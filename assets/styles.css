@@ -35,3 +35,23 @@ ol {
   margin: 0.35rem auto 0;
   text-align: center;
 }
+
+
+/* Session divider slides (top-level # Session X headings).
+   Paint the full Reveal viewport via the background layer, not the content box. */
+.reveal:has(.slides section.session-marker.present) .backgrounds {
+  background-image: linear-gradient(160deg, #e5ebf2 0%, #b8c7d8 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.reveal .slides section.session-marker {
+  background: transparent;
+}
+
+.reveal .slides section.session-marker h1 {
+  color: teal;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}

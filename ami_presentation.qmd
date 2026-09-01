@@ -8,3 +8,5 @@ from: markdown+emoji
 {{< include slides/sections/introduction.qmd >}}
 
 {{< include slides/sections/references.qmd >}}
+
+{{< include slides/sections/acronyms.qmd >}}

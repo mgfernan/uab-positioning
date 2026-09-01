@@ -1,14 +1,145 @@
-### Introduction
+# Introduction  {.session-marker}
 
-- Replace this slide with the presentation content.
-- Cite sources directly in slides, for example [@knuth1984texbook].
-
-### Quiz
-
-::: {.quiz}
-What is the purpose of this scaffold?
-
-- [x] To create a Quarto Reveal.js presentation
-- [ ] To deploy a web application
-- [ ] To generate a PDF report only
+::: {.incremental}
+- GNSS as a multidisciplinary field
+- Goals of the course
+  - Overview of GNSS
+  - Positioning principles
+  - GNSS signals
+  - GNSS receiver
+  - Applications of GNSS technology
+  - Added value services of GNSS technology
 :::
+
+## GNSS as a multidisciplinary field: system
+
+::: {.columns}
+::: {.column width="40%"}
+::: {.incremental}
+- \acr{GNSS} is a multidisciplinary field
+- Positioning principles
+- Applications
+:::
+:::
+
+::: {.column width="60%"}
+![](assets/figures/gnss_system_overview.svg)
+:::
+:::
+
+## GNSS as a multidisciplinary field: receivers
+
+![](assets/figures/gnss_receiver_overview.svg)
+
+::: {.incremental}
+- [Antenna design]{style="color: #9200cae5;"} [physics, hardware, electronic engineering]{.fragment .fade-in}
+- [Reception chain design]{style="color: #0065b8e5;"} [physics, radio propagation, circuit design]{.fragment .fade-in}
+- [Signal processing]{style="color: #00a651e5;"} [electronic engineering, mathematics]{.fragment .fade-in}
+- [Positioning algorithms]{style="color: #ee0c00e5;"} [mathematics, IA]{.fragment .fade-in}
+:::
+
+## Goals
+
+::: {.incremental}
+1. To know the architecture of GNSS
+2. To understand the positioning principles
+3. To understand and solve the navigation equations
+4. To know the principles of accurate positioning
+5. To know the GNSS signals
+6. To understand the operation of a GNSS receiver and its measurements
+7. To know the applications of GNSS
+:::
+
+
+### Overview of GNSS
+
+::: {.fragment}
+::: {.incremental}
+- What is the **motivation** for GNSS?
+- A brief **history**: \acr{GPS} or \acr{GNSS}?
+- What are the main **architecture** components of a GNSS system?
+- Applications
+:::
+:::
+
+::: {.fragment}
+Goals addressed: 1-7
+:::
+
+### Positioning Principles
+
+::: {.fragment}
+::: {.incremental}
+- Positioning techniques: trilateration (\acr{ToA}), hyperbolic (\acr{TDoA})
+- Observables: pseudorange, carrier phase, Doppler
+- The navigation problem: how to solve the navigation equations?
+- Positioning accuracy: sources of error, error mitigation techniques
+- Accurate positioning: differential techniques, augmentation systems
+:::
+:::
+
+::: {.fragment}
+Goals addressed: 2-4
+:::
+
+### GNSS Signals
+
+::: {.fragment}
+::: {.incremental}
+- Characteristics of GNSS signals: structure, frequency band, types, ...
+- Fundamentals of GNSS **spectrum modulation**
+- **Navigation message**
+- Modernized signals
+:::
+:::
+
+::: {.fragment}
+Goals addressed: 5
+:::
+
+### GNSS Receiver
+
+::: {.fragment}
+::: {.incremental}
+- Architecture
+- Front-End: signal conditioning (AGC, ADC, ...)
+- Acquisition stage: identify satellites and tentative measurements
+- Tracking stage: track changes and get accurate measurements
+- Demodulation
+:::
+:::
+
+::: {.fragment}
+Goals addressed: 6
+:::
+
+### Applications of GNSS technology
+
+::: {.fragment}
+::: {.incremental}
+- The positioning market: where is the business?
+- Accuracy and scenarios: do we need centimetric accuracy everywhere?
+- Why finance and insurance companies are interested in GNSS?
+:::
+:::
+
+::: {.fragment}
+Goals addressed: 7
+:::
+
+### Added value services of GNSS technology
+
+::: {.fragment}
+::: {.incremental}
+- Accuracy becoming a *commodity*
+- Added value services: integrity, continuity, availability, ...
+- Threats and vulnerabilities of GNSS technology
+- The future of GNSS technology: new signals, new constellations, new applications
+:::
+:::
+
+::: {.fragment}
+Goals addressed: 7
+:::
+
+

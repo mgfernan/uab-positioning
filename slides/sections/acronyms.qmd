@@ -1,0 +1,20 @@
+---
+acronyms:
+  insert_loa: false
+  loa_title: ''
+  keys:
+    - shortname: GNSS
+      longname: Global Navigation Satellite System
+    - shortname: GPS
+      longname: Global Positioning System
+    - shortname: ToA
+      longname: Time of Arrival
+    - shortname: TDoA
+      longname: Time Difference of Arrival
+---
+
+### Acronyms {.compact-acronyms}
+
+::: {.compact-acronyms-list}
+\printacronyms
+:::
