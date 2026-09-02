@@ -1,0 +1,170 @@
+# Overview {.session-marker}
+
+- The positioning landscape: \acr{GPS} or \acr{GNSS}?
+- Motivation
+- Architecture and segments
+- Galileo is more than a scientist
+- Applications
+
+## The positioning segment
+
+
+### GPS or GNSS?
+
+::: {.incremental}
+- Main \acr{GNSS} constellations:
+
+    - \acr{GPS} (USA) [1970’s – 1990’s]{.fragment .fade-in}
+    - \acr{GLONASS} (Russia) [980’s – 1996 (<8 sats) – 2007 (24 sats)]{.fragment .fade-in}
+    - Galileo (Europe) [2002 (approved) – 2019 (\acr{FOC})]{.fragment .fade-in}
+    - \acr{INRSS} (India) [2006 (approved) – 2018 (regional)]{.fragment .fade-in}
+    - Beidou (China) [2000 – 2003 (experimental) – 2012 (regional) – 2020 (global)]{.fragment .fade-in}
+:::
+
+::: {.incremental}
+- Augmentation systems (supporting constellations to improve accuracy, integrity, and availability):
+    - \acr{WAAS} (USA) 1990’s – 2003 (FOC)
+    - \acr{EGNOS} (Europe) 2001 – 2011 (FOC)
+    - \acr{MSAS} (Japan) 2007
+    - \acr{GAGAN} (India) 2013
+    - \acr{SDCM} (Russia) 2015
+:::
+
+### Augmentation systems: regional
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.incremental}
+- *Differential* GPS for aviation with multiple antennas and receivers (3 to 4)
+- Cross checking of measurements from different receivers
+- Averaging mitigates uncorrelated errors
+- Redundancy of hardware
+- Integrity data provided to user locally using radio link
+- Coverage of local area(~20 km)
+- Used for airports as alternative to \acr{ILS}
+:::
+:::
+
+::: {.column width="50%"}
+![](assets/figures/gbas_overview.png)
+:::
+
+:::
+
+### Augmentation systems: satellite
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.incremental}
+- Coverage area at the level of a continent/country
+- Safety critical system designed to augment one or several \acr{GNSS}
+- Corrections relayed by a \acr{GEO} satellite
+- Has several segments like main \acr{GNSS}
+:::
+:::
+
+::: {.column width="50%"}
+![source: Navipedia (ESA)](assets/figures/SBAS_overview.png)
+:::
+
+:::
+
+### Augmentation systems: satellite
+
+![source: Navipedia (ESA)](assets/figures/sbas_service_areas.png)
+
+### European GNSS
+
+::: {.columns}
+::: {.column width="70%"}
+- \acr{EGNOS}:
+  - "Overlay" system that *augments* \acr{GPS} and \acr{GLONASS}
+  - European coverage
+  - Three services: \acr{OS}, \acr{SoL}, and \acr{EDAS}
+:::
+
+::: {.column width="30%"}
+![](assets/figures/EGNOS_Logo_pillars.jpg)
+:::
+:::
+
+::: {.columns}
+::: {.column width="70%"}
+- Galileo
+  - Autonomous infrastructure
+  - Global coverage
+  - Steadily improving performance
+  - Additional added value services besides positioning
+  - Complex and distributed infrastructure built through cooperation among European member states
+:::
+
+::: {.column width="30%"}
+![](assets/figures/Galileo_logo_pillars.jpg)
+:::
+:::
+
+### European GNSS: Why Galileo?
+
+Europe's technological sovereignty in positioning
+
+::: {.columns}
+
+::: {.column width="50%"}
+- First GNSS designed and operated under **civil control**
+- As of 2008, financed entirely by EU and managed by the \acr{EC}
+- Provides Europe independence from other GNSS, greater robustness, and additional positioning services
+- Interoperability with other GNSS for increased accuracy and availability
+:::
+
+::: {.column width="50%"}
+![](assets/figures/galileo_sat.jpg)
+:::
+:::
+
+### Galileo stakeholders
+
+![source: chatGPT](assets/figures/galileo_stakeholders.svg)
+
+### Galileo services
+
+
+| Service | Description | Accuracy / Features | Target Users |
+|---|---|---|---|
+| OS – Open Service | Free and open to everyone | Meters | General users (navigation, smartphones, GPS apps) |
+| HAS – High Accuracy Service | Real-time corrections | Centimeters | Precision agriculture, drones, engineering, transport |
+| OS – Navigation Message Authentication | Authentication of navigation messages | N/A | All users, especially critical applications |
+| SAR – Search and Rescue | Location of distress beacons (Cospas-Sarsat) + Return Link Service | Rapid localization | Emergency situations, people in distress at sea/mountains/aviation |
+| PRS – Public Regulated Service | Encrypted and robust signal | High, even in adverse conditions | Governments, military, police, civil protection |
+
+## Precedents
+
+## GNSS in numbers
+
+
+## Architecture and segments
+
+### Elements of a GNSS system
+
+### Space segment
+
+### Control segment
+
+### User segment
+
+
+## Applications
+
+### Navigation: road, rail, maritime, aviation
+
+### Location Based Services
+
+\acr{LBS}
+
+### Agriculture and surveying
+
+### Timing and synchronization
+

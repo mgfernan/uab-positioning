@@ -3,14 +3,46 @@ acronyms:
   insert_loa: false
   loa_title: ''
   keys:
+    - shortname: EC
+      longname: European Commission
+    - shortname: E-GNSS
+      longname: European Global Navigation Satellite System
+    - shortname: FOC
+      longname: Full Operational Capability
+    - shortname: GEO
+      longname: Geostationary Earth Orbit
+    - shortname: GLONASS
+      longname: Глобальная навигационная спутниковая система
     - shortname: GNSS
       longname: Global Navigation Satellite System
     - shortname: GPS
       longname: Global Positioning System
+    - shortname: ILS
+      longname: Instrument Landing System
+    - shortname: INRSS
+      longname: Indian Regional Navigation Satellite System
+    - shortname: LBS
+      longname: Location Based Services
+    - shortname: OS
+      longname: Open Service
+    - shortname: SoL
+      longname: Safety of Life
+    - shortname: EDAS
+      longname: EGNOS Data Access Service
     - shortname: ToA
       longname: Time of Arrival
     - shortname: TDoA
       longname: Time Difference of Arrival
+    - shortname: WAAS
+      longname: Wide Area Augmentation System
+    - shortname: EGNOS
+      longname: European Geostationary Navigation Overlay Service
+    - shortname: MSAS
+      longname: Multi-functional Satellite Augmentation System
+    - shortname: GAGAN
+      longname: GPS Aided GEO Augmented Navigation
+    - shortname: SDCM
+      longname: System for Differential Corrections and Monitoring
 ---
 
 ### Acronyms {.compact-acronyms}
