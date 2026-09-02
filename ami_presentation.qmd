@@ -8,9 +8,7 @@ author: "UAB"
 from: markdown+emoji
 ---
 
-{{< include slides/sections/00-introduction.qmd >}}
-
-{{< include slides/sections/01-overview.qmd >}}
+{{< include slides/sections/session-1-introduction.qmd >}}
 
 {{< include slides/sections/references.qmd >}}
 
