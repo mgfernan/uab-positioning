@@ -1,6 +1,5 @@
 # Introduction  {.session-marker}
 
-::: {.incremental}
 - GNSS as a multidisciplinary field
 - Goals of the course
   - Overview of GNSS
@@ -9,17 +8,14 @@
   - GNSS receiver
   - Applications of GNSS technology
   - Added value services of GNSS technology
-:::
 
 ## GNSS as a multidisciplinary field: system
 
 ::: {.columns}
 ::: {.column width="40%"}
-::: {.incremental}
 - \acr{GNSS} is a multidisciplinary field
 - Positioning principles
 - Applications
-:::
 :::
 
 ::: {.column width="60%"}
@@ -104,95 +100,60 @@ Navigation
 
 ### Overview of GNSS
 
-::: {.fragment}
-::: {.incremental}
 - What is the **motivation** for GNSS?
 - A brief **history**: \acr{GPS} or \acr{GNSS}?
 - What are the main **architecture** components of a GNSS system?
 - Applications
-:::
-:::
 
-::: {.fragment}
 Goals addressed: 1-7
-:::
+
 
 ### Positioning Principles
 
-::: {.fragment}
-::: {.incremental}
 - Positioning techniques: trilateration (\acr{ToA}), hyperbolic (\acr{TDoA})
 - Observables: pseudorange, carrier phase, Doppler
 - The navigation problem: how to solve the navigation equations?
 - Positioning accuracy: sources of error, error mitigation techniques
 - Accurate positioning: differential techniques, augmentation systems
-:::
-:::
 
-::: {.fragment}
 Goals addressed: 2-4
-:::
+
 
 ### GNSS Signals
 
-::: {.fragment}
-::: {.incremental}
 - Characteristics of GNSS signals: structure, frequency band, types, ...
 - Fundamentals of GNSS **spectrum modulation**
 - **Navigation message**
 - Modernized signals
-:::
-:::
 
-::: {.fragment}
 Goals addressed: 5
-:::
 
 ### GNSS Receiver
 
-::: {.fragment}
-::: {.incremental}
 - Architecture
 - Front-End: signal conditioning (AGC, ADC, ...)
 - Acquisition stage: identify satellites and tentative measurements
 - Tracking stage: track changes and get accurate measurements
 - Demodulation
-:::
-:::
 
-::: {.fragment}
 Goals addressed: 6
-:::
 
 ### Applications of GNSS technology
 
-::: {.fragment}
-::: {.incremental}
 - The positioning market: where is the business?
 - Accuracy and scenarios: do we need centimetric accuracy everywhere?
 - Why finance and insurance companies are interested in GNSS?
-:::
-:::
 
-::: {.fragment}
 Goals addressed: 7
-:::
 
 ### Added value services of GNSS technology
 
-::: {.fragment}
-::: {.incremental}
 - Accuracy becoming a *commodity*
 - Added value services: integrity, continuity, availability, ...
 - Threats and vulnerabilities of GNSS technology
 - The future of GNSS technology: new signals, new constellations, new applications
-:::
-:::
 
-::: {.fragment}
 Goals addressed: 7
-:::
-
 
 # Overview {.session-marker}
 
