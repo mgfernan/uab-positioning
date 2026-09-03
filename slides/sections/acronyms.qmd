@@ -3,6 +3,8 @@ acronyms:
   insert_loa: false
   loa_title: ''
   keys:
+    - shortname: ADS-B
+      longname: Automatic Dependent Surveillance-Broadcast
     - shortname: EC
       longname: European Commission
     - shortname: E-GNSS

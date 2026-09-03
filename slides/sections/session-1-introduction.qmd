@@ -386,20 +386,12 @@ Finding your way with stars:
 
 :::
 
-
-
 source: [REI](https://www.rei.com/learn/expert-advice/navigation-basics.html)
-
 
 ### Inertial navigation
 
-
-
 ::: {.columns}
-
 ::: {.column}
-
-
 - With electronic engineering appearing in the 20th century, \acr{INS} were developed
 - Two main observations:
   - acceleration (accelerometers)
@@ -408,17 +400,10 @@ source: [REI](https://www.rei.com/learn/expert-advice/navigation-basics.html)
   - Mechanical \acr{INS} (gyroscopes and accelerometers)
   - Optical \acr{INS} (ring laser gyroscopes and fiber optic gyroscopes)
   - MEMS \acr{INS} (microelectromechanical systems)
-
-
 :::
 
 ::: {.column}
-
-
-
 ![](assets/figures/ins.png)
-
-
 :::
 
 :::
@@ -818,13 +803,106 @@ Formed by all the set of GNSS receivers, classified as:
 
 ## Applications
 
-### Navigation: road, rail, maritime, aviation
+A traditional classification of civil applications is given by
+
+- **Navigation**: navigation information to the user to achieve a given goal such as
+reaching a destination, track some goods or traffic monitoring.
+- \acr{LBS}: Comprises a multitude of applications supported by devices such
+as smartphones, tablets and/or wearables
+- **Surveying**: GNSS is used to monitor deformations of large engineering structures in
+real time, reaching the arena of surveyors and mapmakers
+- **Agriculture**: Precision agriculture is aimed at managing the variability of agricultural
+production, in order to improve crop yield and reduce environmental impact
+- **Timing** and Synchronization: GNSS is used as a global source of precise time and its
+use as a timing service has grown rapidly
+
+## Applications: revenue
+
+![source: [@euspa2024market_report]](assets/figures/market_segments.png)
+
+### Navigation: road
+
+- **Fleet management**: GNSS positioning information is used to support transport operators in monitoring the logistics activities.
+- **Road traffic monitoring**: Car location data is used to monitor the road traffic.
+-  Safety-Critical applications: The safety of the user may be in danger
+   -  Advanced Driver Assistance Systems (ADAS): Support the driver and it is intended to play a prominent role on Autonomous Vehicles
+   -  Dangerous goods tracking: Use of GNSS positioning data together with other information about the status of the cargo
+- In Road User **Tolling**: GNSS supports toll operators in charging for the use of roads and for congestion control
+- Pay-per-use **insurance** and **usage-based insurance**: GNSS positioning data is used to determine the risk of the driver and to charge accordingly
+
+### Navigation: aviation
+
+- Aviation uses certified equipment to achieve safe and efficient operations
+- Aircrafts are equipped with Emergency Locator Transmitters (ELTs) that help **Search and Rescue** operations in the event of an incident
+- \acr{ADS-B} aircraft contiuously report their position to air traffic controllers on the ground
+- **Integrity** is a key requirement for aviation applications, and GNSS augmentation systems are used to provide integrity information to the users
+
+### Navigation: rail
+
+- Main Line Command & Control System.
+- **Asset management**: GNSS is increasingly seen as a standard source of
+positioning and timing information for fleet management, maintenance,
+infrastructure charges and inter-modal transfers.
+- **Signalling**: GNSS can be used as a source of positioning information for train control and signalling systems. Currently, *balises* are used to provide this.
+- _Availability_ of GNSS is still a challenge in this application field. "Five nines" are required!
+
+### Navigation: maritime
+
+Multiple application fields:
+
+- Sea navigation
+- Traffic management and surveillance
+- Search and Rescue
+- Fishing vessel control
+- Port operations
+- Marine engineering
 
 ### Location Based Services
 
-\acr{LBS}
+\acr{LBS} means, fundamentally, smartphone applications:
+
+
+::: {.columns}
+::: {.column width="60%"}
+- Mapping applications
+- Sports and fitness applications
+- Social networking applications
+- Location-based advertising
+- Location-based gaming
+
+![](assets/figures/LBS_geocaching.png){height="200"}
+
+:::
+
+::: {.column width="20%"}
+![](assets/figures/LBS_smartphone_maps.png)
+:::
+
+::: {.column width="20%"}
+![](assets/figures/LBS_watch_garmin.png){height="200"}
+:::
+:::
 
 ### Agriculture and surveying
 
+- Farm machinery guidance: GNSS positioning assists drivers (optimal path)
+- Automatic steering: Automatic control of farm equipment with GNSS
+- Variable rate application: Combines GNSS with other sensors to distribute the right amount of agrichemicals
+
+![source: [ICGC](https://www.icgc.cat/en/node/21564)](assets/figures/catnet_densitat_us_2020.jpg)
+
+### Surveying
+
+- **Cadastral**: Establishes property boundaries using GNSS (land taxation)
+- **Construction**: Construction of a building or civil engineering work using GNSS
+- **Mapping**: GNSS for cartographic, environmental and urban planning purposes
+- Mine surveying
+- Infrastructure monitoring
+
 ### Timing and synchronization
 
+- Network synchronization: Nanosecond accuracy
+  - Digital Cellular Network: synchronization between base stations
+  - Satellite communications: frequency control
+- Energy applications: Operators require accurate time source to monitor the energy flow of their networks
+- Finance applications: Financial transactions legally needs accurate time stamping
