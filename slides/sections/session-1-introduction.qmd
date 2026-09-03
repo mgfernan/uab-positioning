@@ -43,20 +43,50 @@
 
 ::: {.columns}
 
-::: {.column}
+::: {.column width="50%"}
+Positioning
 
+::: {.fragment}
+- Determine the position of a user in a given reference frame
+- Positioning is a prerequisite for navigation
+:::
 
 
 :::
 
-::: {.column}
+::: {.column width="50%"}
 
-
-
+::: {.fragment}
+![](assets/figures/positioning_map_pin.png){height="210"}
 :::
 
 :::
 
+:::
+
+
+::: {.columns}
+
+::: {.column width="50%"}
+Navigation
+
+::: {.fragment}
+- Determine the position *continuously* to guide the user to a desired destination
+:::
+
+
+:::
+
+::: {.column width="50%"}
+
+
+::: {.fragment}
+![](assets/figures/navigation_map_route.png){height="210"}
+:::
+
+:::
+
+:::
 
 
 ## Goals
@@ -188,35 +218,12 @@ Goals addressed: 7
 :::
 
 ::: {.incremental}
-- Augmentation systems (supporting constellations to improve accuracy, integrity, and availability):
+- *Augmentation* systems:
     - \acr{WAAS} (USA) 1990’s – 2003 (FOC)
     - \acr{EGNOS} (Europe) 2001 – 2011 (FOC)
     - \acr{MSAS} (Japan) 2007
     - \acr{GAGAN} (India) 2013
     - \acr{SDCM} (Russia) 2015
-:::
-
-### Augmentation systems: regional
-
-::: {.columns}
-
-::: {.column width="50%"}
-
-::: {.incremental}
-- *Differential* GPS for aviation with multiple antennas and receivers (3 to 4)
-- Cross checking of measurements from different receivers
-- Averaging mitigates uncorrelated errors
-- Redundancy of hardware
-- Integrity data provided to user locally using radio link
-- Coverage of local area(~20 km)
-- Used for airports as alternative to \acr{ILS}
-:::
-:::
-
-::: {.column width="50%"}
-![](assets/figures/gbas_overview.png)
-:::
-
 :::
 
 ### Augmentation systems: satellite
@@ -242,6 +249,31 @@ Goals addressed: 7
 ### Augmentation systems: satellite
 
 ![source: Navipedia (ESA)](assets/figures/sbas_service_areas.png)
+
+
+### Augmentation systems: regional
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.incremental}
+- *Differential* GPS for aviation with multiple antennas and receivers (3 to 4)
+- Cross checking of measurements from different receivers
+- Averaging mitigates uncorrelated errors
+- Redundancy of hardware
+- Integrity data provided to user locally using radio link
+- Coverage of local area(~20 km)
+- Used for airports as alternative to \acr{ILS}
+:::
+:::
+
+::: {.column width="50%"}
+![](assets/figures/gbas_overview.png)
+:::
+
+:::
+
 
 ### European GNSS
 
@@ -308,36 +340,520 @@ Europe's technological sovereignty in positioning
 
 ## A bit of history
 
+- Stars
+- Gadgets
+- Military triggers navigation systems
+  - Inertial navigation
+  - Radio navigation
+- Satellite navigation: the new era of navigation
+
+### Using the stars: North hemisphere
+
+
+::: {.columns}
+
+::: {.column}
+Finding your way with stars:
+
+::: {.fragment data-fragment-index="2"}
+::: {.incremental}
+1. Locate the **Big Dipper** constellation
+2. Find the **pointer stars** (Dubhe and Merak) at the end of the Big Dipper's bowl
+3. Draw a line from these stars to locate the North Star (Polaris), about **5 times** the distance between Dubhe and Merak
+4. Polaris is located almost directly above the North Pole, so it indicates true north
+:::
+:::
+:::
+
+
+::: {.column}
+
+::: {.fragment data-fragment-index="1"}
+![](assets/figures/navigating_stars_north.png){height="600"}
+:::
+
+:::
+
+:::
+
+### Using the stars: South hemisphere
+
+::: {.fragment .align-center}
+![](assets/figures/navigating_stars_south.png){height="600"}
+:::
+
+
+### Gadgets: The sextant
+
+![source: Joaquim Alves Gaspar (Wikipedia)](assets/figures/Using_sextant_swing.gif)
+
+::: {.incremental}
+:::
+
+### Gadgets: The compass
+
+
+::: {.columns}
+
+::: {.column}
+- Using the compass to locate yourself into a map
+- Needs compass with bezel ring and ruler [and a map!]{.fragment .fade-in}
+:::
+
+::: {.column}
+::: {.fragment}
+![](assets/figures/compass_01.avif){height="200"}
+:::
+:::
+
+:::
+
+
+::: {.columns}
+
+::: {.column}
+::: {.fragment}
+![](assets/figures/compass_02.avif){height="200"}
+:::
+:::
+
+::: {.column}
+::: {.fragment}
+![](assets/figures/compass_03.avif){height="200"}
+:::
+:::
+
+:::
+
+
+
+source: [REI](https://www.rei.com/learn/expert-advice/navigation-basics.html)
+
+
+### Inertial navigation
+
+
+
+::: {.columns}
+
+::: {.column}
+
+
+- With electronic engineering appearing in the 20th century, \acr{INS} were developed
+- Two main observations:
+  - acceleration (accelerometers)
+  - angular velocity (gyroscopes)
+- Types of \acr{INS}:
+  - Mechanical \acr{INS} (gyroscopes and accelerometers)
+  - Optical \acr{INS} (ring laser gyroscopes and fiber optic gyroscopes)
+  - MEMS \acr{INS} (microelectromechanical systems)
+
+
+:::
+
+::: {.column}
+
+
+
+![](assets/figures/ins.png)
+
+
+:::
+
+:::
+
+
+### Hyperbolic navigation
+
+
+::: {.columns}
+
+::: {.column}
+- With the appearance of radio technology, terrestrial hyperbolic navigation systems were developed in the 20th century
+  - \acr{LORAN} (US, 1940s)
+  - Decca (UK, 1940s)
+  - Omega (US, 1970s, global coverage)
+- Hyperbolic navigation systems are based on the measurement of the difference in time of arrival (\acr{TDoA}) of radio signals from two or more transmitters
+:::
+
+::: {.column}
+![source: Wikipedia](assets/figures/Accuracy_of_Navigation_Systems.svg)
+:::
+
+:::
+
+### Satellite positioning: Transit
+
+
+
+::: {.columns}
+
+::: {.column}
+
+- Military origins (early 1960s): U.S. Navy’s, DARPA and J. H. Applied Physics Lab.
+- Operation: 2 signals UHF (300 MHz – 3 GHz)
+  - Satellite orbit computation
+  - Positioning based on **Doppler** effect
+- Drawbacks:
+  - Complex localization algorithm (successive adjustments and updates)
+  - Low availability in some zones
+- Decomissioned in 1996, replaced by \acr{GPS}
+:::
+
+::: {.column}
+![](assets/figures/Transit-o.jpg){height="500"}
+:::
+
+:::
+
+### History of GPS
+
+```{mermaid}
+timeline
+    title 🛰️ A Short History of GPS
+
+    1973 : GPS program begins
+         : The U.S. Department of Defense starts developing a global satellite navigation system.
+
+    1978 : First GPS satellite
+         : The first experimental GPS satellite is launched.
+
+    1983 : GPS opened to civilians
+         : The U.S. announces that GPS will eventually be available for civilian use.
+
+    1995 : GPS becomes operational
+         : The constellation reaches Full Operational Capability.
+         : 🌍 Global positioning becomes a reality.
+
+    2000 : Selective Availability switched off
+         : Civilian GPS accuracy improves dramatically.
+         : 📱 GPS begins its transition to mass-market technology.
+
+    2010s : GPS becomes ubiquitous
+          : Smartphones, vehicles, aviation, surveying and many other applications adopt GPS.
+
+    Today : Part of the GNSS ecosystem
+          : GPS operates alongside Galileo, GLONASS, BeiDou and other systems.
+          : 🌐 Satellite positioning becomes global infrastructure.
+```
+
+## GNSS economy
+
+::: {style="text-align: center;"}
+*GNSS is responsible for roughly 10% of global gross domestic product, either directly or indirectly.*
+:::
+
+![source [@euspa2024market_report]](assets/figures/market_revenue.png)
+
+### GNSS economy: revenue distribution
+
+![source [@euspa2024market_report]](assets/figures/market_segments.png)
+
+European companies are leading in segments such as Maritime (45%), and Finance
+(70%), but trailing behind the average market shares in segments such as Consumer
+Solutions (5%), Aviation and Drones (15%), and Urban Development (5%).
+
+### GNSS economy: company landscape
+
+
+::: {.columns}
+
+::: {.column width="60%"}
+- Few very large companies
+- Lots of SMEs
+
+Company segments:
+
+- Components manufacturers (Hardware): Receivers development, chipsets,
+antennas and safety beacons
+- Positioning engine (Software): Navigation, mapping, ...
+- Value-added service providers: Augmentation systems, integrity monitoring, and
+safety-critical applications
+:::
+
+::: {.column width="40%"}
+![source [@euspa2024market_report]](assets/figures/market_segments_geo.png)
+:::
+
+:::
+
+
+## Elements of GNSS
+
+- Basic principles and measurements
+- Segments
+  - Space segment
+  - Control segment
+  - User segment
+
+### Basic principles
+
+
+::: {.columns}
+
+::: {.column width="40%"}
+::: {.incremental}
+- Satellite location (at transmission time)
+- Travel time from satellite to receiver
+- Time of arrival
+:::
+:::
+
+::: {.column width="60%"}
+![](assets/figures/gnss_elements_measurements.svg)
+:::
+:::
+
+### Measurements
+
+
+::: {.columns}
+::: {.column}
+**Distance** using time delay (travel time, *pseudorange*)
+**Distance** using phase shift (*carrier phase*)
+:::
+
+::: {.column}
+![source Wikipedia](assets/figures/phase_shift.svg){height="200"}
+:::
+:::
+
+
+::: {.columns}
+
+::: {.column}
+
+**Velocity** using *Doppler* effect
+
+
+::: {.columns}
+::: {.column}
+::: {.fragment}
+![source: Wikipedia](assets/figures/Dopplereffectstationary.gif)
+:::
+:::
+
+::: {.column}
+::: {.fragment}
+![source: Wikipedia](assets/figures/Dopplereffectsourcemovingrightatmach0.7.gif)
+:::
+:::
+:::
+
+:::
+
+::: {.column}
+**Clock offset** between the receiver clock (i.e. time the receiver thinks it is) and the *true* time determined by the GNSS atomic scale
+:::
+:::
+
+### GNSS segments
+
+To obtain a \acr{PVT}, we need:
+
+
+::: {.columns}
+
+::: {.column width="33%"}
+::: {.fragment}
+A way to compute the travel time
+:::
+:::
+
+::: {.column width="33%"}
+::: {.fragment}
+A way to know the satellite location
+:::
+:::
+
+::: {.column width="33%"}
+::: {.fragment}
+At least 4 satellites in view
+:::
+:::
+:::
+
+
+::: {.fragment}
+::: {.columns}
+
+::: {.column}
+To satisfy these requirements, a GNSS system is composed of:
+
+- **Space** segment: the satellites transmitting the positioning signals
+- **Control** segment: the ground stations monitoring the satellites
+- **User** segment: the receivers that compute their \acr{PVT}
+:::
+
+::: {.column}
+![](assets/figures/gnss_system_overview.svg)
+:::
+:::
+:::
+
+
+
+### Space segment: overview
+
+Contain the orbiting satellites that broadcast:
+1. Navigation **signals** with synchronization patterns needed to compute the travel time
+2. Navigation **message** with the satellite location and other information
+
+| Space Segment | GPS | GLONASS | Galileo | BeiDou |
+|---|---|---|---|---|
+| Num. orbital planes | 6 | 3 | 3 | 3 |
+| Total num. satellites | 30 | 24 | 32 | 35 |
+| Altitude (km) | 20,200 | 19,100 | 23,200 | 21,500 (MEO) |
+| Inclination (°) | 55 | 64.8 | 56 | 55 |
+| Orbital period (h) | 11.97 | 11.25 | 14.0 | 13.1 |
+
+### Space segment: orbit types
+
+![source: Wikipedia](assets/figures/orbit_types.svg)
+
+### Space segment: multi-layer PNT
+
+![source: ESA](assets/figures/multi_layer_PNT.png)
+
+### Space segment: how to identify them?
+
+A GNSS satellite is identified by these parameters:
+
+::: {.incremental}
+- **Constellation**: GPS, GLONASS, Galileo, BeiDou, ...
+- **SVN**: Space Vehicle Number, unique for each satellite in a constellation
+- **PRN**: Pseudo-Random Noise code (identifies the signal), new satellites are assigned the next available PRN number (available upon satellite decommissioning)
+:::
+
+### Space segment: GPS
+
 
 ::: {.columns}
 
 ::: {.column width="50%"}
 
+Legacy GNSS satellites:
+
+- Block I (experimentation)
+- Block II, IIA and IIR (still some operational)
 
 :::
 
 ::: {.column width="50%"}
 
-
+![](assets/figures/gps_block_I.jpg){height="100"}
+![](assets/figures/gps_block_IIA.gif){height="100"}
 
 :::
 
 :::
 
 
-## GNSS in numbers
+::: {.columns}
 
 
-## Architecture and segments
+::: {.column width="50%"}
 
-### Elements of a GNSS system
+Modernized constellation:
 
-### Space segment
+- Block IIR-M: New signals for improved accuracy
+- Block IIF: Maintenance satellites
+- Block III: New signals, improved accuracy, and longer lifetime
+
+:::
+
+::: {.column width="50%"}
+
+![](assets/figures/gps_block_IIF.jpg){height="150"}
+![](assets/figures/gps_block_IIIA.jpg){height="150"}
+
+:::
+:::
+
+
+### Space Segment: Galileo
+
+
+::: {.columns}
+
+::: {.column}
+\acr{FOC}: 22 fully operational satellites (2015 - present)
+:::
+
+::: {.column}
+Updates on the Galileo constellation status can be found at the [European GNSS Service Centre](https://www.gsc-europa.eu/system-service-status/constellation-information).
+:::
+
+:::
+
+![source: [EUSPA](https://www.gsc-europa.eu/system-service-status/orbital-and-technical-parameters)](assets/figures/Galileo_Orbital_Slots.png)
+
+
 
 ### Control segment
 
+
+::: {.columns}
+
+::: {.column width="60%"}
+- Composed of monitoring stations with known position
+  - They resolve the *inverse* GNSS problem
+
+- Continuous tasks:
+  - Track status of satellites (monitoring stations)
+  - Estimate satellite orbits and clock offsets (master control station)
+  - Upload navigation messages to satellites (uplink stations)
+
+- Less frequently
+  - Send instructions for orbit keeping
+  - Clock corrections
+:::
+
+::: {.column width="40%"}
+
+![](assets/figures/gnss_segments_control.svg)
+
+:::
+
+:::
+
+### Control segment: Galileo
+
+![source: [EUSPA](https://www.gsc-europa.eu/system-service-status/ground-segment)](assets/figures/galileo_ground_stations.png)
+
+### Control segment: Galileo
+
+The Galileo ground segment is composed of:
+
+- 2 \acr{GCC}: spacecraft housekeeping, constellation maintenance, navigation message and timing data determination
+- 15 \acr{GSS}: collect \acr{SiS} measurements from GNSS satellites and forward them to the \acr{GCC}
+- 5 \acr{ULS}: uplink navigation messages to the satellites
+
+### Control segment: GPS
+
+![source: [GPS.gov](https://archive.gps.gov/systems/gps/control/)](assets/figures/gps_ground_stations.png)
+
+### Control segment: GPS
+The GPS ground segment is composed of:
+
+- \acr{MCS}: Controls the GPS constellation. Has an alternate (redundant) location
+- Monitor stations: Tracking of the navigation signals of the satellites. Placed
+strategically to maximize coverage.
+- Ground antennas: Transmit control orders and the navigation message
+generated by the \acr{MCS} to the satellites.
+
 ### User segment
 
+Formed by all the set of GNSS receivers, classified as:
+
+- Type of user:
+  - Civilian: “not authorized” receivers. They are limited with respect the type of signals to be used, and then the performance of the service is lower
+  - Military: Army and authorized organizations such as OTAN. They gave greater performance without any limitation of the service
+- Frequency:
+  - Single frequency: Track only one frequency band (L1 band)
+  - Multi-frequency: Track different frequency bands (L1, L2 or L5). This is useful to mitigate ionospheric effects.
+- Constellation capabilities (single, multi-constellation)
+- Accuracy: can process carrier-phase? only code?
 
 ## Applications
 

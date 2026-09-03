@@ -1,0 +1,7 @@
+# GNSS Receivers {.session-marker}
+
+- Receiver architecture.
+- Signal conditioning (AGC, ADC, ...).
+- Acquisition stage: identify satellites and tentative measurements.
+- Tracking stage: track changes and get accurate measurements.
+- Demodulation.

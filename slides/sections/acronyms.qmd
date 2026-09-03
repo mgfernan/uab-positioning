@@ -9,6 +9,8 @@ acronyms:
       longname: European Global Navigation Satellite System
     - shortname: FOC
       longname: Full Operational Capability
+    - shortname: GCC
+      longname: Galileo Control Center
     - shortname: GEO
       longname: Geostationary Earth Orbit
     - shortname: GLONASS
@@ -17,14 +19,26 @@ acronyms:
       longname: Global Navigation Satellite System
     - shortname: GPS
       longname: Global Positioning System
+    - shortname: GSS
+      longname: Galileo Sensor Station
     - shortname: ILS
       longname: Instrument Landing System
     - shortname: INRSS
       longname: Indian Regional Navigation Satellite System
+    - shortname: INS
+      longname: Inertial Navigation System
+    - shortname: IOV
+      longname: In-Orbit Validation
+    - shortname: LORAN
+      longname: Long Range Navigation
     - shortname: LBS
       longname: Location Based Services
     - shortname: OS
       longname: Open Service
+    - shortname: MCS
+      longname: Master Control Station
+    - shortname: SiS
+      longname: Signal in Space
     - shortname: SoL
       longname: Safety of Life
     - shortname: EDAS
@@ -33,12 +47,16 @@ acronyms:
       longname: Time of Arrival
     - shortname: TDoA
       longname: Time Difference of Arrival
+    - shortname: ULS
+      longname: Uplink Station
     - shortname: WAAS
       longname: Wide Area Augmentation System
     - shortname: EGNOS
       longname: European Geostationary Navigation Overlay Service
     - shortname: MSAS
       longname: Multi-functional Satellite Augmentation System
+    - shortname: PVT
+      longname: Position, Velocity and Time
     - shortname: GAGAN
       longname: GPS Aided GEO Augmented Navigation
     - shortname: SDCM
