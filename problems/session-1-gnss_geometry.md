@@ -1,4 +1,4 @@
-# GNSS Introduction
+# Problems: GNSS Introduction
 
 ## GNSS geometry
 
@@ -7,7 +7,7 @@ associated to the GNSS geometry.
 
 Consider this diagram showing a basic (2D) GNSS geometry
 
-![](../assets/figures/gnss_geometry.svg)
+![](./figures/gnss_geometry.svg)
 
 Assume the following kown data:
 
