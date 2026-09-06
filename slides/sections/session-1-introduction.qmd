@@ -163,10 +163,7 @@ Goals addressed: 7
 - Galileo is more than a scientist
 - Applications
 
-## The positioning segment
-
-
-### GPS or GNSS?
+## GPS or GNSS?
 
 ::: {.incremental}
 - Main \acr{GNSS} constellations:
@@ -187,7 +184,7 @@ Goals addressed: 7
     - \acr{SDCM} (Russia) 2015
 :::
 
-### Augmentation systems: satellite
+## Augmentation systems: satellite
 
 ::: {.columns}
 
@@ -236,7 +233,7 @@ Goals addressed: 7
 :::
 
 
-### European GNSS
+## European GNSS
 
 ::: {.columns}
 ::: {.column width="70%"}
@@ -309,7 +306,6 @@ Europe's technological sovereignty in positioning
 - Satellite navigation: the new era of navigation
 
 ### Using the stars: North hemisphere
-
 
 ::: {.columns}
 
