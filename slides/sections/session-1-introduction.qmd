@@ -479,46 +479,6 @@ timeline
           : 🌐 Satellite positioning becomes global infrastructure.
 ```
 
-## GNSS economy
-
-::: {style="text-align: center;"}
-*GNSS is responsible for roughly 10% of global gross domestic product, either directly or indirectly.*
-:::
-
-![source [@euspa2024market_report]](assets/figures/market_revenue.png)
-
-### GNSS economy: revenue distribution
-
-![source [@euspa2024market_report]](assets/figures/market_segments.png)
-
-European companies are leading in segments such as Maritime (45%), and Finance
-(70%), but trailing behind the average market shares in segments such as Consumer
-Solutions (5%), Aviation and Drones (15%), and Urban Development (5%).
-
-### GNSS economy: company landscape
-
-
-::: {.columns}
-
-::: {.column width="60%"}
-- Few very large companies
-- Lots of SMEs
-
-Company segments:
-
-- Components manufacturers (Hardware): Receivers development, chipsets,
-antennas and safety beacons
-- Positioning engine (Software): Navigation, mapping, ...
-- Value-added service providers: Augmentation systems, integrity monitoring, and
-safety-critical applications
-:::
-
-::: {.column width="40%"}
-![source [@euspa2024market_report]](assets/figures/market_segments_geo.png)
-:::
-
-:::
-
 
 ## Elements of GNSS
 
@@ -812,9 +772,44 @@ production, in order to improve crop yield and reduce environmental impact
 - **Timing** and Synchronization: GNSS is used as a global source of precise time and its
 use as a timing service has grown rapidly
 
-## Applications: revenue
+### GNSS economy: revenue
 
-![source: [@euspa2024market_report]](assets/figures/market_segments.png)
+::: {style="text-align: center;"}
+*GNSS is responsible for roughly 10% of global gross domestic product, either directly or indirectly.*
+:::
+
+![source [@euspa2024market_report]](assets/figures/market_revenue.png)
+
+### GNSS economy: sectors
+
+![source [@euspa2024market_report]](assets/figures/market_segments.png)
+
+European companies are leading in segments such as Maritime (45%), and Finance
+(70%), but trailing behind the average market shares in segments such as Consumer
+Solutions (5%), Aviation and Drones (15%), and Urban Development (5%).
+
+### GNSS economy: company landscape
+
+::: {.columns}
+
+::: {.column width="60%"}
+- Few very large companies
+- Lots of SMEs
+
+Company segments:
+
+- Components manufacturers (Hardware): Receivers development, chipsets,
+antennas and safety beacons
+- Positioning engine (Software): Navigation, mapping, ...
+- Value-added service providers: Augmentation systems, integrity monitoring, and
+safety-critical applications
+:::
+
+::: {.column width="40%"}
+![source [@euspa2024market_report]](assets/figures/market_segments_geo.png)
+:::
+
+:::
 
 ### Navigation: road
 
