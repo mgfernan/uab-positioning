@@ -19,7 +19,7 @@ format:
     center: false
     center-title-slide: false
     chalkboard: true
-    slide-level: 3
+    slide-level: 4
     embed-resources: false
     code:
       show: false

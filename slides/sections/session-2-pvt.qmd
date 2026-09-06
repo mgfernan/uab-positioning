@@ -6,3 +6,267 @@
 - Navigation solution
 - Performance
 - Differential positioning
+
+## The navigation problem
+
+::: {style="text-align: center; font-size: 1.2em;"}
+"Knowing the **position** with respect to some **reference frame**"
+:::
+
+- Early navigators used **celestial navigation** to determine both their position and **time** on Earth.
+
+- The navigation problem is also a **timekeeping problem**
+  - The better the clock the better the position estimation.
+  - Improvement of **atomic clocks** has enabled the development of **GNSS**.
+  - Example: computation of longitude requires comparing the local time with a reference time.
+
+## Observables and positioning
+
+Determination of position follows this sequence:
+
+::: {.incremental}
+1. **Elecromagnetic signals** are received
+2. These are processed to obtain **measurements** (observables): pseudorange, carrier phase, Doppler, ...
+3. From measurements we compute **distances** relative to **reference points** or **nodes** (e.g. satellites)
+4. From distances we compute the **position** of the receiver in a reference frame.
+:::
+
+::: {.fragment}
+Multiple positioning techniques exist, depending on the type of measurements
+:::
+
+### Triangulation
+
+
+::: {.columns}
+
+::: {.column}
+- \acr{AoA} technique
+- Receiver *measures* **angles** between the receiver and the *nodes*
+- The **intersection** of the lines of sight gives the position of the receiver.
+- Only 2 nodes are needed to determine the position in 2D
+:::
+
+::: {.column}
+![](assets/figures/aoa.svg)
+:::
+
+:::
+
+
+### Hyperbolic trilateration
+
+
+::: {.columns}
+
+::: {.column}
+
+- \acr{TDoA} technique
+- Receiver measures the time difference between the propagation times of the signals coming from two sources
+- The **intersection** of the hyperbolas gives the position of the receiver.
+- Only 2 hyperbolas are needed to determine the position in 2D (but 3 nodes are needed to compute the hyperbolas)
+- This is the technique used in e.g. \acr{LORAN}
+:::
+
+::: {.column}
+
+
+![](assets/figures/tdoa.svg)
+
+:::
+
+:::
+
+### Hyperbolic trilateration: equations
+
+- Being
+  - $(x_u, y_u)$ the 2D position of the user (unkown to be solved)
+  - $(x_i, y_i)$ the 2D position of the $i$-th node (known positions)
+  - $\Delta \tau_{ij}$ the time difference of arrival between nodes $i$ and $j$ (measurement)
+- The navigation equation to be solved is
+$$
+\begin{aligned}
+\Delta \tau_{21} = R_2 - R_1 &= \sqrt{(\color{red}{x_u} - x_2)^2 + (\color{red}{y_u} - y_2)^2} - \sqrt{(\color{red}{x_u} - x_1)^2 + (\color{red}{y_u} - y_1)^2} \\
+\Delta \tau_{31} = R_3 - R_1 &= \sqrt{(\color{red}{x_u} - x_3)^2 + (\color{red}{y_u} - y_3)^2} - \sqrt{(\color{red}{x_u} - x_1)^2 + (\color{red}{y_u} - y_1)^2}
+\end{aligned}
+$$
+
+### Range-based trilateration
+
+
+::: {.column}
+
+- \acr{ToA} technique
+- Receiver measures the propagation times of the signals coming from a node
+- The **intersection** of the circles/spheres gives the position of the receiver.
+- Three circles are needed to determine the position in 2D (Four nodes are needed to determine the position in 3D)
+- This is the technique used in e.g. \acr{GNSS}
+:::
+
+::: {.column}
+![](assets/figures/toa.svg)
+:::
+
+### Range-based trilateration: measurements
+
+Range measurements can be obtained through two different techniques:
+
+- \acr{RTT}: propagation time to the node and back to the receiver is measured.
+  - synchornization requirements are relaxed (clock errors are cancelled out)
+  - *privacy* concerns, the node (system) *sees* the receiver
+- One way
+  - Users/Receivers only receive signals from the nodes (system)
+  - receivers and nodes **must** be synchronized
+
+### GNSS uses ranges
+
+- Basic range [measurement]{style="color:blue;"} model for the $i$-th satellite, including the [unknowns]{style="color:red;"} and the [known information]{style="color:green;"}:
+
+$$
+\color{blue}{PR_i} = \underbrace{\sqrt{(\color{red}{x_u} - \color{green}{x_i})^2 + (\color{red}{y_u} - \color{green}{y_i})^2 + (\color{red}{z_u} - \color{green}{z_i})^2}}_{geometric\ range} + \underbrace{c \cdot \color{red}{\delta t_u}}_{clock\ error} + \underbrace{\epsilon_i}_{noise}
+$$
+
+- Mathematically, the resulting system results in a set of **quadratic equations**
+
+### Travel time (unbiased)
+
+![](assets/figures/code_transmission.svg)
+
+### Travel time (sat biased)
+
+
+![](assets/figures/code_transmission_biased_sat.svg)
+
+### Travel time (sat + rx biased)
+
+
+![](assets/figures/code_transmission_biased_sat_rx.svg)
+
+### Travel time computation
+
+- Transmit time: $\tau = t_{u} - t_{i}$
+- Pseudo travel time (with biases): $\tilde{\tau} = \tau + \color{red}{\delta t_{u}} - \color{green}{\delta t_{i}}$
+- Pseudorange: $\color{blue}{PR} = c \cdot \tilde{\tau} = c \cdot (\tau + \color{red}{\delta t_{u}} - \color{green}{\delta t_{i}})$
+
+::: {.callout-note title="Deriving the pseudorange equation (measurement model)"}
+- Based on the expression above, the pseudorange equation (measurement model), using receiver and satellite positions, can be derived
+:::
+
+### How to estimate tavel time?
+
+![](assets/figures/correlation.svg)
+
+### Pseudorange
+
+
+### Carrier-phase
+
+### Smoothed pseudorange
+
+### Doppler
+
+### Basic combinations: iono-free
+
+
+### Basic combinations: geometry-free
+
+
+
+## Measurement model
+
+### Coordinate systems
+
+### Navigation equations
+
+
+### Range model
+
+
+### Error sources
+
+#### System error sources
+
+#### Propagation error sources: Ionosphere
+
+#### Propagation error sources: Troposphere
+
+#### Local error sources: Multipath
+
+#### Local error sources: Receiver noise
+
+#### Local error sources Interference
+
+
+## Navigation solution
+
+
+### Navigation solution: linearization
+
+### Navigation solution: Bancroft method
+
+## Positioning error
+
+
+### User Equivalent Range Error
+
+\acr{UERE}
+
+### Dilution of Precision
+
+\acr{GDOP}
+
+## Precise positioning
+
+### Differential GNSS
+
+
+### Augmentation systems
+
+
+### Real Time Kinematics
+
+\acr{RTK}
+
+### RTK Network
+
+### RTK Virtual network
+
+### Precise Point Positioning
+
+
+## Positioning strategies
+
+```{mermaid}
+%%| fig-cap: "Positioning strategies"
+flowchart LR
+
+    A(["Positioning<br/>strategies"]) --> B1(["Absolute<br/>positioning"])
+    A --> B2(["Differential<br/>positioning"])
+
+    B1 --> B11(["Code<br/>positioning"]) --> B111["Single Point Positioning<br/>SPP"]
+    B1 --> B12(["Carrier-phase<br/>positioning"]) --> B121["Precise Point Positioning<br/>PPP"]
+
+    B2 --> B21(["Code<br/>positioning"]) --> B211["Differential<br/>GNSS"] --> B2111["GBAS"]
+    B211 --> B2112["SBAS"]
+
+    B2 --> B22(["Carrier-phase<br/>positioning"]) --> B221["Real Time Kinematics<br/>RTK"] --> B2211["Single-base RTK"]
+    B221 --> B2212["Virtual Reference Station</br>VRS"]
+    B221 --> B2213["Network RTK"]
+
+    classDef root fill:#172a3a,stroke:#172a3a,color:#ffffff,stroke-width:2px
+    classDef abs fill:#f6d7a7,stroke:#c26a2e,color:#4a2918,stroke-width:2px
+    classDef absLeaf fill:#fff3df,stroke:#d99a57,color:#4a2918
+    classDef diff fill:#b9e3df,stroke:#19756f,color:#103f3c,stroke-width:2px
+    classDef diffLeaf fill:#e7f5f2,stroke:#4aa49b,color:#103f3c
+    classDef absMethod fill:#fbe8c8,stroke:#a94d24,color:#4a2918,stroke-width:3px,stroke-dasharray:5 3
+    classDef diffMethod fill:#d2eeeb,stroke:#12635e,color:#103f3c,stroke-width:3px,stroke-dasharray:5 3
+
+    class A root
+    class B1 abs
+    class B11,B12 absMethod
+    class B111,B121 absLeaf
+    class B2 diff
+    class B21,B22 diffMethod
+    class B211,B2111,B2112,B221,B2211,B2212,B2213 diffLeaf
+```
+

@@ -10,6 +10,8 @@ from: markdown+emoji
 
 {{< include slides/sections/session-1-introduction.qmd >}}
 
+{{< include slides/sections/session-2-pvt.qmd >}}
+
 {{< include slides/sections/references.qmd >}}
 
 {{< include slides/sections/acronyms.qmd >}}
