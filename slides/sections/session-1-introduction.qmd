@@ -169,7 +169,7 @@ Goals addressed: 7
 - Main \acr{GNSS} constellations:
 
     - \acr{GPS} (USA) [1970’s – 1990’s]{.fragment .fade-in}
-    - \acr{GLONASS} (Russia) [980’s – 1996 (<8 sats) – 2007 (24 sats)]{.fragment .fade-in}
+    - \acr{GLONASS} (Russia) [1980’s – 1996 (<8 sats) – 2007 (24 sats)]{.fragment .fade-in}
     - Galileo (Europe) [2002 (approved) – 2019 (\acr{FOC})]{.fragment .fade-in}
     - \acr{INRSS} (India) [2006 (approved) – 2018 (regional)]{.fragment .fade-in}
     - Beidou (China) [2000 – 2003 (experimental) – 2012 (regional) – 2020 (global)]{.fragment .fade-in}
