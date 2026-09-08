@@ -10,3 +10,4 @@ dist/
 .ipynb_checkpoints/
 .DS_Store
 /.quarto/
+*_solutions.md

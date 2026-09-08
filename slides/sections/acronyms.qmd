@@ -27,6 +27,8 @@ acronyms:
       longname: Global Positioning System
     - shortname: GSS
       longname: Galileo Sensor Station
+    - shortname: IGSO
+      longname: Inclined Geosynchronous Satellite Orbit
     - shortname: ILS
       longname: Instrument Landing System
     - shortname: INRSS
@@ -39,6 +41,8 @@ acronyms:
       longname: Location Based Services
     - shortname: LORAN
       longname: Long Range Navigation
+    - shortname: MEO
+      longname: Medium Earth Orbit
     - shortname: MCS
       longname: Master Control Station
     - shortname: OS
@@ -47,6 +51,8 @@ acronyms:
       longname: Real Time Kinematics
     - shortname: RTT
       longname: Round Trip Time
+    - shortname: QZSS
+      longname: Quasi-Zenith Satellite System
     - shortname: SiS
       longname: Signal in Space
     - shortname: SoL

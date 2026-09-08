@@ -7,5 +7,6 @@ numpy
 pandas
 plotly==6.1.1
 pyyaml
+pygnss
 seaborn>=0.13
 tabulate

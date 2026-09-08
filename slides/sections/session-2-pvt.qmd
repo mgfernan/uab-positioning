@@ -123,7 +123,7 @@ Range measurements can be obtained through two different techniques:
 - Basic range [measurement]{style="color:blue;"} model for the $i$-th satellite, including the [unknowns]{style="color:red;"} and the [known information]{style="color:green;"}:
 
 $$
-\color{blue}{PR_i} = \underbrace{\sqrt{(\color{red}{x_u} - \color{green}{x_i})^2 + (\color{red}{y_u} - \color{green}{y_i})^2 + (\color{red}{z_u} - \color{green}{z_i})^2}}_{geometric\ range} + \underbrace{c \cdot \color{red}{\delta t_u}}_{clock\ error} + \underbrace{\epsilon_i}_{noise}
+\color{blue}{PR_i} = \underbrace{\sqrt{(\color{red}{x_u} - \color{green}{x_i})^2 + (\color{red}{y_u} - \color{green}{y_i})^2 + (\color{red}{z_u} - \color{green}{z_i})^2}}_{geometric\ range} + \underbrace{c \cdot \color{red}{\delta t_u}}_{clock\ error} + \underbrace{\varepsilon_i}_{noise}
 $$
 
 - Mathematically, the resulting system results in a set of **quadratic equations**
@@ -156,14 +156,157 @@ $$
 
 ![](assets/figures/correlation.svg)
 
-### Pseudorange
+### How to estimate tavel time? (cont'd)
 
+
+::: {.columns}
+
+::: {.column}
+![](assets/figures/correlation_detail.svg)
+:::
+
+::: {.column}
+Correlation function ($R$) formula:
+$$
+R[n] = \sum_{m=0}^{M-1} \color{blue}{c}[n+m] \cdot \color{purple}{r}[m]
+$$
+
+- Displacement lag is $n$
+- Number of samples is $M$
+- The received signal is $\color{purple}{r}[n]$
+- The local replica generated at the receiver is $\color{blue}{c}[n]$
+:::
+
+:::
+
+### How to estimate tavel time? (cont'd)
+
+Once the correlation peak is found, the travel time can be computed as:
+
+$$
+\tau' = n_{peak} \cdot T_{chip}
+$$
+
+Or if a sampling rate $f_s$ greater than $1/T_{chip}$ is used, the travel time can be computed as:
+
+$$
+\tau' = \frac{n_{peak}}{f_s}
+$$
+
+### Pseudorange: basic model
+
+- Recapitulate, the (simple) pseudorange model for the $i$-th satellite is:
+
+$$
+\color{blue}{PR_i} = \underbrace{\sqrt{(\color{red}{x_u} - \color{green}{x_i})^2 + (\color{red}{y_u} - \color{green}{y_i})^2 + (\color{red}{z_u} - \color{green}{z_i})^2}}_{geometric\ range} + \underbrace{c \cdot \color{red}{\delta t_u}}_{clock\ error} + \underbrace{\varepsilon_i}_{noise}
+$$
+
+- For the basic model: 4 unknowns: $\color{red}{x_u}, \color{red}{y_u}, \color{red}{z_u}, \color{red}{\delta t_u}$ and 4 equations (from 4 satellites) are needed to solve the system.
+- The *noise term* ($\varepsilon_i$) includes all unmodelled errors (e.g. multipath, ionospheric and tropospheric delays, receiver noise, etc.)
+
+### Pseudorange: geometric interpretation
+
+
+::: {.columns}
+
+::: {.column width="70%"}
+![](assets/figures/ranging_errors.svg)
+:::
+
+::: {.column width="30%"}
+Error terms cause biased measurements (hence the **pseudo** in the range name).
+:::
+
+:::
+
+### Pseudorange: data interpretation
+
+```{python}
+from IPython.display import HTML
+import plotly.express as px
+import plotly.io as pio
+
+from pygnss import rinex
+
+df = rinex.to_dataframe("assets/data/EBRE00ESP_R_20180010000_01D_05M_MO.rnx")
+
+
+fig = px.scatter(df, x='epoch', y='range', color='constellation', title='Pseudorange for all Satellites Over Time (EBRE, Jan 1, 2018)', labels={'epoch': 'Time (Epoch)', 'range': 'Pseudorange (meters)'})
+fig.update_layout(xaxis_title='Time (Epoch)', yaxis_title='Pseudorange (meters)')
+HTML(pio.to_html(fig, full_html=False, include_plotlyjs="cdn", include_mathjax=False))
+
+```
 
 ### Carrier-phase
 
-### Smoothed pseudorange
+
+::: {.columns}
+
+::: {.column width="60%"}
+![](assets/figures/code_vs_carrier_comparison.svg)
+:::
+
+::: {.column width="40%"}
+
+![](assets/figures/phase_shift.svg){height="200"}
+
+$$
+\scriptsize
+\phi = \mod \left( \frac{\left | \vec{x_u} - \vec{x_i} \right |}{\lambda} , \lambda \right)
+$$
+
+::: {style="font-size: 0.75em; line-height: 1.2;"}
+Only information within a cycle
+
+[No information (ambiguity) about the number of cycles ($\color{red
+}{N}$)!]{style="color:red;"}
+:::
+:::
+:::
+
+### Carrier-phase model
+
+- Similar to the pseudorange model, the carrier-phase observable model:
+$$
+\color{blue}{\phi_i} = c \cdot \tau'_{i,\phi} = c \cdot \left( \tau_i + \color{red}{\delta t_u} - \color{green}{\delta t_i} \right)
+$$
+
+- $\tau'_{i,\phi}$: travel time for the $i$-th satellite as computed by the *phase tracking loop* of the receiver.
+- Expanding the expression (as we did for the pseudorange):
+
+$$
+\begin{eqnarray}
+\color{blue}{\phi_i} &=& \frac{1}{\lambda} \cdot \sqrt{(\color{red}{x_u} - \color{green}{x_i})^2 + (\color{red}{y_u} - \color{green}{y_i})^2 + (\color{red}{z_u} - \color{green}{z_i})^2} +\\
+       &+& \color{red}{N_i} + f \cdot \color{red}{\delta t_u} - f \cdot \color{green}{\delta t_i} + \epsilon_{\phi,i}
+\end{eqnarray}\quad [cycles]
+$$
+
+### Carrier-phase model: pseudorange equivalent
+
+- The carrier phase observable can be expressed in pseudorange units by multiplying the carrier-phase observable by the wavelength ($\lambda$):
+
+$$
+\begin{eqnarray}
+\color{blue}{L_i} &=& \lambda \cdot \color{blue}{\phi_i} =\\
+                   & = & \sqrt{(\color{red}{x_u} - \color{green}{x_i})^2 + (\color{red}{y_u} - \color{green}{y_i})^2 + (\color{red}{z_u} - \color{green}{z_i})^2} +\\
+       &+& \lambda \cdot \color{red}{N_i} + c \cdot \color{red}{\delta t_u} - c \cdot \color{green}{\delta t_i} + \varepsilon_{\phi,i}
+\end{eqnarray}\quad [meters]
+$$
+
+- Note that carrier phase adds a new unknown: the integer ambiguity ($\color{red}{N_i}$) for each satellite.
+- Carrier phase measurements are much **more precise** (i.e. $\varepsilon_{\phi,i} << \varepsilon_{i}$) than pseudorange, but they are **ambiguous**.
+
 
 ### Doppler
+
+- GNSS receivers can also measure the Doppler shift of the received signal, which leads to the **Doppler observable**
+
+
+
+
+- Doppler can be used for velocity estimation and aiding in the positioning process.
+
+### Smoothed pseudorange
 
 ### Basic combinations: iono-free
 
@@ -186,9 +329,16 @@ $$
 
 #### System error sources
 
+
+
 #### Propagation error sources: Ionosphere
 
 #### Propagation error sources: Troposphere
+
+#### Local error sources: clock
+
+<!--- TODO: Add a figure with the clock steering. --->
+
 
 #### Local error sources: Multipath
 
@@ -196,6 +346,10 @@ $$
 
 #### Local error sources Interference
 
+#### Cycle slips
+
+<!--- TODO: Add a figure showing the effect of cycle slips in the carrier phase observable. --->
+<!--- TODO: How do they look like --->
 
 ## Navigation solution
 

@@ -10,7 +10,9 @@
         "env": {
           "XDG_CACHE_HOME": "${workspaceFolder}/.cache",
           "DENO_DIR": "${workspaceFolder}/.cache/deno",
-          "QUARTO_CACHE_DIR": "${workspaceFolder}/.cache/quarto"
+          "QUARTO_CACHE_DIR": "${workspaceFolder}/.cache/quarto",
+          "PATH": "${workspaceFolder}/.venv/bin:${env:PATH}",
+          "VIRTUAL_ENV": "${workspaceFolder}/.venv"
         }
       },
       "group": {
@@ -28,7 +30,9 @@
         "env": {
           "XDG_CACHE_HOME": "${workspaceFolder}/.cache",
           "DENO_DIR": "${workspaceFolder}/.cache/deno",
-          "QUARTO_CACHE_DIR": "${workspaceFolder}/.cache/quarto"
+          "QUARTO_CACHE_DIR": "${workspaceFolder}/.cache/quarto",
+          "PATH": "${workspaceFolder}/.venv/bin:${env:PATH}",
+          "VIRTUAL_ENV": "${workspaceFolder}/.venv"
         }
       },
       "isBackground": true,

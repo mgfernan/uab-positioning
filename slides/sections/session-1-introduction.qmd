@@ -613,6 +613,12 @@ Contain the orbiting satellites that broadcast:
 
 ![source: Wikipedia](assets/figures/orbit_types.svg)
 
+### Space segment: MEO orbit
+
+- Most navigation systems use \acr{MEO} satellites, which are located at an altitude of 20,000 km and have an orbital period of 12 hours.
+
+![source: [Wikipedia](https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/GPS24goldenSML.gif/250px-GPS24goldenSML.gif)](assets/figures/GPS24goldenSML.gif)
+
 ### Space segment: multi-layer PNT
 
 ![source: ESA](assets/figures/multi_layer_PNT.png)
@@ -690,6 +696,39 @@ Updates on the Galileo constellation status can be found at the [European GNSS S
 
 ![source: [EUSPA](https://www.gsc-europa.eu/system-service-status/orbital-and-technical-parameters)](assets/figures/Galileo_Orbital_Slots.png)
 
+### Space Segment: Beidou
+
+- Most complex GNSS constellation, with satellites in these orbits: \acr{MEO}, \acr{GEO}, and \acr{IGSO}
+- \acr{IGSO} and \acr{GEO} cannot be used for global coverage, but it is useful for regional coverage (China and Asia-Oceania region)
+
+
+::: {.columns}
+::: {.column}
+![source Wikipedia](assets/figures/Animation_of_BeiDou-3_orbit_-_Earth_fixed_-_front_view.gif)
+:::
+
+::: {.column}
+![source Wikipedia](assets/figures/Animation_of_BeiDou-3_orbit_-_Earth_fixed_-_side_view.gif)
+:::
+:::
+
+
+
+### Space Segment: QZSS
+
+- \acr{QZSS} regional \acr{GNSS} system for Japan and Asia-Oceania region
+- \acr{QZSS} QZSS uses highly elliptical, inclined geosynchronous orbits
+
+
+::: {.columns}
+::: {.column}
+![source Wikipedia](assets/figures/Animation_of_QZSS's_orbit_-_Earth_fixed.gif)
+:::
+
+::: {.column}
+![source Wikipedia](assets/figures/Animation_of_QZSS's_orbit_-_Earth_fixed_-_side_view.gif)
+:::
+:::
 
 
 ### Control segment
