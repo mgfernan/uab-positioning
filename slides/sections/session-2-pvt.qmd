@@ -1,11 +1,14 @@
 # Estimating positions {.session-marker}
 
+- Preliminary: coordinate frames
 - Measurements and observables
 - Navigation equations
 - Error sources
 - Navigation solution
 - Performance
 - Differential positioning
+
+
 
 ## The navigation problem
 
@@ -20,7 +23,73 @@
   - Improvement of **atomic clocks** has enabled the development of **GNSS**.
   - Example: computation of longitude requires comparing the local time with a reference time.
 
-## Observables and positioning
+## Coordinate frames
+
+### Coordinate frames: ECEF
+
+
+::: {.columns}
+
+::: {.column}
+- Coordinates describe the position of a point in space with respect to a **reference frame**.
+- A reference frame is defined by:
+  - An **origin** (point in space)
+  - A set of **axes** (directions in space)
+- \acr{ECEF} reference frame definition:
+  - $z$ axis: points to the \acr{CTP}
+  - $x$ axis: points to the intersection of the equator and the Greenwich meridian
+  - $y$ axis: completes the right-handed system
+:::
+
+::: {.column}
+![](assets/figures/frame_ecef.svg)
+:::
+
+:::
+
+### Coordinate frames: WGS84
+
+
+::: {.columns}
+
+::: {.column}
+- \acr{ECEF} (*Cartesian*) coordinates are not very intuitive for humans
+- \acr{WGS84} uses longitude, latitude and height (i.e. *geodetic* coordinates)
+- Example:
+  - ECEF: $(4780698.293, 176319.056, 4204205.524)$
+  - Geodetic (WGS84): $$(41.5003999^\circ, 2.1121937^\circ, 0.0)$$
+
+:::
+
+::: {.column}
+![](assets/figures/frame_wgs84.svg)
+:::
+
+:::
+
+### Coordinate frames: ENU
+
+
+::: {.columns}
+
+::: {.column}
+- \acr{ENU} is a **local reference frame**
+  - The \acr{ENU} frame is different for each point on the Earth surface!
+- The \acr{ENU} frame is defined by:
+  - $x$ axis: points to the East
+  - $y$ axis: points to the North
+  - $z$ axis: points to the zenith
+- Used to describe e.g. errors in an intuitive way (e.g. horizontal and vertical errors)
+:::
+
+::: {.column}
+![](assets/figures/frame_enu.svg)
+:::
+
+:::
+
+
+## Positioning techniques
 
 Determination of position follows this sequence:
 
@@ -117,6 +186,8 @@ Range measurements can be obtained through two different techniques:
 - One way
   - Users/Receivers only receive signals from the nodes (system)
   - receivers and nodes **must** be synchronized
+
+## Observables
 
 ### GNSS uses ranges
 
@@ -234,10 +305,16 @@ df = rinex.to_dataframe("assets/data/EBRE00ESP_R_20180010000_01D_05M_MO.rnx")
 fig = px.scatter(df, x='epoch', y='range', color='constellation', title='Pseudorange for all Satellites Over Time (EBRE, Jan 1, 2018)', labels={'epoch': 'Time (Epoch)', 'range': 'Pseudorange (meters)'})
 fig.update_layout(xaxis_title='Time (Epoch)', yaxis_title='Pseudorange (meters)')
 HTML(pio.to_html(fig, full_html=False, include_plotlyjs="cdn", include_mathjax=False))
-
 ```
 
-### Carrier-phase
+::: {.notes}
+
+- Detect raising and satellite setting events.
+- Where are the zenith observations?
+- Why some Beidou satellites have pseudorange values at 40M?
+:::
+
+### Carrier-phase: definition
 
 
 ::: {.columns}
@@ -264,7 +341,7 @@ Only information within a cycle
 :::
 :::
 
-### Carrier-phase model
+### Carrier-phase: basic model
 
 - Similar to the pseudorange model, the carrier-phase observable model:
 $$
@@ -281,7 +358,7 @@ $$
 \end{eqnarray}\quad [cycles]
 $$
 
-### Carrier-phase model: pseudorange equivalent
+### Carrier-phase: pseudorange equivalent
 
 - The carrier phase observable can be expressed in pseudorange units by multiplying the carrier-phase observable by the wavelength ($\lambda$):
 
@@ -296,60 +373,380 @@ $$
 - Note that carrier phase adds a new unknown: the integer ambiguity ($\color{red}{N_i}$) for each satellite.
 - Carrier phase measurements are much **more precise** (i.e. $\varepsilon_{\phi,i} << \varepsilon_{i}$) than pseudorange, but they are **ambiguous**.
 
-
-### Doppler
+### Doppler: fundamentals
 
 - GNSS receivers can also measure the Doppler shift of the received signal, which leads to the **Doppler observable**
 
+$$
+f_{D,i} = -\frac{f_0}{c} \cdot \left (  \underbrace{(\vec{v}_i - \vec{v}_u) \cdot \vec{e_i}}_{\Delta v_{range}} + \frac{\partial}{\partial t}\delta t_u - \frac{\partial}{\partial t}\delta t_i \right ) + \varepsilon_{D,i}
+$$
+
+- $\Delta v_{range}$ is the relative velocity between the satellite and the receiver projected onto the line of sight
+- $\varepsilon_{D,i}$ is the measurement noise.
 
 
+### Doppler: geometric interpretation
+
+![](assets/figures/Doppler_interpretation.svg)
 
 - Doppler can be used for velocity estimation and aiding in the positioning process.
 
-### Smoothed pseudorange
 
-### Basic combinations: iono-free
+### Doppler: data interpretation
+
+```{python}
+fig = px.scatter(df, x='epoch', y='doppler', color='constellation', title='Doppler for all Satellites Over Time (EBRE, Jan 1, 2018)', labels={'epoch': 'Time (Epoch)', 'doppler': 'Doppler shift (cycles/s)'})
+fig.update_layout(xaxis_title='Time (Epoch)', yaxis_title='Doppler shift (cycles/s)')
+HTML(pio.to_html(fig, full_html=False, include_plotlyjs="cdn", include_mathjax=False))
+```
+
+::: {.notes}
+- Why some Doppler shifts are 0?
+:::
+
+### $C/N_0$
+
+- **Carrier-to-Noise density ratio** ($C/N_0$) tells how strong the GNSS signal ($C$ or $P_{carrier}$) is relative to the noise in a 1-Hz bandwidth ($N_0$):
+
+$$
+\small
+C/N_0 = \frac{P_{carrier}}{N_0} \quad [dB-Hz]
+$$
+
+- In \acr{GNSS}, the signal can be trackable even when the \acr{SNR} over the **receiver bandwidth** is  $<0\ dB$, because GNSS receivers exploit correlation/integration with the known *spreading code*.
+
+::: {.callout-warning title="$SNR$ and $C/N_0$ are not the same!"}
+However, the term \acr{SNR} is used when in fact $C/N_0$ is being referred to. This is a common source of confusion in the GNSS literature.
+:::
+
+### $C/N_0$: data interpretation
+
+```{python}
+import pandas as pd
+
+df = pd.read_csv('assets/data/LAMP00ITA_S_2024131_snr.csv')
 
 
-### Basic combinations: geometry-free
+sats = ['E36', 'E05']
+
+df_sats = df[df['sat'].isin(sats)]
+
+# Create a Plotly line chart for SNR over time, with a separate series for each satellite in sats_ok
+fig = px.scatter(df_sats, x='epoch', y='snr', color='sat', title='C/N0 Over Time by Selected Satellites (MATE station, May 10th 2024)')
+
+HTML(pio.to_html(fig, full_html=False, include_plotlyjs="cdn", include_mathjax=False))
+```
+
+## Error sources
+
+
+![](assets/figures/error_sources.svg)
+
+
+### Error sources: classification
+
+
+System errors
+
+- Errors in the navigation message
+- Control segment computes the navigation message
+
+Propagation errors
+
+- Uncertainties in the propagation of the signal from the satellite to the receiver
+
+Local errors
+
+- Dependent on the receiver and its environment
+
+### System error sources
+
+- Errors due to the information broadcasted by the satellites in the navigation message:
+  - **Ephemeris** errors: errors in the Keplerian parameters that define the satellite orbit
+  - Satellite **clock** errors: errors in the satellite clock
+    - Satellite clocks are atomic (stable) clocks, but not perfect.
+    - The satellite clock is *steered* to the reference time (e.g. GPS time), and the resulting clock offset transmitted in the navigation message.
+  - Signal **biases**: errors in the signal generation and transmission process (e.g. group delay, inter-frequency biases, etc.)
+
+### Propagation errors
+
+Propagation delays are due to the interaction of the signal with the atmosphere.
+
+::: {.columns}
+
+::: {.column}
+
+![](assets/figures/atmospheric_layers.svg)
+
+
+:::
+
+::: {.column}
+- Ionosphere + Plasmasphere through the electron density
+
+- Troposphere through the water vapor content
+:::
+:::
+
+
+#### Ionosphere error: morphology
+
+
+::: {.columns}
+
+::: {.column}
+
+
+Layer of the atmosphere composed of *ionized gases*:
+
+- Located between 70 and 1000 km
+- Followed by the plasmasphere (1000-20000 km)
+  - Much thinner ionization than the ionosphere
+- Ionization due to **solar radiation**. Therefore varies with the Sun:
+  - Day and night (i.e. local time) variation
+  - Geographic location (i.e. latitude)
+  - Solar cycle (Periodicity of 11 year)
+:::
+
+::: {.column}
+![](assets/figures/iono_layers.svg){height="450"}
+
+- The ionosphere is a *dispersive medium*:
+It's effect depends on the signal frequency
+
+:::
+
+:::
+
+
+#### Ionosphere error: Solar cycle
+
+- Solar activity is measured through the **sunspot number** (SSN), which is a measure of the number of sunspots present on the surface of the Sun.
+- At high solar activity, the ionosphere is more ionized, and therefore the propagation delay is higher.
+
+```{python}
+import pandas as pd
+
+# Define column widths and names based on the file description
+# Year: [1-4], Month: [6-7], Decimal date: [9-16], Smoothed total sunspot number: [19-23],
+# Standard deviation: [25-29], Number of observations: [32-35], Definitive/provisional indicator: [37]
+
+colspecs = [
+    (0, 4),  # Year
+    (5, 7),  # Month
+    (8, 16), # Decimal date
+    (18, 23), # Smoothed total sunspot number
+    (24, 29), # Standard deviation
+    (31, 35), # Number of observations
+    (36, 37)  # Definitive/provisional indicator
+]
+
+column_names = [
+    'Year', 'Month', 'Decimal_Date', 'Smoothed_SSN',
+    'Standard_Deviation', 'Num_Observations', 'Provisional_Indicator'
+]
+
+# Load the data using pandas read_fwf for fixed-width format
+# Skip comments at the beginning of the file (lines starting with '#')
+df_sunspot = pd.read_fwf(
+    'assets/data/SN_ms_tot_V2.0.txt',
+    colspecs=colspecs,
+    names=column_names,
+    comment='#',
+    header=None # No header row in the data itself
+)
+
+# Create a 'Date' column from 'Year' and 'Month'
+df_sunspot['Date'] = pd.to_datetime(df_sunspot['Year'].astype(str) + '-' + df_sunspot['Month'].astype(str) + '-01')
+
+# Convert 'Smoothed_SSN' to numeric, coercing errors
+df_sunspot['Smoothed_SSN'] = pd.to_numeric(df_sunspot['Smoothed_SSN'], errors='coerce')
+
+# Drop rows where 'Smoothed_SSN' is NaN (these are likely placeholder values like -1, or parsing errors)
+df_sunspot.dropna(subset=['Smoothed_SSN'], inplace=True)
+fig = px.line(
+    df_sunspot,
+    x='Date',
+    y='Smoothed_SSN',
+    title='Monthly Smoothed Total Sunspot Number Over Time',
+    labels={'Date': 'Date', 'Smoothed_SSN': 'Smoothed Sunspot Number'}
+)
+
+fig.update_xaxes(rangeslider_visible=True)
+HTML(pio.to_html(fig, full_html=False, include_plotlyjs="cdn", include_mathjax=False))
+```
+
+#### Ionosphere error: daily variation
+
+- Ionization depends on local time.
+
+![source [UPC/IonSat](https://chapman.upc.es/tomion/real-time/quick/archive.uadg/2026/215/global_vtec_movie_since_last_midnight/)](assets/figures/2026_215_uadg_tec.gif)
+
+- \acr{TEC} Unit: $1\ TECU = 10^{16} \text{electrons/m}^2$
+
+#### Ionosphere error: delay
+
+
+::: {.columns}
+
+::: {.column}
+
+
+- The impact in GNSS due to the ionosphere for a $i$-th satellite and frequency $f_k$ can be computed as:
+
+$$
+I_i = \frac{40.3}{f_k^2} \cdot TEC_i
+$$
 
 
 
-## Measurement model
+:::
 
-### Coordinate systems
-
-### Navigation equations
+::: {.column}
 
 
-### Range model
+- \acr{TEC} is the integral of the electron density ($N_e$) along the signal path:
+
+$$
+TEC_i = \int_{u}^{i} N_e(l) dl
+$$
 
 
-### Error sources
+:::
 
-#### System error sources
+:::
 
 
+::: {.callout-note title="Ionosphere delay is frequency dependent"}
+- The dispersive nature of the ionosphere is evidenced by the $1/f_k^2$ factor in the equation above.
+- This is the reason why GNSS systems use multiple frequencies: to mitigate the ionospheric delay.
+:::
 
-#### Propagation error sources: Ionosphere
+#### Ionosphere error: mapping function
 
-#### Propagation error sources: Troposphere
 
-#### Local error sources: clock
+::: {.columns}
+
+::: {.column}
+
+- The slant \acr{TEC} can be derived from the \acr{VTEC} using a mapping function.
+
+$$
+\tiny
+\begin{eqnarray}
+TEC_i &=&  \frac{VTEC_i}{\cos(z')} \\
+      &=&  \frac{VTEC_i}{\sqrt{1 - \left(\frac{R_{E}}{R_{E} + h_{m}}\right)^2 \cdot \cos^2(E)}}
+\end{eqnarray}
+$$
+
+- $E$ is the elevation of the observation
+- $h_{m}$ is the effective height of the ionosphere (typically 450 km)
+  - Assumption of a thin shell of ionization at a fixed height
+:::
+
+::: {.column}
+![](assets/figures/mapping_function.svg)
+:::
+
+:::
+
+
+#### Ionosphere error: mapping function
+
+```{python}
+import numpy as np
+
+R_earth = 6378.0  # km
+h_iono = 450.0    # km, ionospheric effective height
+
+elevation_deg = np.linspace(0.1, 90, 200)
+elevation_rad = np.deg2rad(elevation_deg)
+
+z_prime = np.arcsin(R_earth / (R_earth + h_iono) * np.cos(elevation_rad))
+mapping_function = 1.0 / np.cos(z_prime)
+
+df_mf = pd.DataFrame({'elevation': elevation_deg, 'mapping_function': mapping_function})
+
+fig = px.line(df_mf, x='elevation', y='mapping_function', title=f'Ionospheric Mapping Function (effective height = {h_iono:.0f} km)', labels={'elevation': 'Elevation angle (deg)', 'mapping_function': 'Mapping function'})
+fig.update_layout(xaxis_title='Elevation angle (deg)', yaxis_title='Mapping function')
+HTML(pio.to_html(fig, full_html=False, include_plotlyjs="cdn", include_mathjax=False))
+```
+
+#### Ionosphere error: models
+
+- GNSS systems provide ionospheric models in the navigation message to correct for the ionospheric delay.
+- This is useful for single-frequency receivers
+- Different models exist for different GNSS systems:
+  - GPS: Klobuchar model (removes around 50% of the ionospheric delay)
+  - Galileo: NeQuick model (removes around 70% of the ionospheric delay, [@orus2018status])
+  - BeiDou: BDS-2 uses Klobuchar, BDS-3 uses \acr{BDGIM} (removes around 70% of the ionospheric delay, [@yuan2019beidou])
+  - GLONASS: no model provided
+- Augmentation systems such as \acr{SBAS} also provide ionospheric corrections for single-frequency receivers.
+  - They are in general more accurate than the broadcast models, as they are based on a network of reference stations.
+
+#### Ionosphere error: scintillation
+
+- Scintillation is the rapid modification of radio waves caused by small scale structures in the ionosphere.
+  - It can prevent a GNSS receiver from locking on to the signal.
+  - Strong impact on precise positioning as it can cause cycle slips in the carrier phase observable.
+
+```{python}
+
+df = pd.read_csv('assets/data/LAMP00ITA_S_2024131_snr.csv')
+
+
+sats = ['E36', 'E09', 'G19', 'G17', 'E05']
+
+df_sats = df[df['sat'].isin(sats)]
+
+# Create a Plotly line chart for SNR over time, with a separate series for each satellite in sats_ok
+fig = px.scatter(df_sats, x='epoch', y='snr', color='sat', title='Impact of Scintillation on C/N0 (MATE station, May 10th 2024)')
+
+HTML(pio.to_html(fig, full_html=False, include_plotlyjs="cdn", include_mathjax=False))
+```
+
+#### Propagation error: Troposphere
+
+### Local error sources: clock
 
 <!--- TODO: Add a figure with the clock steering. --->
 
 
-#### Local error sources: Multipath
+### Local error sources: Multipath
 
-#### Local error sources: Receiver noise
+### Local error sources: Receiver noise
 
-#### Local error sources Interference
+### Local error sources Interference
 
-#### Cycle slips
+### Cycle slips
 
 <!--- TODO: Add a figure showing the effect of cycle slips in the carrier phase observable. --->
 <!--- TODO: How do they look like --->
+
+### Measurement model
+
+## Observable combinations
+
+### Observable combinations: iono-free
+
+
+### Observable combinations: geometry-free
+
+### Observable combinations: Smoothing
+
+- Can we obtain a measurement that is both **precise** (*carrier-phase*)and **unambiguous** (*code pseudorange*)? [Hatch filter]{.fragment .fade-in}
+
+$$
+\begin{eqnarray}
+\tilde{R}[n;k]  & = & \frac{1}{m}\cdot R[n;k] + \\
+                &  & \frac{m-1}{m}\left[\tilde{R}[m:k-1] + (\Phi[n:k] - \Phi[n:k-1])\right]
+\end{eqnarray}
+$$
+
+::: {.callout-warning title="Hatch filter must be initialized on every **cycle slip**!"}
+:::
+
+
 
 ## Navigation solution
 

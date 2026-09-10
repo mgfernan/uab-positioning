@@ -4,3 +4,8 @@
 - Characteristics of GNSS signals.
 - Navigation message.
 - Modernized signals.
+
+
+<!--- TODO: link with discrete systems, periodic sequence $x[n] = x[n+P]\ \forall\ P$, where $P$ depends on the code, for GPS C/A code $P = 1024$ --->
+
+<!--- TODO: Mention polarization of signal (RHCP) and link it to phase wind up --->

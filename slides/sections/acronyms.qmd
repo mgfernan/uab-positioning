@@ -7,10 +7,20 @@ acronyms:
       longname: Automatic Dependent Surveillance-Broadcast
     - shortname: AoA
       longname: Angle of Arrival
+    - shortname: BDGIM
+      longname: BeiDou Global Ionosphere Model
+    - shortname: CTP
+      longname: Conventional Terrestrial Pole
     - shortname: EC
       longname: European Commission
+    - shortname: ECEF
+      longname: Earth-Centered, Earth-Fixed
     - shortname: E-GNSS
       longname: European Global Navigation Satellite System
+    - shortname: EDAS
+      longname: EGNOS Data Access Service
+    - shortname: ENU
+      longname: East-North-Up
     - shortname: FOC
       longname: Full Operational Capability
     - shortname: GCC
@@ -53,12 +63,16 @@ acronyms:
       longname: Round Trip Time
     - shortname: QZSS
       longname: Quasi-Zenith Satellite System
+    - shortname: SBAS
+      longname: Satellite-Based Augmentation System
     - shortname: SiS
       longname: Signal in Space
     - shortname: SoL
       longname: Safety of Life
-    - shortname: EDAS
-      longname: EGNOS Data Access Service
+    - shortname: SNR
+      longname: Signal-to-Noise Ratio
+    - shortname: TEC
+      longname: Total Electron Content
     - shortname: ToA
       longname: Time of Arrival
     - shortname: TDoA
@@ -79,6 +93,10 @@ acronyms:
       longname: GPS Aided GEO Augmented Navigation
     - shortname: SDCM
       longname: System for Differential Corrections and Monitoring
+    - shortname: VTEC
+      longname: Vertical Total Electron Content
+    - shortname: WGS84
+      longname: World Geodetic System 1984
 ---
 
 ### Acronyms {.compact-acronyms}
