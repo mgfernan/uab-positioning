@@ -488,17 +488,23 @@ timeline
   - Control segment
   - User segment
 
-### Basic principles
+### Basic principle
 
 
 ::: {.columns}
 
 ::: {.column width="40%"}
-::: {.incremental}
-- Satellite location (at transmission time)
-- Travel time from satellite to receiver
-- Time of arrival
-:::
+**Trilateration** using **travel time** $\tau$ (i.e. *pseudo*distance):
+
+- from satellite
+  - at transmission time, $t_i$
+- to receiver
+  - at reception time $t_u$
+
+$$
+\tau = t_u - t_i
+$$
+
 :::
 
 ::: {.column width="60%"}
@@ -516,9 +522,14 @@ timeline
 :::
 
 ::: {.column}
-![source Wikipedia](assets/figures/phase_shift.svg){height="200"}
+![](assets/figures/phase_shift.svg){height="200"}
 :::
 :::
+
+
+
+
+
 
 
 ::: {.columns}
@@ -530,23 +541,27 @@ timeline
 
 ::: {.columns}
 ::: {.column}
-::: {.fragment}
+
+::: {.fragment .fade-in-then-out}
 ![source: Wikipedia](assets/figures/Dopplereffectstationary.gif)
 :::
 :::
 
 ::: {.column}
-::: {.fragment}
+::: {.fragment .fade-in}
 ![source: Wikipedia](assets/figures/Dopplereffectsourcemovingrightatmach0.7.gif)
 :::
 :::
 :::
+
 
 :::
 
 ::: {.column}
 **Clock offset** between the receiver clock (i.e. time the receiver thinks it is) and the *true* time determined by the GNSS atomic scale
 :::
+
+
 :::
 
 ### GNSS segments
@@ -597,12 +612,13 @@ To satisfy these requirements, a GNSS system is composed of:
 
 ### Space segment: overview
 
-Contain the orbiting satellites that broadcast:
+Contains the orbiting satellites that broadcast:
+
 1. Navigation **signals** with synchronization patterns needed to compute the travel time
 2. Navigation **message** with the satellite location and other information
 
 | Space Segment | GPS | GLONASS | Galileo | BeiDou |
-|---|---|---|---|---|
+|---------------|:---:|:-------:|:-------:|:------:|
 | Num. orbital planes | 6 | 3 | 3 | 3 |
 | Total num. satellites | 30 | 24 | 32 | 35 |
 | Altitude (km) | 20,200 | 19,100 | 23,200 | 21,500 (MEO) |
@@ -628,7 +644,7 @@ Contain the orbiting satellites that broadcast:
 A GNSS satellite is identified by these parameters:
 
 ::: {.incremental}
-- **Constellation**: GPS, GLONASS, Galileo, BeiDou, ...
+- **Constellation**: GPS (`G`), GLONASS (`R`), Galileo (`E`), BeiDou (`C`), ...
 - **SVN**: Space Vehicle Number, unique for each satellite in a constellation
 - **PRN**: Pseudo-Random Noise code (identifies the signal), new satellites are assigned the next available PRN number (available upon satellite decommissioning)
 :::
@@ -717,7 +733,7 @@ Updates on the Galileo constellation status can be found at the [European GNSS S
 ### Space Segment: QZSS
 
 - \acr{QZSS} regional \acr{GNSS} system for Japan and Asia-Oceania region
-- \acr{QZSS} QZSS uses highly elliptical, inclined geosynchronous orbits
+- Uses highly elliptical, inclined geosynchronous orbits
 
 
 ::: {.columns}
@@ -913,7 +929,7 @@ Multiple application fields:
 :::
 :::
 
-### Agriculture and surveying
+### Agriculture
 
 - Farm machinery guidance: GNSS positioning assists drivers (optimal path)
 - Automatic steering: Automatic control of farm equipment with GNSS
@@ -923,11 +939,14 @@ Multiple application fields:
 
 ### Surveying
 
+Mostly using the high-end (i.e. high accuracy, high cost) systems
+
 - **Cadastral**: Establishes property boundaries using GNSS (land taxation)
 - **Construction**: Construction of a building or civil engineering work using GNSS
 - **Mapping**: GNSS for cartographic, environmental and urban planning purposes
 - Mine surveying
 - Infrastructure monitoring
+
 
 ### Timing and synchronization
 

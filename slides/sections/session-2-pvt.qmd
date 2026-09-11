@@ -252,17 +252,41 @@ $$
 
 ### How to estimate tavel time? (cont'd)
 
+
+::: {.columns}
+
+::: {.column}
+::: {style="font-size: 0.75em; line-height: 1.2;"}
+
 Once the correlation peak is found, the travel time can be computed as:
+:::
 
 $$
+\small
 \tau' = n_{peak} \cdot T_{chip}
 $$
 
-Or if a sampling rate $f_s$ greater than $1/T_{chip}$ is used, the travel time can be computed as:
 
+:::
+
+::: {.column}
+
+::: {style="font-size: 0.75em; line-height: 1.2;"}
+Or if a sampling rate $f_s$ greater than $1/T_{chip}$ is used, the travel time can be computed as:
+:::
 $$
+\small
 \tau' = \frac{n_{peak}}{f_s}
 $$
+
+:::
+
+:::
+
+::: {style="text-align: center;"}
+
+![](assets/figures/correlation_subsampling.svg){height="300"}
+:::
 
 ### Pseudorange: basic model
 
@@ -586,41 +610,21 @@ HTML(pio.to_html(fig, full_html=False, include_plotlyjs="cdn", include_mathjax=F
 
 #### Ionosphere error: delay
 
-
-::: {.columns}
-
-::: {.column}
-
-
-- The impact in GNSS due to the ionosphere for a $i$-th satellite and frequency $f_k$ can be computed as:
+- Delay ionospheric model for the $i$-th satellite and frequency $f_k$ ($I_i$):
 
 $$
-I_i = \frac{40.3}{f_k^2} \cdot TEC_i
+\small
+I_i = \frac{40.3}{f_k^2} \cdot \underbrace{\int_{u}^{i} N_e(l) dl}_{TEC_i}
 $$
-
-
-
-:::
-
-::: {.column}
-
 
 - \acr{TEC} is the integral of the electron density ($N_e$) along the signal path:
 
-$$
-TEC_i = \int_{u}^{i} N_e(l) dl
-$$
+- Ionosphere is *dispersive*: frequency dependent
+  - Note the $1/f_k^2$ term in the model
+  - This is the reason why GNSS use multiple frequencies: to mitigate the ionospheric delay.
 
-
-:::
-
-:::
-
-
-::: {.callout-note title="Ionosphere delay is frequency dependent"}
-- The dispersive nature of the ionosphere is evidenced by the $1/f_k^2$ factor in the equation above.
-- This is the reason why GNSS systems use multiple frequencies: to mitigate the ionospheric delay.
-:::
+- Code delay and phase advance!
+  - Same magnitude but opposite sign for code and phase observables
 
 #### Ionosphere error: mapping function
 
@@ -705,7 +709,38 @@ fig = px.scatter(df_sats, x='epoch', y='snr', color='sat', title='Impact of Scin
 HTML(pio.to_html(fig, full_html=False, include_plotlyjs="cdn", include_mathjax=False))
 ```
 
-#### Propagation error: Troposphere
+#### Troposphere error: delay
+
+- Troposphere causes a delay in the GNSS signal due to:
+  - dry gases (mainly $N_2$ and $O_2$): *dry component* ($T_{z,dry}$), easy to model
+  - water vapour ($H_2O$): *wet component* ($T_{z,wet}$), high variability, complex to model
+- Same contribution in code and phase measurements
+- Not dispersive: cannot be removed with multiple frequencies
+  - Zenith *wet component* usually [estimated]{style="color:red;"} in high precision processing: $\color{red}{d_{wet}}$
+  - Usage of *mapping functions* to convert from zenith to slant direction
+
+#### Troposphere error: model
+
+- Tropospheric delay $T_i$ for the $i$-th satellite can be modelled as follows:
+
+$$
+T_i = \color{green}{T_{z,dry}} \cdot m_{dry}(E_i) + \color{red}{T_{z,wet}} \cdot m_{wet}(E_i)
+$$
+
+$$
+\tiny
+T_{z,dry} = 0.002277\cdot (1+0.0026 \cdot \cos{2\phi} + 0.00028\cdot H) \cdot P_0
+$$
+
+$$
+\tiny
+m_{dry}(E) = \frac{1}{\sin{E} + \frac{0.00143}{\tan{E}+0.0445}};\ m_{wet}(E) = \frac{1}{\sin{E} + \frac{0.00035}{\tan{E}+0.017}}
+$$
+
+::: {.callout-note title="One tropo unknwon per user!"}
+As a local effect and thanks to the mapping function, only one additional unknown per receiver
+:::
+
 
 ### Local error sources: clock
 
@@ -713,6 +748,8 @@ HTML(pio.to_html(fig, full_html=False, include_plotlyjs="cdn", include_mathjax=F
 
 
 ### Local error sources: Multipath
+
+![](assets/figures/multipath.svg)
 
 ### Local error sources: Receiver noise
 
