@@ -9,7 +9,7 @@ The goal is not only to obtain the numerical answer, but also to develop an **in
 
 Consider a *displacement* (e.g. error) around a point $r_{XYZ}=(X, Y, Z)$ expressed in ECEF coordinates:
 
-$$
+```math
 \mathbf{r}_{\Delta} =
 \left[
 \begin{array}{c}
@@ -26,7 +26,7 @@ Y - Y_0\\
 Z - Z_0
 \end{array}
 \right]
-$$
+```
 
 and a local ENU frame located at a reference point $(X_0, Y_0, Z_0)$.
 
@@ -38,7 +38,7 @@ The ENU coordinates describe the same displacement using three **local direction
 
 The transformation can be written as
 
-$$
+```math
 \left[
 \begin{array}{c}
 E\\
@@ -55,11 +55,11 @@ U
 \Delta Z
 \end{array}
 \right]
-$$
+```
 
 where
 
-$$
+```math
 \left[
 \begin{array}{c}
 \Delta X\\
@@ -75,13 +75,13 @@ Y-Y_0\\
 Z-Z_0
 \end{array}
 \right]
-$$
+```
 
 is the displacement from the reference point.
 
 For a reference position with geodetic latitude $\phi$ and longitude $\lambda$:
 
-$$
+```math
 \mathbf{R} =
 \left[
 \begin{array}{ccc}
@@ -90,7 +90,7 @@ $$
 \cos\phi\cdot\cos\lambda&\cos\phi\cdot\sin\lambda&\sin\phi
 \end{array}
 \right]
-$$
+```
 
 ***
 
@@ -100,15 +100,15 @@ $$
 
 Suppose the reference location is at
 
-$$
+```math
 r_0 = (X_0,Y_0,Z_0)=(1,0,0)\ \Rightarrow\ \lambda_0 = 0^\circ, \phi_0 = 0^\circ
-$$
+```
 
 and the displacement vector $r_{\Delta}$ relative to $r_0$ is
 
-$$
+```math
 r_\Delta = (2,0,0)
-$$
+```
 
 ### Questions
 
@@ -140,15 +140,15 @@ Compute the $r_{\Delta, ENU}$ for these cases:
 
 Now we use, as reference position, the following location
 
-$$
+```math
 \lambda_0=45^\circ;\ \phi_0=45^\circ
-$$
+```
 
 Recall that:
 
-$$
+```math
 \sin45^\circ=\cos45^\circ=\frac{\sqrt2}{2}\approx0.7071.
-$$
+```
 
 ## Exercise 1 — XYZ (ECEF) to ENU rotation
 
@@ -172,7 +172,7 @@ The transformation therefore becomes
    2. $r_{\Delta, ENU} = (2,0,0)$
    3. $r_{\Delta, ENU} = (0,2,0)$
 3.
-$$
+```math
 \mathbf{R}_{\lambda_0 = 0^\circ, \phi_0 = 0^\circ} =
 \left[
 \begin{array}{ccc}
@@ -181,7 +181,7 @@ $$
 1 & 0 & 0
 \end{array}
 \right]
-$$
+```
 4. Matrix product. Same results of point 2.
 
 ***
@@ -196,7 +196,7 @@ $$
 ## Exercise B.1
 
 1. Rotation matrix
-$$
+```math
 R_{\lambda_0=45^\circ;\ \phi_0=45^\circ} =
 \left[
 \begin{array}{ccc}
@@ -205,7 +205,10 @@ R_{\lambda_0=45^\circ;\ \phi_0=45^\circ} =
 \frac{1}{2} & \frac{1}{2} & \frac{\sqrt 2}{2}
 \end{array}
 \right]
-$$
+```
 
 2. Reference point in XYZ (ECEF): $r_0=(0.500,0.500,0.707)$. Draw a unit-sphere, place the $r_0$ and the $r_\Delta$ arrays.
-3. $$r_{\Delta, ENU} = \left( -\frac{\sqrt 2}{2}, -\frac{1}{2}, \frac{1}{2} \right)$$
+3.
+```math
+r_{\Delta, ENU} = \left( -\frac{\sqrt 2}{2}, -\frac{1}{2}, \frac{1}{2} \right)
+```
