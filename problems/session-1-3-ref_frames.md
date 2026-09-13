@@ -10,7 +10,7 @@ The goal is not only to obtain the numerical answer, but also to develop an **in
 Consider a *displacement* (e.g. error) around a point $r_{XYZ}=(X, Y, Z)$ expressed in ECEF coordinates:
 
 $$
-\mathbf{r}_{\Delta} =
+\bf{r}_{\Delta} =
 \begin{bmatrix}
 \Delta X \\
 \Delta Y \\
@@ -41,7 +41,7 @@ N\\
 U
 \end{bmatrix}
 =
-\mathbf{R}
+\bf{R}
 \begin{bmatrix}
 \Delta X\\
 \Delta Y\\
@@ -70,7 +70,7 @@ is the displacement from the reference point.
 For a reference position with geodetic latitude $\phi$ and longitude $\lambda$:
 
 $$
-\mathbf{R} =
+\bf{R} =
 \begin{bmatrix}
 -\sin\lambda & \cos\lambda & 0\\
 -\sin\phi\cdot\cos\lambda &-\sin\phi\cdot\sin\lambda&\cos\phi \\
@@ -159,7 +159,7 @@ The transformation therefore becomes
    3. $r_{\Delta, ENU} = (0,2,0)$
 3.
 $$
-\mathbf{R}_{\lambda_0 = 0^\circ, \phi_0 = 0^\circ} =
+\bf{R}_{\lambda_0 = 0^\circ, \phi_0 = 0^\circ} =
 \begin{bmatrix}
 0s & 1 & 0\\
 0 & 0 & 1\\
