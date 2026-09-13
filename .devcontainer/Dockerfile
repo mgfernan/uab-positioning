@@ -10,6 +10,8 @@ RUN apt-get update \
         curl \
         git \
         make \
+        pandoc \
+        texlive-full \
         python3 \
         python3-pip \
         python3-venv \
