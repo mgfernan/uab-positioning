@@ -10,18 +10,18 @@ The goal is not only to obtain the numerical answer, but also to develop an **in
 Consider a *displacement* (e.g. error) around a point $r_{XYZ}=(X, Y, Z)$ expressed in ECEF coordinates:
 
 $$
-\bf{r}_{\Delta} =
-\begin{bmatrix}
+\mathbf{r}_{\Delta} =
+\begin{array}
 \Delta X \\
 \Delta Y \\
 \Delta Z
-\end{bmatrix}
+\end{array}
 =
-\begin{bmatrix}
+\begin{array}
 X - X_0\\
 Y - Y_0\\
 Z - Z_0
-\end{bmatrix}
+\end{array}
 $$
 
 and a local ENU frame located at a reference point $(X_0, Y_0, Z_0)$.
@@ -35,34 +35,34 @@ The ENU coordinates describe the same displacement using three **local direction
 The transformation can be written as
 
 $$
-\begin{bmatrix}
+\begin{array}
 E\\
 N\\
 U
-\end{bmatrix}
+\end{array}
 =
-\bf{R}
-\begin{bmatrix}
+\mathbf{R}
+\begin{array}
 \Delta X\\
 \Delta Y\\
 \Delta Z
-\end{bmatrix}
+\end{array}
 $$
 
 where
 
 $$
-\begin{bmatrix}
+\begin{array}
 \Delta X\\
 \Delta Y\\
 \Delta Z
-\end{bmatrix}
+\end{array}
 =
-\begin{bmatrix}
+\begin{array}
 X-X_0\\
 Y-Y_0\\
 Z-Z_0
-\end{bmatrix}
+\end{array}
 $$
 
 is the displacement from the reference point.
@@ -70,12 +70,12 @@ is the displacement from the reference point.
 For a reference position with geodetic latitude $\phi$ and longitude $\lambda$:
 
 $$
-\bf{R} =
-\begin{bmatrix}
+\mathbf{R} =
+\begin{array}
 -\sin\lambda & \cos\lambda & 0\\
 -\sin\phi\cdot\cos\lambda &-\sin\phi\cdot\sin\lambda&\cos\phi \\
 \cos\phi\cdot\cos\lambda&\cos\phi\cdot\sin\lambda&\sin\phi
-\end{bmatrix}
+\end{array}
 $$
 
 ***
@@ -103,7 +103,7 @@ $$
    1. $r_{\Delta, XYZ} = (2,0,0)$
    2. $r_{\Delta, XYZ} = (0,2,0)$
    3. $r_{\Delta, XYZ} = (0,0,2)$
-3. Compute the $\bf{R}_{\lambda_0 = 0^\circ, \phi_0 = 0^\circ}$ matrix.
+3. Compute the $\mathbf{R}_{\lambda_0 = 0^\circ, \phi_0 = 0^\circ}$ matrix.
 4. Recompute the values mathematically. Do they match the $r_{\Delta, ENU}$ you obtained before?
 
 ***
@@ -159,12 +159,12 @@ The transformation therefore becomes
    3. $r_{\Delta, ENU} = (0,2,0)$
 3.
 $$
-\bf{R}_{\lambda_0 = 0^\circ, \phi_0 = 0^\circ} =
-\begin{bmatrix}
-0s & 1 & 0\\
+\mathbf{R}_{\lambda_0 = 0^\circ, \phi_0 = 0^\circ} =
+\begin{array}
+0 & 1 & 0\\
 0 & 0 & 1\\
 1 & 0 & 0
-\end{bmatrix}
+\end{array}
 $$
 4. Matrix product. Same results of point 2.
 
@@ -182,11 +182,11 @@ $$
 1. Rotation matrix
 $$
 R_{\lambda_0=45^\circ;\ \phi_0=45^\circ} =
-\begin{bmatrix}
+\begin{array}
 -\frac{\sqrt 2}{2} & \frac{\sqrt 2}{2} & 0\\
 -\frac{1}{2} & -\frac{1}{2} & \frac{\sqrt 2}{2}\\
 \frac{1}{2} & \frac{1}{2} & \frac{\sqrt 2}{2}
-\end{bmatrix}
+\end{array}
 $$
 
 2. Reference point in XYZ (ECEF): $r_0=(0.500,0.500,0.707)$. Draw a unit-sphere, place the $r_0$ and the $r_\Delta$ arrays.
