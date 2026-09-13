@@ -11,17 +11,21 @@ Consider a *displacement* (e.g. error) around a point $r_{XYZ}=(X, Y, Z)$ expres
 
 $$
 \mathbf{r}_{\Delta} =
-\begin{array}
+\left[
+\begin{array}{c}
 \Delta X \\
 \Delta Y \\
 \Delta Z
 \end{array}
+\right]
 =
-\begin{array}
+\left[
+\begin{array}{c}
 X - X_0\\
 Y - Y_0\\
 Z - Z_0
 \end{array}
+\right]
 $$
 
 and a local ENU frame located at a reference point $(X_0, Y_0, Z_0)$.
@@ -35,34 +39,42 @@ The ENU coordinates describe the same displacement using three **local direction
 The transformation can be written as
 
 $$
-\begin{array}
+\left[
+\begin{array}{c}
 E\\
 N\\
 U
 \end{array}
+\right]
 =
 \mathbf{R}
-\begin{array}
+\left[
+\begin{array}{c}
 \Delta X\\
 \Delta Y\\
 \Delta Z
 \end{array}
+\right]
 $$
 
 where
 
 $$
-\begin{array}
+\left[
+\begin{array}{c}
 \Delta X\\
 \Delta Y\\
 \Delta Z
 \end{array}
+\right]
 =
-\begin{array}
+\left[
+\begin{array}{c}
 X-X_0\\
 Y-Y_0\\
 Z-Z_0
 \end{array}
+\right]
 $$
 
 is the displacement from the reference point.
@@ -71,11 +83,13 @@ For a reference position with geodetic latitude $\phi$ and longitude $\lambda$:
 
 $$
 \mathbf{R} =
-\begin{array}
+\left[
+\begin{array}{ccc}
 -\sin\lambda & \cos\lambda & 0\\
 -\sin\phi\cdot\cos\lambda &-\sin\phi\cdot\sin\lambda&\cos\phi \\
 \cos\phi\cdot\cos\lambda&\cos\phi\cdot\sin\lambda&\sin\phi
 \end{array}
+\right]
 $$
 
 ***
@@ -160,11 +174,13 @@ The transformation therefore becomes
 3.
 $$
 \mathbf{R}_{\lambda_0 = 0^\circ, \phi_0 = 0^\circ} =
-\begin{array}
+\left[
+\begin{array}{ccc}
 0 & 1 & 0\\
 0 & 0 & 1\\
 1 & 0 & 0
 \end{array}
+\right]
 $$
 4. Matrix product. Same results of point 2.
 
@@ -182,11 +198,13 @@ $$
 1. Rotation matrix
 $$
 R_{\lambda_0=45^\circ;\ \phi_0=45^\circ} =
-\begin{array}
+\left[
+\begin{array}{ccc}
 -\frac{\sqrt 2}{2} & \frac{\sqrt 2}{2} & 0\\
 -\frac{1}{2} & -\frac{1}{2} & \frac{\sqrt 2}{2}\\
 \frac{1}{2} & \frac{1}{2} & \frac{\sqrt 2}{2}
 \end{array}
+\right]
 $$
 
 2. Reference point in XYZ (ECEF): $r_0=(0.500,0.500,0.707)$. Draw a unit-sphere, place the $r_0$ and the $r_\Delta$ arrays.
