@@ -30,7 +30,8 @@ $$
 
 Compute the **3D positioning error**.
 
----
+***
+
 ### 2. Horizontal and Vertical Error from ENU Coordinates
 
 The positioning error of a receiver, expressed in a local East/North/Up frame, is
@@ -50,7 +51,8 @@ Compute:
 2. The **vertical positioning error**.
 3. The **total 3D positioning error**.
 
----
+***
+
 ### 3. Distance Between Two Points
 
 Two points have Cartesian coordinates
@@ -67,7 +69,8 @@ $$
 
 Compute the distance between the two points.
 
----
+***
+
 ### 4. From Distance to Time
 
 A radio signal propagates at approximately
@@ -80,7 +83,8 @@ How long does it take the signal to travel **30 km**?
 
 Give the answer in microseconds.
 
----
+***
+
 ### 5. Direction of a Position Error
 
 A receiver has an error of
@@ -94,7 +98,8 @@ Compute:
 1. The horizontal error.
 2. The direction of the error measured clockwise from North.
 
----
+***
+
 ### 6. Intersection of Distance Measurements
 
 A transmitter is located at
@@ -117,8 +122,8 @@ and the receiver is also exactly \(5\) km from this transmitter.
 
 What are the possible receiver positions?
 
----
----
+***
+***
 
 ## Answers
 
