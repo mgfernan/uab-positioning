@@ -2,9 +2,9 @@
 
 These exercises review basic mathematical and geometrical concepts needed for positioning and GNSS.
 
----
+## Problems
 
-## 1. 3D Positioning Error
+### 1. 3D Positioning Error
 
 A receiver estimates its position as
 
@@ -31,8 +31,7 @@ $$
 Compute the **3D positioning error**.
 
 ---
-
-## 2. Horizontal and Vertical Error from ENU Coordinates
+### 2. Horizontal and Vertical Error from ENU Coordinates
 
 The positioning error of a receiver, expressed in a local East/North/Up frame, is
 
@@ -52,8 +51,7 @@ Compute:
 3. The **total 3D positioning error**.
 
 ---
-
-## 3. Distance Between Two Points
+### 3. Distance Between Two Points
 
 Two points have Cartesian coordinates
 
@@ -70,8 +68,7 @@ $$
 Compute the distance between the two points.
 
 ---
-
-## 4. From Distance to Time
+### 4. From Distance to Time
 
 A radio signal propagates at approximately
 
@@ -84,8 +81,7 @@ How long does it take the signal to travel **30 km**?
 Give the answer in microseconds.
 
 ---
-
-## 5. Direction of a Position Error
+### 5. Direction of a Position Error
 
 A receiver has an error of
 
@@ -99,8 +95,7 @@ Compute:
 2. The direction of the error measured clockwise from North.
 
 ---
-
-## 6. Intersection of Distance Measurements
+### 6. Intersection of Distance Measurements
 
 A transmitter is located at
 
@@ -123,3 +118,78 @@ and the receiver is also exactly \(5\) km from this transmitter.
 What are the possible receiver positions?
 
 ---
+---
+
+## Answers
+
+
+## 1.
+$$
+\mathbf e =
+\begin{bmatrix}
+2.4\\
+-1.3\\
+2.1
+\end{bmatrix}\text{ m}
+$$
+
+$$
+\|\mathbf e\| \approx 3.44\text{ m}
+$$
+
+## 2.
+
+$$
+\varepsilon_H=\sqrt{3^2+(-4)^2}=5\text{ m}
+$$
+
+$$
+\varepsilon_V=2\text{ m}
+$$
+
+$$
+\varepsilon_{3D}=\sqrt{3^2+(-4)^2+2^2}\approx5.39\text{ m}
+$$
+
+## 3.
+
+$$
+d_{AB}=\sqrt{4^2+3^2+12^2} = 13\text{ m}
+$$
+
+## 4.
+
+$$
+t=\frac{30\,000}{3\times10^8}
+=100\ \mu s
+$$
+
+## 5.
+
+$$
+d_H=5\text{ m}
+$$
+
+$$
+\theta=\tan^{-1}(3/4)\approx36.9^\circ
+$$
+
+east of North.
+
+## 6.
+
+First measurement → circle of radius \(5\) km.
+
+The second measurement produces a second circle. Their intersections are:
+
+$$
+(4,3)\text{ km}
+$$
+
+and
+
+$$
+(4,-3)\text{ km}.
+$$
+
+Two measurements therefore reduce the possibilities from infinitely many points to two possible positions.
