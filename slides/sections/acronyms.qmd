@@ -7,8 +7,12 @@ acronyms:
       longname: Automatic Dependent Surveillance-Broadcast
     - shortname: AoA
       longname: Angle of Arrival
+    - shortname: AWGN
+      longname: Additive White Gaussian Noise
     - shortname: BDGIM
       longname: BeiDou Global Ionosphere Model
+    - shortname: C/N0
+      longname: Carrier-to-Noise Density Ratio
     - shortname: CTP
       longname: Conventional Terrestrial Pole
     - shortname: EC

@@ -799,7 +799,110 @@ $$
 
 ![](assets/figures/multipath.svg)
 
-#### Local error sources: Receiver noise
+#### Receiver noise
+
+As in every RF receiver \acr{AWGN} is present:
+
+- Antenna noise
+- Receiver noise temperature
+- Quantization noise
+
+Observable noises, when sufficient \acr{SNR}:
+
+- Code measurements are noisy (≈ 1 m)
+- Phase measurements are precise (≈ 1% cycle≈ 2 mm)
+
+#### Receiver noise (cont'd)
+
+- Observable noise depend inversely on the \acr{C/N0} of the received signal (see Section 14.6 of [@teunissen2017springer]):
+
+
+
+::: {.columns}
+
+::: {.column width="60%"}
+
+$$
+\small
+\sigma_{code} \simeq c \cdot T_{chip} \sqrt {\frac{BW_{DLL} \cdot d_{E-L}}{2\cdot C/N_0}} \quad [m];\
+$$
+
+$$
+\small
+\sigma_{phase}  \simeq \frac{\lambda}{2\pi} \sqrt {\frac{BW_{PLL}}{C/N_0}} \quad [m]
+$$
+
+
+:::
+
+::: {.column width="40%"}
+
+
+- where:
+  - $T_{chip}$: chip period of the spreading code (e.g. 1/1.023 MHz for GPS C/A code)
+  - $d_{E-L}$: early-late correlator spacing (in chips)
+  - $BW_{DLL}$: bandwidth of the code tracking loop (in Hz)
+  - $BW_{PLL}$: bandwidth of the carrier tracking loop (in Hz)
+  - $C/N_0$: carrier-to-noise density ratio (in Hz)
+
+
+
+:::
+
+:::
+
+
+
+#### Receiver noise: code tracking
+
+```{python}
+import numpy as np
+import pandas as pd
+
+c = 3e8              # speed of light [m/s]
+T_chip = 1 / 1.023e6  # GPS C/A code chip period [s]
+d_EL = 1.0            # early-late correlator spacing [chips]
+
+cn0_db = np.linspace(20, 50, 200)
+cn0_lin = 10 ** (cn0_db / 10)
+
+bw_dll_values = [0.5, 1.0, 2.0]  # Hz, typical DLL bandwidths
+
+rows = []
+for bw_dll in bw_dll_values:
+    sigma_code = c * T_chip * np.sqrt(bw_dll * d_EL / (2 * cn0_lin))
+    rows.append(pd.DataFrame({'CN0': cn0_db, 'sigma_code': sigma_code, 'BW_DLL': f'{bw_dll} Hz'}))
+
+df_code = pd.concat(rows, ignore_index=True)
+
+fig = px.line(df_code, x='CN0', y='sigma_code', color='BW_DLL',
+              title=f'Code tracking noise vs C/N0 (early-late spacing = {d_EL:.1f} chip)',
+              labels={'CN0': 'C/N0 (dB-Hz)', 'sigma_code': 'Code noise std. dev. (m)', 'BW_DLL': 'DLL bandwidth'})
+fig.update_layout(xaxis_title='C/N0 (dB-Hz)', yaxis_title='Code noise σ (m)')
+HTML(pio.to_html(fig, full_html=False, include_plotlyjs="cdn", include_mathjax=False))
+```
+
+#### Receiver noise: phase tracking
+
+```{python}
+lambda_L1 = c / 1575.42e6  # GPS L1 wavelength [m]
+
+bw_pll_values = [5.0, 10.0, 15.0]  # Hz, typical PLL bandwidths
+
+rows = []
+for bw_pll in bw_pll_values:
+    sigma_phase = lambda_L1 / (2 * np.pi) * np.sqrt(bw_pll / cn0_lin)
+    rows.append(pd.DataFrame({'CN0': cn0_db, 'sigma_phase': sigma_phase * 1000, 'BW_PLL': f'{bw_pll} Hz'}))
+
+df_phase = pd.concat(rows, ignore_index=True)
+
+fig = px.line(df_phase, x='CN0', y='sigma_phase', color='BW_PLL',
+              title='Carrier-phase tracking noise vs C/N0',
+              labels={'CN0': 'C/N0 (dB-Hz)', 'sigma_phase': 'Phase noise std. dev. (mm)', 'BW_PLL': 'PLL bandwidth'})
+fig.update_layout(xaxis_title='C/N0 (dB-Hz)', yaxis_title='Phase noise σ (mm)')
+HTML(pio.to_html(fig, full_html=False, include_plotlyjs="cdn", include_mathjax=False))
+```
+
 
 #### Local error sources Interference
 
