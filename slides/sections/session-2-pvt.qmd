@@ -288,7 +288,7 @@ $$
 ![](assets/figures/correlation_subsampling.svg){height="300"}
 :::
 
-### Pseudorange: basic model
+### Pseudorange: basic model  {#pseudorange-basic-model}
 
 - Recapitulate, the (simple) pseudorange model for the $i$-th satellite is:
 
@@ -835,32 +835,24 @@ Observable noises, when sufficient \acr{SNR}:
 ::: {.columns}
 
 ::: {.column width="60%"}
-
 $$
 \small
-\sigma_{code} \simeq c \cdot T_{chip} \sqrt {\frac{BW_{DLL} \cdot d_{E-L}}{2\cdot C/N_0}} \quad [m];\
+\sigma_{code} \simeq c \cdot T_{chip} \sqrt {\frac{BW_{DLL} \cdot d_{E-L}}{2\cdot C/N_0}} \quad [m]
 $$
 
 $$
 \small
 \sigma_{phase}  \simeq \frac{\lambda}{2\pi} \sqrt {\frac{BW_{PLL}}{C/N_0}} \quad [m]
 $$
-
-
 :::
 
 ::: {.column width="40%"}
-
-
 - where:
   - $T_{chip}$: chip period of the spreading code (e.g. 1/1.023 MHz for GPS C/A code)
   - $d_{E-L}$: early-late correlator spacing (in chips)
   - $BW_{DLL}$: bandwidth of the code tracking loop (in Hz)
   - $BW_{PLL}$: bandwidth of the carrier tracking loop (in Hz)
   - $C/N_0$: carrier-to-noise density ratio (in Hz)
-
-
-
 :::
 
 :::
@@ -971,12 +963,48 @@ flowchart LR
 
 ![source [GPSjam](https://gpsjam.org)](assets/figures/gps_jam.png)
 
-### Cycle slips
-
-<!--- TODO: Add a figure showing the effect of cycle slips in the carrier phase observable. --->
-<!--- TODO: How do they look like --->
-
 ### Measurement model
+
+- Recall the [basic pseudorange model](#pseudorange-basic-model)
+- Once we have defined all the error sources, we can now rewrite the range models,
+specially the terms hidden under
+  - **noise** ($\varepsilon_i$) in the pseudorange model
+  - **noise** ($\varepsilon_{\phi,i}$) in the carrier-phase model
+- In the following models, the following convention has been adopted:
+  - $k$ is the frequency index (e.g. $k=1$ for L1, $k=2$ for L2, etc.)
+  - $i$ is the satellite index
+  - $s$ is the signal index (e.g. $s=1$ for C/A, $s=2$ for P(Y), etc.)
+  - Color coding consistent with the previous section plus:
+    - $\color{cyan}{value}$: indicate a term that can be modeled or estimated.
+
+### Measurement model: pseudorange
+
+$$
+\begin{eqnarray}
+\color{blue}{PR_i} & =& \underbrace{\sqrt{(\color{red}{x_u} - \color{green}{x_i})^2 + (\color{red}{y_u} - \color{green}{y_i})^2 + (\color{red}{z_u} - \color{green}{z_i})^2}}_{geometric\ range} + \\
+  & & \underbrace{c \cdot \color{red}{\delta t_u}}_{rx\ clock\ error} - \underbrace{c \cdot \color{green}{\delta t_i}}_{sat\ clock\ error}+ \\
+  & & \underbrace{\frac{40.3}{f_{k,i}^2}\cdot \color{cyan}{TEC_i}}_{ionosphere} + \underbrace{\color{cyan}{T_i}}_{troposphere} + \\
+  & & \underbrace{K_{u,s} -K_{i,s}}_{code\ instrumental\ delays} + \underbrace{M_{k,s}}_{multipath} + \underbrace{\varepsilon_i}_{noise}
+\end{eqnarray}
+$$
+
+
+
+### Measurement model: carrier-phase
+
+
+$$
+\begin{eqnarray}
+\color{blue}{\phi_i} & =& \underbrace{\sqrt{(\color{red}{x_u} - \color{green}{x_i})^2 + (\color{red}{y_u} - \color{green}{y_i})^2 + (\color{red}{z_u} - \color{green}{z_i})^2}}_{geometric\ range} + \\
+  & & \underbrace{c \cdot \color{red}{\delta t_u}}_{rx\ clock\ error} - \underbrace{c \cdot \color{green}{\delta t_i}}_{sat\ clock\ error} - \\
+  & & \underbrace{\frac{40.3}{f_{k,i}^2}\cdot \color{cyan}{TEC_i}}_{ionosphere} + \underbrace{\color{cyan}{T_i}}_{troposphere} + \\
+  & & \underbrace{k_{u,s} -k_{i,s}}_{phase\ instrumental\ delays} + \underbrace{M_{k,s}}_{multipath} + \underbrace{\lambda \cdot \color{green}{w_{k,i}}}_{wind-up} + \underbrace{\color{red}{N_{k,i}}}_{ambiguity} + \underbrace{\varepsilon_i}_{noise}
+\end{eqnarray}
+$$
+
+
+
+
 
 ## Observable combinations
 
@@ -1001,6 +1029,11 @@ $$
 
 ::: {.callout-warning title="Hatch filter must be initialized on every **cycle slip**!"}
 :::
+
+## Cycle slips
+
+<!--- TODO: Add a figure showing the effect of cycle slips in the carrier phase observable. --->
+<!--- TODO: How do they look like --->
 
 
 
