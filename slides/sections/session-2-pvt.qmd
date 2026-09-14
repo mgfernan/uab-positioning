@@ -741,19 +741,67 @@ $$
 As a local effect and thanks to the mapping function, only one additional unknown per receiver
 :::
 
+### Local error sources
 
-### Local error sources: clock
+Local error sources are due to the receiver and its environment:
 
-<!--- TODO: Add a figure with the clock steering. --->
+- Clock errors: receiver clock is not perfectly synchronized with the GNSS system time
+- Multipath: signal is reflected by nearby objects before reaching the receiver
+- Receiver noise: thermal noise in the receiver electronics
+
+#### Clock error: synchronization jumps
+
+- Local clock errors are due to the receiver's clock not being perfectly synchronized with the GNSS system time.
+- Some old receivers (manufacurer dependent) showed clock jumps
+
+```{python}
+#| fig-align: center
+from pygnss import rinex
+import plotly.graph_objects as go
+import pandas as pd
+
+rnx_file_path = 'assets/data/UNSA00XXX_R_20142150000_01D_05M_MO.rnx'
+obs = rinex.to_dataframe(rnx_file_path)
+
+obs_clean = obs.dropna(subset=['epoch', 'range'])
+obs_clean = obs_clean[obs_clean['channel']== '1C']
+
+fig = px.scatter(obs_clean, x='epoch', y='range', color='sat', height=300)
 
 
-### Local error sources: Multipath
+fig.update_layout(
+    title=f'Pseudorange Data (Clock millisecond jumps) - UNSA station',
+    xaxis_title='Time',
+    yaxis_title='Pseudorange (meters)',
+    hovermode='x unified'
+)
+
+HTML(pio.to_html(fig, full_html=False, include_plotlyjs="cdn", include_mathjax=False))
+```
+
+::: {.fragment}
+- Good news: common across-satellite effects are absorved by the clock
+:::
+
+#### Clock error: model and magnitude
+
+- The receiver clock error is a **bias** in the pseudorange and carrier phase measurements
+- It is usually **estimated** as an additional unknown in the positioning process
+- Estimation accuracy
+  - For a target positioning error of $\pm 1$ m, the receiver clock error must be estimated with an accuracy of $\pm 3.3$ ns
+
+$$
+\tau = \frac{p_{error}}{c} = \frac{1\ m}{3 \cdot 10^8\ m/s} \simeq 3.3\ ns
+$$
+
+
+#### Local error sources: Multipath
 
 ![](assets/figures/multipath.svg)
 
-### Local error sources: Receiver noise
+#### Local error sources: Receiver noise
 
-### Local error sources Interference
+#### Local error sources Interference
 
 ### Cycle slips
 
