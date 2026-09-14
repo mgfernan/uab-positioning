@@ -794,10 +794,26 @@ $$
 \tau = \frac{p_{error}}{c} = \frac{1\ m}{3 \cdot 10^8\ m/s} \simeq 3.3\ ns
 $$
 
+#### Multipath
 
-#### Local error sources: Multipath
+Reception of the signal through different paths so that we
+receive the direct signal plus several delayed and attenuated versions.
+
+- The main effect is a **distortion of the correlation curve** and phase of the
+received signal
+- Different error for each satellite (amplitude, delay and phase)
+  - Difficult to model
+- Mitigation techniques:
+  - Narrow-Correlator spacing
+  - Multipath Estimating DLL (MEDLL)
+  - Antenna arrays
+  - New GNSS signals with multipath mitigation techniques (e.g. Galileo E1C, E5a, E5b, E6B)
+
+
+#### Multipath (cont'd)
 
 ![](assets/figures/multipath.svg)
+
 
 #### Receiver noise
 
@@ -815,8 +831,6 @@ Observable noises, when sufficient \acr{SNR}:
 #### Receiver noise (cont'd)
 
 - Observable noise depend inversely on the \acr{C/N0} of the received signal (see Section 14.6 of [@teunissen2017springer]):
-
-
 
 ::: {.columns}
 
@@ -850,8 +864,6 @@ $$
 :::
 
 :::
-
-
 
 #### Receiver noise: code tracking
 
@@ -904,7 +916,60 @@ HTML(pio.to_html(fig, full_html=False, include_plotlyjs="cdn", include_mathjax=F
 ```
 
 
-#### Local error sources Interference
+#### Interference
+
+- Impact in GNSS positioning: loss of lock, cycle slips (phase jumps), increased noise, temporary \acr{DoS}, etc.
+- Multiple sources:
+
+```{mermaid}
+%%{init: {'themeVariables': {'fontSize': '36px', 'fontFamily': 'Arial'}}}%%
+flowchart LR
+    A["GNSS<br/>interference"]
+
+    A --> B["Signal differs<br/>from GNSS"]
+
+    B --> C["Bandwidth"]
+    C --> C1["Wideband"]
+    C --> C2["Narrowband / CW"]
+
+    B --> D["Origin"]
+    D --> D1["Self-interference"]
+    D --> D2["External"]
+
+    D2 --> E["Intent"]
+    E --> E1["Unintentional"]
+    E --> E2["Intentional"]
+
+    subgraph danger["<div style='text-align: left'>⚠️ Threats</div>"]
+        E2 -->|disrupt| F["JAMMING"]
+        F --> F1["Disrupt"]
+
+        E2 -->|mislead| G["SPOOFING"]
+        G --> G1["Mislead"]
+        G --> H["Meaconing"]
+        H --> H1["Re-transmit GNSS"]
+    end
+
+    classDef root fill:#eaf2ff,stroke:#2d5b9f,stroke-width:2px,color:#1f2d3d
+    classDef category fill:#f3f7ff,stroke:#7b91b0,stroke-width:1.5px,color:#1f2d3d
+    classDef threat fill:#fff4d6,stroke:#d4a017,stroke-width:1.5px,color:#5b4300
+    classDef jamming fill:#fce4e6,stroke:#b42318,stroke-width:2px,color:#4b1d1d
+    classDef spoofing fill:#fff7d6,stroke:#d4a017,stroke-width:2px,color:#5b4300
+    classDef secondary fill:#eef7f5,stroke:#5c9d95,stroke-width:1.5px,color:#1d3d3a
+
+    class A root
+    class B,C,D,E category
+    class C1,C2,D1,D2,E1,E2,F1,G1,H1 secondary
+    class F jamming
+    class G,H spoofing
+    style danger fill:#fffaf0,stroke:#d97706,stroke-width:1.5px
+    linkStyle default stroke:#5a6475,stroke-width:1.2px
+```
+
+
+#### Interference: jamming
+
+![source [GPSjam](https://gpsjam.org)](assets/figures/gps_jam.png)
 
 ### Cycle slips
 
@@ -919,6 +984,9 @@ HTML(pio.to_html(fig, full_html=False, include_plotlyjs="cdn", include_mathjax=F
 
 
 ### Observable combinations: geometry-free
+
+### Observable combinations: multipath
+
 
 ### Observable combinations: Smoothing
 
