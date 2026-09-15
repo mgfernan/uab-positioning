@@ -1427,10 +1427,14 @@ HTML(pio.to_html(fig, full_html=False, include_plotlyjs='cdn', include_mathjax=F
 
 ## Cycle slips
 
-<!--- TODO: Add a figure showing the effect of cycle slips in the carrier phase observable. --->
-<!--- TODO: How do they look like --->
-
-
+- Cycle slips are **sudden changes in the integer ambiguity** of the carrier phase observable
+- They can be caused by:
+  - Loss of lock due to low signal strength or interference
+  - Receiver resets or clock jumps
+  - Multipath effects
+  - Ionospheric scintillation
+- Whenever a cycle slip occurs, the ambiguity term $N_{k,i}$ needs to be re-estimated, which can lead to positioning errors if not properly handled.
+- Examples of cycle slips can be found in the [geometry-free combination](#geometry-free-data-interpretation) of the carrier phase observable.
 
 ## Navigation solution
 
