@@ -41,6 +41,8 @@ acronyms:
       longname: Global Navigation Satellite System
     - shortname: GPS
       longname: Global Positioning System
+    - shortname: GRAPHIC
+      longname: Group and Phase Ionospheric Correction
     - shortname: GSS
       longname: Galileo Sensor Station
     - shortname: IGSO

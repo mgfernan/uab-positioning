@@ -1273,17 +1273,36 @@ fig.update_yaxes(showgrid=True, gridcolor='lightgray')
 HTML(pio.to_html(fig, full_html=False, include_plotlyjs='cdn', include_mathjax=False))
 ```
 
-
-
 ### Other combinations
 
-- multipath
-- Narrow lane
-- Wide lane (for ambiguities, longer effective wavelength)
-- Triple frequency combinations...
+- [Additional combinations](https://gssc.esa.int/navipedia/index.php/Combination_of_GNSS_Measurements) used to mitigate/analyze specific error sources:
+
+  - Single frequency  \acr{GRAPHIC}
+    - Removes geometry exposing the ionospheric delay (for single-frequency receivers)
+  - Multipath combination ($PR_{MP}$, see [@montenbruck2003flight])
+    - isolates multipath error in the code measurement
+  - Wide lane ($L_{WL}$, longer effective wavelength, )
+    - Removes ionospheric delay and has longer effective wavelength that amplifies the ambiguity term (used to resolve ambiguities)
+
+$$
+\tiny
+PR_{MP} = PR_a
+-\frac{2}{f_a^2-f_b^2}
+\left(
+f_a^2 L_b-f_b^2 L_a
+\right)
+-L_a
+-B_a
+$$
 
 
-### Observable combinations: Smoothing
+$$
+\tiny
+L_{WL} = \frac{f_a \cdot L_a - f_b \cdot L_b}{f_a - f_b}
+$$
+
+
+### Observable smoothing: definition
 
 - Can we obtain a measurement that is both **precise** (*carrier-phase*)and **unambiguous** (*code pseudorange*)? [Hatch filter]{.fragment .fade-in}
 
@@ -1296,6 +1315,115 @@ $$
 
 ::: {.callout-warning title="Hatch filter must be initialized on every **cycle slip**!"}
 :::
+
+### Observable smoothing: example
+
+```{python}
+df = rinex.to_dataframe('assets/data/EBRE00ESP_R_20260592000_04H_30S_GO.rnx')
+
+def hatch_filter(P, phi, N=10):
+    """Hatch carrier-smoothed pseudorange."""
+
+    result = np.empty(len(P))
+    result[0] = P[0]
+
+    for k in range(1, len(P)):
+        result[k] = (
+            P[k] / N
+            + (N - 1) / N
+            * (result[k - 1] + phi[k] - phi[k - 1])
+        )
+
+    return result
+
+sat = 'G06'
+channel_a = '1C'
+channel_b = '2W'
+
+df_case = df[(df['sat'] == sat) & ((df['channel'] == channel_a) | (df['channel'] == channel_b))]
+
+df_gf = df_case.pivot(
+    index=["epoch", "constellation", "sat", "station"],
+    columns="channel",
+    values=["range", "phase", "doppler", "snr", "slip"]
+)
+df_gf.columns = [
+    f"{observable}_{channel}"
+    for observable, channel in df_gf.columns
+]
+df_gf = df_gf.reset_index()
+
+code_gf = df_gf['range_2W'] - df_gf['range_1C']
+phi_gf = df_gf['phase_1C'] * lambda_a - df_gf['phase_2W'] * lambda_b
+
+hatch_short = hatch_filter(code_gf.to_numpy(), phi_gf.to_numpy(), N=3)
+hatch_long = hatch_filter(code_gf.to_numpy(), phi_gf.to_numpy(), N=30)
+
+fig = go.Figure()
+
+fig.add_trace(
+    go.Scatter(
+        x=df_gf['epoch'],
+        y=code_gf,
+        mode='markers',
+        name='Unsmoothed code',
+        marker={'size': 5, 'color': '#7f8c8d', 'opacity': 0.8},
+        hovertemplate='Epoch: %{x}<br>Code GF: %{y:.2f} m<extra></extra>'
+    )
+)
+
+fig.add_trace(
+    go.Scatter(
+        x=df_gf['epoch'],
+        y=phi_gf,
+        mode='markers',
+        name='Carrier phase',
+        marker={'size': 5, 'color': '#e67e22', 'opacity': 0.8},
+        hovertemplate='Epoch: %{x}<br>Phase GF: %{y:.2f} m<extra></extra>'
+    )
+)
+
+fig.add_trace(
+    go.Scatter(
+        x=df_gf['epoch'],
+        y=hatch_short,
+        mode='lines+markers',
+        name='Smoothed (N=3)',
+        line={'color': '#2e86de', 'width': 2},
+        marker={'size': 4, 'color': '#2e86de', 'opacity': 0.8},
+        hovertemplate='Epoch: %{x}<br>Smoothed (m=3): %{y:.2f} m<extra></extra>'
+    )
+)
+
+fig.add_trace(
+    go.Scatter(
+        x=df_gf['epoch'],
+        y=hatch_long,
+        mode='lines+markers',
+        name='Smoothed (N=30)',
+        line={'color': '#27ae60', 'width': 2},
+        marker={'size': 4, 'color': '#27ae60', 'opacity': 0.8},
+        hovertemplate='Epoch: %{x}<br>Smoothed (m=30): %{y:.2f} m<extra></extra>'
+    )
+)
+
+fig.update_layout(
+    template='plotly_white',
+    title='Carrier-smoothed pseudorange using the Hatch filter',
+    xaxis_title='Epoch [s]',
+    yaxis_title='Geometry-free observable [m]',
+    legend_title_text='Observable',
+    hovermode='x unified',
+    margin=dict(l=60, r=20, t=60, b=50),
+    height=450,
+    width=900,
+)
+
+fig.update_xaxes(showgrid=True, gridcolor='lightgray')
+fig.update_yaxes(showgrid=True, gridcolor='lightgray')
+
+HTML(pio.to_html(fig, full_html=False, include_plotlyjs='cdn', include_mathjax=False))
+```
 
 ## Cycle slips
 
