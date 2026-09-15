@@ -988,8 +988,6 @@ $$
 \end{eqnarray}
 $$
 
-
-
 ### Measurement model: carrier-phase
 
 
@@ -998,22 +996,291 @@ $$
 \color{blue}{\phi_i} & =& \underbrace{\sqrt{(\color{red}{x_u} - \color{green}{x_i})^2 + (\color{red}{y_u} - \color{green}{y_i})^2 + (\color{red}{z_u} - \color{green}{z_i})^2}}_{geometric\ range} + \\
   & & \underbrace{c \cdot \color{red}{\delta t_u}}_{rx\ clock\ error} - \underbrace{c \cdot \color{green}{\delta t_i}}_{sat\ clock\ error} - \\
   & & \underbrace{\frac{40.3}{f_{k,i}^2}\cdot \color{cyan}{TEC_i}}_{ionosphere} + \underbrace{\color{cyan}{T_i}}_{troposphere} + \\
-  & & \underbrace{k_{u,s} -k_{i,s}}_{phase\ instrumental\ delays} + \underbrace{M_{k,s}}_{multipath} + \underbrace{\lambda \cdot \color{green}{w_{k,i}}}_{wind-up} + \underbrace{\color{red}{N_{k,i}}}_{ambiguity} + \underbrace{\varepsilon_i}_{noise}
+  & & \underbrace{k_{u,s} -k_{i,s}}_{phase\ instrumental\ delays} + \underbrace{m_{k,s}}_{multipath} + \underbrace{\lambda \cdot \color{green}{w_{k,i}}}_{wind-up} + \underbrace{\color{red}{N_{k,i}}}_{ambiguity} + \underbrace{\varepsilon_i}_{noise}
 \end{eqnarray}
 $$
 
 
-
-
-
 ## Observable combinations
 
-### Observable combinations: iono-free
+Observable combination allow to **cancel** errors or **isolate** specific terms of the range and phase models
+
+- To simplify notation, the combination will use
+
+$$
+\small
+\rho_i=\sqrt{(x_u - x_i)^2 + (y_u - y_i)^2 + (z_u - z_i)^2}
+$$
+
+- therefore the range model becomes:
+
+$$
+\small
+PR_i = \rho_i + c \cdot \delta t_u - c \cdot \delta t_i + \frac{40.3}{f_{k,i}^2} \cdot TEC_i + T_i + K_{u,s} - K_{i,s} + M_{k,s} + \varepsilon_i
+$$
 
 
-### Observable combinations: geometry-free
+### Iono-free combination: definition
 
-### Observable combinations: multipath
+- Iono free combination is used to **remove the ionospheric delay**. For two observables ($PR_a$, $PR_b$) taken at frequencies $f_a$ and $f_b$:
+
+$$
+\small
+\begin{eqnarray}
+PR_{i, PC} &=& \frac{f_a^2 \cdot PR_{i,a} - f_b^2 \cdot PR_{i,b}}{f_a^2 - f_b^2} \\
+       & = & \rho_i + c \cdot \delta t_u - c \cdot \delta t_i + T_i + K_{PC, u} - K_{PC, i} + M_{PC, i} + \varepsilon_{PC,i} \\
+       & & \\
+L_{i, PC} &=& \frac{f_a^2 \cdot L_{i,a} - f_b^2 \cdot L_{i,b}}{f_a^2 - f_b^2} \\
+       & = & \rho_i + c \cdot \delta t_u - c \cdot \delta t_i + T_i + k_{PC, u} - k_{PC, i} + m_{PC, i} + c \cdot w_{PC,i} + \\
+       &  & + N_{PC} + \varepsilon_{\phi, PC,i} \\
+\end{eqnarray}
+$$
+
+### Iono-free combination: combined terms
+
+- Note that frequency/signal dependent terms will be a combination of the raw measurements:
+
+
+$$
+\tiny
+\begin{array}{cc}
+\textbf{Code} & \textbf{Phase} \\[1ex]
+\begin{aligned}
+K_{PC,u} &=
+\frac{f_a^2 K_{u,a}-f_b^2 K_{u,b}}
+     {f_a^2-f_b^2}
+\\[1ex]
+K_{PC,i} &=
+\frac{f_a^2 K_{i,a}-f_b^2 K_{i,b}}
+     {f_a^2-f_b^2}
+\\[1ex]
+M_{PC,i} &=
+\frac{f_a^2 M_{i,a}-f_b^2 M_{i,b}}
+     {f_a^2-f_b^2}
+\\[1ex]
+\varepsilon_{PC,i} &=
+\frac{f_a^2\varepsilon_{i,a}-f_b^2\varepsilon_{i,b}}
+     {f_a^2-f_b^2}
+\end{aligned}
+&
+\begin{aligned}
+k_{PC,u} &=
+\frac{f_a^2 k_{u,a}-f_b^2 k_{u,b}}
+     {f_a^2-f_b^2}
+\\[1ex]
+k_{PC,i} &=
+\frac{f_a^2 k_{i,a}-f_b^2 k_{i,b}}
+     {f_a^2-f_b^2}
+\\[1ex]
+m_{PC,i} &=
+\frac{f_a^2 m_{i,a}-f_b^2 m_{i,b}}
+     {f_a^2-f_b^2}
+\\[1ex]
+N_{PC} &=
+\frac{f_a^2\lambda_a N_a-f_b^2\lambda_b N_b}
+     {f_a^2-f_b^2}
+\end{aligned}
+\end{array}
+$$
+
+### Iono-free combination: takeaways
+
+- The $N_a$ and $N_b$ in the *raw* observables are integer, but the combined one $N_{PC}$ is not
+  - This is critical for high accuracy positioning
+  - When computing position using this combination, this term is *floated* first (estimated as a float), and then attempt *ambiguity resolution*
+
+- Ionosphere is gone, but **noise increases**!
+  - If we assume equal noise on the two frequencies ($\sigma_1 = \sigma_2 = \sigma$), and GPS frequencies ($f_a = f_1 = 1575.42\,MHz$ and $f_b = f_2 = 1227.60\,MHz$), the amplification factor is
+
+
+$$
+\small
+\begin{eqnarray}
+\sigma_{PC} &= &
+\sqrt{
+\left(
+\frac{f_a^2}{f_a^2-f_b^2}
+\right)^2 \sigma_1^2
++
+\left(
+\frac{f_b^2}{f_a^2-f_b^2}
+\right)^2 \sigma_2^2
+} & & \\
+\left. \sigma_{PC} \right|_{\sigma_1=\sigma_2=\sigma,f_1,f_2} &=&
+\sqrt{2.546^2+1.546^2}\,\sigma
+& \approx &
+2.98\,\sigma
+\end{eqnarray}
+$$
+
+
+### Geometry-free combination: definition
+
+- Removes non-frequency dependent terms
+- Assuming frequencies $f_a$ and $f_b$, where $f_a > f_b$
+
+
+$$
+\small
+\begin{eqnarray}
+PR_{i,GF} &=& PR_{i,b}-PR_{i,a} ⚠️ \\
+&=&
+40.3
+\left(
+\frac{1}{f_b^2}-\frac{1}{f_a^2}
+\right) TEC_i
++
+K_{GF,u}-K_{GF,i}
++
+M_{GF,i}
++
+\varepsilon_{GF,i}
+\end{eqnarray}
+$$
+
+$$
+\small
+\begin{eqnarray}
+L_{i,GF} &=& L_{i,a}-L_{i,b} \\
+&=&
+40.3
+\left(
+\frac{1}{f_b^2}-\frac{1}{f_a^2}
+\right) TEC_i
++
+k_{GF,u}-k_{GF,i}
++
+m_{GF,i}
++
+c\cdot w_{GF,i} \\
+&&
++
+N_{GF}
++
+\varepsilon_{\phi,GF,i}
+\end{eqnarray}
+$$
+
+### Geometry-free combination: combined terms
+
+
+$$
+\small
+\begin{array}{cc}
+\textbf{Code} & \textbf{Phase} \\[1ex]
+\begin{aligned}
+K_{GF,u} &= K_{u,b}-K_{u,a}
+\\
+K_{GF,i} &= K_{i,b}-K_{i,a}
+\\
+M_{GF,i} &= M_{i,b}-M_{i,a}
+\\
+\varepsilon_{GF,i} &=
+\varepsilon_{i,a}-\varepsilon_{i,b}
+\end{aligned}
+&
+\begin{aligned}
+k_{GF,u} &= k_{u,a}-k_{u,b}
+\\
+k_{GF,i} &= k_{i,a}-k_{i,b}
+\\
+m_{GF,i} &= m_{i,a}-m_{i,b}
+\\
+N_{GF} &= N_a-N_b
+\end{aligned}
+\end{array}
+$$
+
+- Main takeaways
+  - Noise amplified by a factor of $\sqrt{2}$
+  - Ambiguity $N_{GF}$ keeps its integer nature
+
+### Geometry-free: data interpretation
+
+
+```{python}
+import numpy as np
+
+c = 299792458.0  # speed of light [m/s]
+lambda_a = c / 1575.42e6  # GPS L1 wavelength [m]
+lambda_b = c / 1227.60e6  # GPS L2 wavelength [m]
+
+df = rinex.to_dataframe('assets/data/EBRE00ESP_R_20260590000_01D_30S_GO.rnx')
+sat = 'G18'
+
+channel_a = "1C"
+channel_b = "2W"
+
+df_case = df[(df['sat'] == sat) & ((df['channel'] == channel_a) | (df['channel'] == channel_b))]
+
+df_gf = df_case.pivot(
+    index=["epoch", "constellation", "sat", "station"],
+    columns="channel",
+    values=["range", "phase", "doppler", "snr", "slip"]
+)
+df_gf.columns = [
+    f"{observable}_{channel}"
+    for observable, channel in df_gf.columns
+]
+
+df_gf = df_gf.reset_index()
+
+# Geometry-free combination: code and phase residuals for a single satellite
+range_gf = df_gf['range_2W'] - df_gf['range_1C']
+phase_gf = df_gf['phase_1C'] * lambda_a - df_gf['phase_2W'] * lambda_b + 12
+
+fig = go.Figure()
+
+fig.add_trace(
+    go.Scatter(
+        x=df_gf['epoch'],
+        y=range_gf,
+        mode='lines+markers',
+        name='Range',
+        line={'color': '#1f77b4', 'width': 2},
+        marker={'size': 5, 'color': '#1f77b4', 'opacity': 0.8},
+        hovertemplate='Epoch: %{x}<br>Range GF: %{y:.2f} m<extra></extra>'
+    )
+)
+
+fig.add_trace(
+    go.Scatter(
+        x=df_gf['epoch'],
+        y=phase_gf,
+        mode='lines+markers',
+        name='Phase',
+        line={'color': '#d62728', 'width': 2},
+        marker={'size': 5, 'color': '#d62728', 'opacity': 0.8},
+        hovertemplate='Epoch: %{x}<br>Phase GF: %{y:.2f} m<extra></extra>'
+    )
+)
+
+fig.update_layout(
+    template='plotly_white',
+    title='Geometry-free combination for satellite G18 (L1C/L2W)',
+    xaxis_title='Epoch [s]',
+    yaxis_title='Geometry-free observable [m]',
+    legend_title_text='Observable',
+    hovermode='x unified',
+    margin=dict(l=60, r=20, t=60, b=50),
+    height=450,
+    width=900,
+)
+
+fig.update_xaxes(showgrid=True, gridcolor='lightgray')
+fig.update_yaxes(showgrid=True, gridcolor='lightgray')
+
+HTML(pio.to_html(fig, full_html=False, include_plotlyjs='cdn', include_mathjax=False))
+```
+
+
+
+### Other combinations
+
+- multipath
+- Narrow lane
+- Wide lane (for ambiguities, longer effective wavelength)
+- Triple frequency combinations...
 
 
 ### Observable combinations: Smoothing
