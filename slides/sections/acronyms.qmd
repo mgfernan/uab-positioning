@@ -79,6 +79,8 @@ acronyms:
       longname: Safety of Life
     - shortname: SNR
       longname: Signal-to-Noise Ratio
+    - shortname: SPP
+      longname: Single Point Positioning
     - shortname: TEC
       longname: Total Electron Content
     - shortname: ToA

@@ -1438,10 +1438,129 @@ HTML(pio.to_html(fig, full_html=False, include_plotlyjs='cdn', include_mathjax=F
 
 ## Navigation solution
 
+This section covers the inner workings of a **positioning engine**:
+
+::: {style="text-align: center;"}
+*How to translate from measurements to positions?*
+:::
+
+- In simplistic terms, if $\vec{r} = (r_1, ..., r_N)$ and $\vec{p_u} = (x_u, y_u, z_u)$ are the array of measurements and user position vector respectively:
+
+$$
+\vec{r} = f(\vec{p_u}) \Longrightarrow \vec{p_u} = f^{-1}(\vec{r})
+$$
+
 
 ### Navigation solution: linearization
 
-### Navigation solution: Bancroft method
+- Problem: *norm* operator is **nonlinear**:
+
+$$
+\rho_i = \sqrt{(x_i-x_u)^2+(y_i-y_u)^2+(z_i-z_u)^2}
+$$
+
+- Solution: use a **first-order Taylor approximation** around an
+  *a-priori* state $\vec{p}_0$ (e.g. an approximate position)
+
+$$
+\small
+\begin{eqnarray}
+f(\vec p_u) & \approx & f(\vec p_0) + \nabla f(\vec p_0)^\mathsf{T} (\vec p_u-\vec p_0) \\
+          & = & f(\vec p_0) + \nabla f(\vec p_0)^\mathsf{T} \cdot \Delta \vec p_u
+\end{eqnarray}
+$$
+
+### Navigation solution: linearization (cont'd)
+
+- For the range to a known $i$-th satellite position $\vec s_i$,
+
+$$
+\tiny
+f(x,y,z) = f(x_0, y_0, z_0) + \frac{\partial f(x_0, y_0, z_0)}{\partial x} \cdot \Delta x + \frac{\partial f(x_0, y_0, z_0)}{\partial y} \cdot \Delta y + \frac{\partial f(x_0, y_0, z_0)}{\partial z} \cdot \Delta z
+$$
+
+- Convention: from receiver to satellite $\vec s_i - \vec p_u$ and not $\vec p_u - \vec s_i$
+
+$$
+\small
+\begin{eqnarray}
+\frac{\partial f(x_0, y_0, z_0)}{\partial x} & = &  \frac{\partial}{\partial x} \sqrt{(x_i-x_0)^2+(y_i-y_0)^2+(z_i-z_0)^2} \\
+                & =&  \frac{(x_i - x_0)}{\sqrt{(x_i-x_0)^2+(y_i-y_0)^2+(z_i-z_0)^2}} = \frac{(x_i - x_0)}{\rho_{i,0}}
+\end{eqnarray}
+$$
+
+### Navigation solution: linearization (cont'd)
+
+- Putting it all together:
+
+$$
+\small
+\rho_i = \rho_{i,0} - \frac{(x_i - x_0)}{\rho_{i,0}} \Delta x - \frac{(y_i - y_0)}{\rho_{i,0}} \Delta y - \frac{(z_i - z_0)}{\rho_{i,0}} \Delta z
+$$
+
+::: {.fragment}
+::: {.callout-warning title="Why sign reversal?"}
+- Gradient function is defined as **maximum increase** of the function
+- Convention taken: from receiver to satellite
+  - If receiver moves towards the satellite, range decreases (i.e. opposite of gradient convention)
+:::
+:::
+
+### Navigation solution: linear equations
+
+- Once linearization is achieved, we can fetch the [pseudorange basic model](#pseudorange-basic-model) (for now) and convert it to their linear version for 4 satellites:
+
+
+$$
+\small
+\begin{eqnarray}
+\color{blue}{PR_1} = \rho_{1,0} - \frac{(x_1 - x_0)}{\rho_{1,0}} \color{red}{\Delta x} - \frac{(y_1 - y_0)}{\rho_{1,0}} \color{red}{\Delta y} - \frac{(z_1 - z_0)}{\rho_{1,0}} \color{red}{\Delta z} + c \cdot \color{red}{\delta t_u} \\
+\color{blue}{PR_2} = \rho_{1,0} - \frac{(x_2 - x_0)}{\rho_{1,0}} \color{red}{\Delta x} - \frac{(y_2 - y_0)}{\rho_{1,0}} \color{red}{\Delta y} - \frac{(z_2 - z_0)}{\rho_{1,0}} \color{red}{\Delta z} + c \cdot \color{red}{\delta t_u} \\
+\color{blue}{PR_3} = \rho_{1,0} - \frac{(x_3 - x_0)}{\rho_{1,0}} \color{red}{\Delta x} - \frac{(y_3 - y_0)}{\rho_{1,0}} \color{red}{\Delta y} - \frac{(z_3 - z_0)}{\rho_{1,0}} \color{red}{\Delta z} + c \cdot \color{red}{\delta t_u} \\
+\color{blue}{PR_4} = \rho_{1,0} - \frac{(x_4 - x_0)}{\rho_{1,0}} \color{red}{\Delta x} - \frac{(y_4 - y_0)}{\rho_{1,0}} \color{red}{\Delta y} - \frac{(z_4 - z_0)}{\rho_{1,0}} \color{red}{\Delta z} + c \cdot \color{red}{\delta t_u} \\
+\end{eqnarray}
+$$
+
+
+### Navigation solution: linear system
+
+- Rearranging terms we can transform this into $\vec r = {\bf A}\cdot \vec p$
+
+
+$$
+\tiny
+\underbrace{\begin{bmatrix} PR_1 - \rho_{1,0} \\ PR_2 - \rho_{2,0} \\ PR_3 - \rho_{3,0} \\ PR_4 - \rho_{4,0} \end{bmatrix}}_{prefit\ residuals} = \underbrace{\begin{bmatrix} -\frac{(x_1 - x_0)}{\rho_{1,0}} & -\frac{(y_1 - y_0)}{\rho_{1,0}} & -\frac{(z_1 - z_0)}{\rho_{1,0}} & 1 \\ -\frac{(x_2 - x_0)}{\rho_{2,0}} & -\frac{(y_2 - y_0)}{\rho_{2,0}} & -\frac{(z_2 - z_0)}{\rho_{2,0}} & 1 \\ -\frac{(x_3 - x_0)}{\rho_{3,0}} & -\frac{(y_3 - y_0)}{\rho_{3,0}} & -\frac{(z_3 - z_0)}{\rho_{3,0}} & 1 \\ -\frac{(x_4 - x_0)}{\rho_{4,0}} & -\frac{(y_4 - y_0)}{\rho_{4,0}} & -\frac{(z_4 - z_0)}{\rho_{4,0}} & 1 \end{bmatrix}}_{design\ matrix} \cdot \underbrace{\begin{bmatrix} \color{red}{\Delta x} \\ \color{red}{\Delta y} \\ \color{red}{\Delta z} \\ \color{red}{c \cdot \delta t_u} \end{bmatrix}}_{state}
+$$
+
+- Solution can be obtained by simple matrix inversion: $\vec p = {\bf A}^{-1} \cdot \vec r$
+- This is the simplest solution of the navigation problem: \acr{SPP}
+
+### Navigation solution: overdetermined systems
+
+- What to do when number of satellites $>4 \longrightarrow {\bf A}$ is not square, therefore not invertible!
+- Use of the [*Moore-Penrose inverse*](https://en.wikipedia.org/wiki/Moore%E2%80%93Penrose_inverse) (aka *pseudoinverse*)
+
+$$
+\vec p = \left ( {\bf A}^T\cdot {\bf A} \right)^{-1} {\bf A}^T \cdot \vec r
+$$
+
+### Navigation solution: weighting observations
+
+- What if some measurements are more *trustworthy* than others?
+  - Mathematically, more *trustworthy* means lower $\sigma_{\varepsilon}$.
+
+- With the $N$ noise variances we can build the *weighting matrix*:
+
+$$
+\mathbf{W} = diag\left ( \sigma_{\varepsilon,1}^2 \dots \sigma_{\varepsilon,i}^2 \dots \sigma_{\varepsilon,N}^2 \right )
+$$
+
+- And the full pseudoinverse with weighting matrix can be computed as:
+
+$$
+\vec p = \left ( {\bf A}^T\cdot {\bf W} \cdot {\bf A} \right)^{-1} {\bf A}^T \cdot {\bf W} \cdot \vec r
+$$
+
 
 ## Positioning error
 
@@ -1456,6 +1575,10 @@ HTML(pio.to_html(fig, full_html=False, include_plotlyjs='cdn', include_mathjax=F
 
 ## Precise positioning
 
+### The Kalman Filter
+
+### Precise Point Positioning
+
 ### Differential GNSS
 
 
@@ -1469,8 +1592,6 @@ HTML(pio.to_html(fig, full_html=False, include_plotlyjs='cdn', include_mathjax=F
 ### RTK Network
 
 ### RTK Virtual network
-
-### Precise Point Positioning
 
 
 ## Positioning strategies
