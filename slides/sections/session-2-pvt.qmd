@@ -1564,14 +1564,111 @@ $$
 
 ## Positioning error
 
+- Solution provided by the positioning engine is not perfect, it is driven by
+  - **quality of the measurements** (or measurement error, i.e. $\varepsilon$)
+  - **geometry of the satellites**
+
+- The resulting error of the positioning engine can be quantified by the **covariance matrix** of the solution:
+  - the diagonal elements are the variances of the estimated state
+  - the off-diagonal elements are the covariances between the estimated states, and can be used to assess the correlation between the estimated states
+
 
 ### User Equivalent Range Error
 
-\acr{UERE}
+- The \acr{UERE} is a measure of the total error in the range measurements (i.e. *along-range* errors)
+- The $\sigma_{UERE,i}^2$ for the $i$-th satellite can be computed as the sum square of the individual error sources:
+
+$$
+\small
+\sigma_{UERE,i}^2 =
+\underbrace{\sigma_{I,i}^2}_{ionosphere} +
+\underbrace{\sigma_{T,i}^2}_{troposphere} +
+\underbrace{\sigma_{s,i}^2}_{satellite\ clock} +
+\underbrace{\sigma_{e,i}^2}_{satellite\ ephemeris} +
+\underbrace{\sigma_{r,i}^2}_{receiver\ errors}
+$$
+
+- Note that the different  $\sigma_{UERE}^2$ are in fact the $\sigma_{\varepsilon}^2$ used in the weighting matrix of the pseudoinverse solution.
+
+### UERE: error budget
+
+- The different error components of the \acr{UERE} are summarized in the following table:
+
+
+| Error source | Min typ. value (m) | Max typ. value (m) |
+| --- | ---: | ---: |
+| Ionosphere | 2 | 10 |
+| Troposphere | 0.2 | 1.0 |
+| Satellite clock | 0.5 | 1.0 |
+| Satellite ephemeris | 0.5 | 1.0 |
+| Receiver errors (multipath) | 0.5 | 2.0 |
+| Receiver errors (thermal noise) | 0.1 | 1.0 |
+| **UERE** | **2.2** | **10.4** |
+
 
 ### Dilution of Precision
 
-\acr{GDOP}
+- The \acr{GDOP} is a measure of the *geometry* of the satellites
+- It has a multiplicative effect on the positioning error
+
+![](assets/figures/gdop.svg)
+
+
+### Dilution of Precision: computation
+
+- The \acr{GDOP} can be computed from the design matrix ${\bf A}$ of the linearized system.
+  - It depends only on the geometry of the satellites at the observation epoch, and not on the measurements themselves
+- The \acr{DOP} geometry matrix ${\bf G}$ is computed as:
+
+$$
+{\bf G} =\left ( {\bf A}^T\cdot {\bf A} \right )^{-1} =
+\begin{bmatrix}
+\color{crimson}{\sigma_x}^2 & \sigma_{xy}^2 & \sigma_{xz}^2 & \sigma_{xt}^2 \\
+\sigma_{xy}^2 & \color{crimson}{\sigma_y}^2 & \sigma_{yz}^2 & \sigma_{yt}^2 \\
+\sigma_{xz}^2 & \sigma_{yz}^2 & \color{crimson}{\sigma_z}^2 & \sigma_{zt}^2 \\
+\sigma_{xt}^2 & \sigma_{yt}^2 & \sigma_{zt}^2 & \color{crimson}{\sigma_t}^2
+\end{bmatrix}
+$$
+
+### Dilution of Precision: flavors
+
+- The \acr{GDOP} is a generalization of the \acr{DOP} concept, which can be computed for different subsets of the estimated state:
+
+$$
+\begin{eqnarray}
+PDOP &=& \sqrt{\sigma_x^2 + \sigma_y^2 + \sigma_z^2 + \sigma_t^2} \\
+HDOP &=& \sqrt{\sigma_x^2 + \sigma_y^2} \\
+VDOP &=& \sqrt{\sigma_z^2} \\
+TDOP &=& \sqrt{\sigma_t^2}
+\end{eqnarray}
+$$
+
+### Dilution of Precision: values
+
+- The \acr{GDOP} is a unitless quantity, and its value can be interpreted as follows (source [Wikipedia](https://en.wikipedia.org/wiki/Dilution_of_precision))
+
+| DOP value | Rating | Description |
+|:---------:|:------:|:----------- |
+| < 1 | Ideal | Highest possible confidence level and precision |
+| 1–2 | Excellent | Positions are accurate enough to meet all but the most sensitive applications |
+| 2–5 | Good | Minimum appropriate for making accurate decisions. Positions could be used to make reliable in-route navigation suggestions to the user |
+| 5–10 | Moderate | A more open view of the sky is recommended. Positions could be used for calculations, but the fix quality could still be improved |
+| 10–20 | Fair | Positions should be discarded or used only to indicate a very rough estimate of the current location |
+| > 20 | Poor | Solutions should be discarded. |
+
+### Positioning error from GDOP and UERE
+
+- The approximate covariance matrix of the positioning solution ($\Sigma_{pos}$) can be computed as:
+
+$$
+\Sigma_{pos} = \sigma_{UERE}^2 \cdot {\bf G}
+$$
+
+- And a rough estimate of the positioning error can be obtained by multiplying the \acr{UERE} with the \acr{GDOP}:
+
+$$
+\sigma_{pos} \approx \sigma_{UERE} \cdot GDOP
+$$
 
 ## Precise positioning
 
