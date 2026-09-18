@@ -15,3 +15,102 @@ from: markdown+emoji
 {{< include slides/sections/references.qmd >}}
 
 {{< include slides/sections/acronyms.qmd >}}
+
+<script>
+(function () {
+  const attachBreadcrumbs = () => {
+    const revealRoot = document.querySelector('.reveal');
+    if (!revealRoot) return;
+
+    let footer = revealRoot.querySelector('.footer-default');
+    if (!footer) {
+      footer = revealRoot.querySelector('.slide-footer');
+    }
+    if (!footer) {
+      footer = document.createElement('div');
+      footer.className = 'footer-default slide-footer';
+      revealRoot.appendChild(footer);
+    }
+
+    let breadcrumb = footer.querySelector('.slide-breadcrumb');
+    if (!breadcrumb) {
+      breadcrumb = document.createElement('div');
+      breadcrumb.className = 'slide-breadcrumb';
+      footer.appendChild(breadcrumb);
+    }
+
+    const getHeadingText = (section) => {
+      if (!section) return '';
+
+      const selectors = [
+        ':scope > h1',
+        ':scope > h2',
+        ':scope > h3',
+        ':scope > h4',
+        ':scope > h5',
+        ':scope > h6',
+        ':scope > section > h1',
+        ':scope > section > h2',
+        ':scope > section > h3',
+        ':scope > section > h4',
+        ':scope > section > h5',
+        ':scope > section > h6'
+      ];
+
+      for (const selector of selectors) {
+        const heading = section.querySelector(selector);
+        if (heading) {
+          return heading.textContent.replace(/\s+/g, ' ').trim();
+        }
+      }
+
+      return '';
+    };
+
+    const updateBreadcrumb = () => {
+      const present = document.querySelector('.reveal .slides section.present');
+      if (!present) return;
+
+      const trail = [];
+      let current = present;
+      while (current && current.tagName === 'SECTION') {
+        const heading = getHeadingText(current);
+        if (heading && !trail.includes(heading)) {
+          trail.unshift(heading);
+        }
+        current = current.parentElement && current.parentElement.closest('section');
+      }
+
+      const showTrail = trail.length > 1 ? trail : trail.length ? [trail[0]] : [];
+
+      breadcrumb.innerHTML = showTrail.length
+        ? showTrail
+            .map((item) => `<span class="crumb">${item}</span>`)
+            .join('<span class="sep">›</span>')
+        : '';
+    };
+
+    const run = () => {
+      updateBreadcrumb();
+      if (window.Reveal && typeof Reveal.on === 'function') {
+        Reveal.on('slidechanged', updateBreadcrumb);
+      }
+    };
+
+    if (window.Reveal && typeof Reveal.isReady === 'function' && Reveal.isReady()) {
+      run();
+    } else if (window.Reveal && typeof Reveal.addEventListener === 'function') {
+      Reveal.addEventListener('ready', run);
+      Reveal.addEventListener('slidechanged', updateBreadcrumb);
+    } else {
+      setTimeout(run, 250);
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', attachBreadcrumbs);
+  } else {
+    attachBreadcrumbs();
+  }
+})();
+</script>

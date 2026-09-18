@@ -15,7 +15,7 @@ format:
     slide-number: true
     preview-links: auto
     css: assets/styles.css
-    footer: "UAB"
+    footer: ""
     center: false
     center-title-slide: false
     chalkboard: true

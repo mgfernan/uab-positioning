@@ -37,6 +37,43 @@ ol {
 }
 
 
+/* Slide breadcrumbs */
+.reveal .footer-default,
+.reveal .slide-footer {
+  display: block !important;
+  position: absolute;
+  left: 50%;
+  bottom: 0.75rem;
+  transform: translateX(-50%);
+  z-index: 12;
+  width: min(92%, 1200px);
+  pointer-events: none;
+}
+
+.reveal .slide-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  align-items: center;
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(18, 52, 64, 0.75);
+}
+
+.reveal .slide-breadcrumb .crumb {
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: inset 0 0 0 1px rgba(18, 52, 64, 0.14);
+}
+
+.reveal .slide-breadcrumb .sep {
+  color: rgba(18, 52, 64, 0.55);
+  font-weight: 700;
+}
+
 /* Session divider slides (top-level # Session X headings).
    Paint the full Reveal viewport via the background layer, not the content box. */
 .reveal:has(.slides section.session-marker.present) .backgrounds {
