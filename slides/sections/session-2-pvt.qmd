@@ -1672,7 +1672,232 @@ $$
 
 ## Precise positioning
 
-### The Kalman Filter
+This section covers the different techniques used to achieve **high accuracy positioning** (beyond \acr{SPP}).
+
+It includes the following main content:
+
+- **Kalman filter** as the foundation of high accuracy positioning engines
+- Various techniques to improve the positioning solution:
+  - **PPP**: using precise satellite orbit and clock information to achieve decimeter-level accuracy
+  - **RTK**: using carrier phase measurements to achieve centimeter-level accuracy
+
+### Kalman Filter: key idea
+
+::: {style="text-align: center;"}
+*How can we combine noisy measurements with what we already know about the motion?*
+:::
+
+<hr style="border: 1px solid #cccccc; margin: 20px 0;">
+
+The **Kalman filter** combines, at every time step, two sources of **imperfect** information.
+
+  - **Prediction**: Use the knowledge of the motion (e.g. motion model):
+    - *"Given what I knew before, where do I expect the vehicle to be now?"*
+
+  - **Measurement**: use the knowledge given by the sensor (e.g. GNSS measurements, Wi-Fi \acr{RTT} ranges, ...):
+    -  *"The sensor says the vehicle is here."*
+
+
+#### Kalman filter: main components
+
+- Kalman filter delivers two important quantities:
+
+  - $\hat{\mathbf{x}}_k$: the **state estimate**, the parameters we want to estimate (e.g. position, velocity, receiver clock,...)
+  - $\mathbf{P}_k$: the **covariance matrix**, the uncertainty of the state estimate
+
+- The main inputs to the filter are:
+
+  - $z_k$: **measurement** at each epoch, affected by noise
+  - $\mathbf{R}$: **measurement-noise covariance**, capturing the uncertainty of the measurements
+  - $\mathbf{F}$: **motion model** predicts the next state
+  - $\mathbf{Q}$: **process noise** captures the uncertainty of the motion model
+  - $\mathbf{H}$: **measurement model** relates the state to the measurements (i.e. the design matrix)
+
+#### Kalman filter: The processing loop
+
+A better estimation is done by combining the **prediction** and **measurement** in a loop:
+
+![source [Petteri Aimonen/Wikipedia](https://en.wikipedia.org/wiki/Kalman_filter)](assets/figures/Basic_concept_of_Kalman_filtering.svg)
+
+This loop runs continuously as new measurements arrive.
+
+
+#### Kalman filter: Prediction
+
+- *"What should the next state be, given the current state?"*
+- This is done by propagating the state through the motion model ($\mathbf{F}$)
+
+$$
+\small
+\hat{\mathbf{x}}_{k|k-1} = \mathbf{F} \cdot \hat{\mathbf{x}}_{k-1|k-1}
+$$
+
+- The uncertainty of the prediction is also propagated through the motion model. We also add at this stage the **process noise** ($\mathbf{Q}$) to account for the uncertainty of the motion model:
+
+$$
+\small
+\mathbf{P}_{k|k-1} = \mathbf{F} \cdot \mathbf{P}_{k-1|k-1} \cdot \mathbf{F}^T + \mathbf{Q} \quad \left\{ \begin{eqnarray}
+\mathbf{Q}\downarrow \quad &\Rightarrow & \color{green}{reliable\ model} \\
+\mathbf{Q}\uparrow \quad &\Rightarrow &\color{red}{unreliable\ model} \\
+\end{eqnarray} \right.
+$$
+
+
+#### Kalman filter: measurement model
+
+- *"What does the sensor measure, given the current state?"*
+  - Transfers the predicted state into the measurement space
+
+- Therefore, the predicted measurement ($\hat{z}_{k|k-1}$) is computed as:
+
+$$
+\hat{z}_{k|k-1} = \mathbf{H} \cdot \hat{\mathbf{x}}_{k|k-1}
+$$
+
+- This is required for the **measurement update** step, where we compare the predicted measurement with the actual measurement.
+
+#### Kalman filter: measurement noise
+
+- *"How should I update my prediction, given the new measurement?"*
+
+- Since sensors are also uncertain, a measurement-noise covariance ($\mathbf{R}$) is introduced.
+
+$$
+\left\{ \begin{eqnarray}
+\mathbf{R}\downarrow \quad &\Rightarrow & \color{green}{reliable\ measurement} \\
+\mathbf{R}\uparrow \quad &\Rightarrow &\color{red}{unreliable\ measurement} \\
+\end{eqnarray} \right.
+$$
+
+- Example: For GNSS measurements, $\mathbf{R}$ is usually diagonal, with entries $\sigma_{UERE,i}^2$.
+
+#### Kalman filter: the two forces
+
+- There are two types of uncertainty in the Kalman filter:
+
+  1. Model uncertainty ($\mathbf{Q}$)
+  2. Measurement uncertainty ($\mathbf{R}$)
+
+- Then the question is: *How much should I move my estimate?*
+
+  - If $\mathbf{R} \downarrow \quad \Rightarrow$ move strongly toward the measurement.
+  - If $\mathbf{Q} \downarrow \quad \Rightarrow$ stay closer to the prediction.
+
+- The "*how much*" is determined by the **innovation** (or residual, $\mathbf{y}_k$), weighted by the **Kalman gain** ($\mathbf{K}$)
+
+#### Kalman filter: innovation
+
+- The **innovation** (or residual) is the difference between:
+  - what the sensor measured, and
+  - what our model predicted
+
+$$
+\underbrace{\mathbf{y}_k}_{innovation} =
+\underbrace{\mathbf{z}_k}_{measurement} -
+\underbrace{\mathbf{H} \cdot \hat{\mathbf{x}}_{k|k-1}}_{prediction}
+$$
+
+
+If prediction and measurement agree:
+
+$$
+\mathbf{y}_k \approx 0
+$$
+
+and therefore there is little to correct.
+
+
+#### Kalman filter: Kalman gain
+
+The weighting of the innovation is the Kalman gain, defined as:
+
+$$
+\mathbf{K}_k = \mathbf{P}_{k|k-1} \cdot \mathbf{H}^T \ \left( \mathbf{H} \cdot \mathbf{P}_{k|k-1} \cdot \mathbf{H}^T + \mathbf{R} \right)^{-1}
+$$
+
+Intuition: *$\mathbf{K}$ determines how strongly the measurement should influence the prediction.*
+
+$$
+\begin{eqnarray}
+\mathbf{K}\uparrow \quad &\Rightarrow& \text{trust the measurement more} \\
+\mathbf{K}\downarrow \quad &\Rightarrow& \text{trust the prediction more}
+\end{eqnarray}
+$$
+
+
+#### Kalman filter: measurement update
+
+- Putting all the pieces together, the new state estimate is computed in the measurement update phase as:
+
+$$
+\underbrace{\hat{\mathbf{x}}_k}_{\text{new estimate}} =
+\underbrace{\hat{\mathbf{x}}_{k|k-1}}_{\text{prediction}}
++
+\underbrace{ \underbrace{\mathbf{K}_k}_{\text{how much}} \cdot
+\underbrace{\left(
+z_k -
+\mathbf{H}\cdot \hat{\mathbf{x}}_{k|k-1}
+\right)}_{\text{how wrong}}}_{\text{correction}}
+$$
+
+
+
+- And the new uncertainty is updated as:
+
+$$
+\mathbf{P}_k = (\mathbf{I} - \mathbf{K}_k \cdot \mathbf{H}) \cdot \mathbf{P}_{k|k-1}
+$$
+
+
+#### Kalman filter: Kalman gain intuition
+
+[Let's suppose we have a **1D position** problem, where the state and measurement are the position of a vehicle (e.g. $H = 1$). In this case, the Kalman gain is a scalar:]{style="font-size: 0.7em;"}
+
+$$
+\small
+k_k =
+\frac{p_{k|k-1}}{p_{k|k-1} + r}
+$$
+
+::: {.columns}
+
+::: {.column}
+[Measurement uncertain]{style="font-size: 0.6em; text-align: center;"}
+
+$$
+\tiny
+\begin{eqnarray}
+p_{k|k-1} = 1; \quad r = 9 \\
+k_{k} = \frac{1}{1+9} = 0.1
+\end{eqnarray}
+$$
+
+[Take only $10\%$ of the innovation (stay close to the prediction)]{style="font-size: 0.6em;"}
+:::
+
+::: {.column}
+[Accurate measurement]{style="font-size: 0.6em; text-align: center;"}
+
+$$
+\tiny
+\begin{eqnarray}
+p_{k|k-1} = 9; \quad r = 1 \\
+k_{k} = \frac{9}{9+1} = 0.9
+\end{eqnarray}
+$$
+
+[Take $90\%$ of the innovation (stay close to the measurement)]{style="font-size: 0.6em;"}
+:::
+
+:::
+
+
+
+#### Kalman filter: wrap-up
+
+We can now put the pieces together
+
+![](assets/figures/kalman.svg)
 
 ### Precise Point Positioning
 

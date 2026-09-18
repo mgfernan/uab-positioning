@@ -65,6 +65,8 @@ acronyms:
       longname: Medium Earth Orbit
     - shortname: MCS
       longname: Master Control Station
+    - shortname: NLOS
+      longname: Non-Line-of-Sight
     - shortname: OS
       longname: Open Service
     - shortname: RTK
