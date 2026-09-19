@@ -1895,9 +1895,234 @@ $$
 
 #### Kalman filter: wrap-up
 
-We can now put the pieces together
+Putting all the pieces together:
 
 ![](assets/figures/kalman.svg)
+
+#### Kalman example: one-dimensional position
+
+- Goal: track a vehicle moving one-dimensionally at constant velocity.
+- State (estimates): position and velocity $x_k = (p_k, v_k)$
+- Measurements: noisy positions: $z_k = p_k + \varepsilon_k$
+
+```{python}
+#| echo: false
+#| output: true
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(4)
+
+t = np.arange(20)
+true_position = 2*t
+measurement = true_position + np.random.normal(0, 3, len(t))
+
+plt.figure(figsize=(10,3))
+plt.plot(t, true_position, label="True position ($p_k$)")
+plt.scatter(t, measurement, label="Measurements ($z_k$)")
+plt.xlabel("Time")
+plt.ylabel("Position (m)")
+plt.legend()
+plt.grid(alpha=.2)
+plt.xticks(t)
+plt.ylim(-5, 45)
+plt.show()
+```
+
+- The measurements contain useful information — but they jump around.
+
+#### Kalman example: measurement model
+
+
+::: {.columns}
+
+::: {.column}
+[Measurement model ($\mathbf{H}$): *Which part of the state does this sensor observe?*]{style="font-size: 0.7em;"}
+$$
+\small
+\mathbf{H}
+=
+\begin{bmatrix}
+1 & 0
+\end{bmatrix}
+$$
+:::
+
+::: {.column}
+[Measurement noise ($\mathbf{R}$). Example: each epoch the sensor (e.g. GNSS receiver) gives us just one position measurement ($z_1$) with error $\sigma_{GNSS,1} = 3\ m$]{style="font-size: 0.7em;"}
+
+$$
+\small
+\mathbf{R} = \begin{bmatrix}
+3^2 \\
+\end{bmatrix}
+$$
+:::
+
+:::
+
+```{python}
+#| echo: false
+#| output: true
+sigma_gnss = 5
+
+plt.figure(figsize=(10, 3))
+plt.plot(t, true_position, label="True position ($p_k$)")
+plt.errorbar(
+  t,
+  measurement,
+  yerr=sigma_gnss,
+  fmt="o",
+  capsize=3,
+  label="Measurements ($z_k$) ± 5 m",
+)
+plt.xlabel("Time")
+plt.ylabel("Position (m)")
+plt.legend()
+plt.grid(alpha=.2)
+plt.xticks(t)
+plt.ylim(-5, 45)
+plt.show()
+```
+
+#### Kalman example: propagation model
+
+
+- Propagation (prediction) model ($\mathbf{F}$): *Prediction before using the new measurement.*
+
+$$
+\mathbf{F} =
+\begin{bmatrix}
+1 & \Delta t\\
+0 & 1
+\end{bmatrix}
+$$
+
+- Propagation noise ($\mathbf{Q}$), *How certain are you about the motion model?*
+  - The $\mathbf{Q}$ is usually diagonal, with one entry for each state variable
+  - For example, a $\sigma_p$ and $\sigma_v$ of $3\ m$ and $3\ m/s$ respectively would give:
+
+$$
+\mathbf{Q} =
+\begin{bmatrix}
+3^2 & 0\\
+0 & 3^2
+\end{bmatrix}
+$$
+
+#### Kalman example: running the filter
+
+```{python}
+from pygnss import filter
+from pygnss.filter.ekf import Ekf
+
+class ConstantVelocityModel(filter.Model):
+  def __init__(self, dt):
+    self.Phi = np.array([[1, dt], [0, 1]], dtype=float)
+
+  def propagate_state(self, state):
+    return self.Phi @ state
+
+  def to_observations(self, state, compute_jacobian=False, **kwargs):
+    H = np.array([[1, 0]], dtype=float) if compute_jacobian else None
+    return filter.ModelObs(np.array([state[0]]), H)
+
+
+class StateCollector(filter.StateHandler):
+  def __init__(self):
+    self.states = []
+    self.covariances = []
+
+  def process_state(self, state, covariance_matrix, **kwargs):
+    self.states.append(state.copy())
+    self.covariances.append(covariance_matrix.copy())
+
+
+def run_filter(sigma_prediction, sigma_gnss):
+  model = ConstantVelocityModel(dt=1)
+  collector = StateCollector()
+  kalman_filter = Ekf(
+    x0=np.array([measurement[0], 0.0]),
+    P0=np.zeros((2, 2)),
+    Q=np.diag([sigma_prediction**2, sigma_prediction**2]),
+    model=model,
+    state_handler=collector,
+  )
+
+  for position_measurement in measurement:
+    kalman_filter.process(
+      np.array([position_measurement]),
+      np.array([[sigma_gnss**2]]),
+    )
+
+  states = np.asarray(collector.states)
+  covariances = np.asarray(collector.covariances)
+  return states[:, 0], np.sqrt(covariances[:, 0, 0])
+
+
+filter_cases = [
+  ("Trust prediction", 1, 3, 0.1),
+  ("Trust measurement", 3, 1, 0.9),
+]
+
+fig, axes = plt.subplots(2, 1, figsize=(10, 5), sharex=True, sharey=True)
+for axis, (case_name, sigma_prediction, sigma_gnss, initial_gain) in zip(axes, filter_cases):
+  estimated_position, estimated_sigma = run_filter(sigma_prediction, sigma_gnss)
+  position_error = estimated_position - true_position
+  error_bias = np.mean(position_error)
+  error_std = np.std(position_error)
+  error_rms = np.sqrt(np.mean(position_error**2))
+  axis.plot(t, true_position, color="black", label="True position")
+  axis.errorbar(
+    t,
+    measurement,
+    yerr=sigma_gnss,
+    fmt="o",
+    capsize=2,
+    alpha=0.45,
+    label="GNSS measurement",
+  )
+  axis.plot(t, estimated_position, color="tab:blue", label="Kalman estimate")
+  axis.fill_between(
+    t,
+    estimated_position - 2 * estimated_sigma,
+    estimated_position + 2 * estimated_sigma,
+    color="tab:blue",
+    alpha=0.15,
+    label="Estimate ± 2σ",
+  )
+  axis.set_title(
+    f"{case_name}: σ_prediction = {sigma_prediction} m, "
+    f"σ_measurement = {sigma_gnss} m (initial K ≈ {initial_gain})"
+  )
+  axis.set_ylabel("Position (m)")
+  axis.text(
+    0.82,
+    0.05,
+    f"Bias = {error_bias:.2f} m\n"
+    f"Std. dev. = {error_std:.2f} m\n"
+    f"RMS = {error_rms:.2f} m",
+    transform=axis.transAxes,
+    va="bottom",
+    bbox={"facecolor": "white", "alpha": 0.8, "edgecolor": "none"},
+  )
+  axis.grid(alpha=.2)
+
+axes[-1].set_xlabel("Time")
+axes[-1].set_xticks(t)
+axes[0].legend(ncol=4, fontsize="small")
+axes[0].set_ylim(-10, 50)
+fig.tight_layout()
+plt.show()
+```
+
+
+::: {.fragment}
+::: {.callout-warning title="Kalman filter tuning"}
+[Choosing the right values for $\mathbf{Q}$ and $\mathbf{R}$ is a key step to optimize a Kalman filter!]{style="font-size: 0.7em;"}
+:::
+:::
+
 
 ### Precise Point Positioning
 
