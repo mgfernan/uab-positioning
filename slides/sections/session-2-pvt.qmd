@@ -993,7 +993,7 @@ $$
 
 $$
 \begin{eqnarray}
-\color{blue}{\phi_i} & =& \underbrace{\sqrt{(\color{red}{x_u} - \color{green}{x_i})^2 + (\color{red}{y_u} - \color{green}{y_i})^2 + (\color{red}{z_u} - \color{green}{z_i})^2}}_{geometric\ range} + \\
+\color{blue}{\L_i} & =& \underbrace{\sqrt{(\color{red}{x_u} - \color{green}{x_i})^2 + (\color{red}{y_u} - \color{green}{y_i})^2 + (\color{red}{z_u} - \color{green}{z_i})^2}}_{geometric\ range} + \\
   & & \underbrace{c \cdot \color{red}{\delta t_u}}_{rx\ clock\ error} - \underbrace{c \cdot \color{green}{\delta t_i}}_{sat\ clock\ error} - \\
   & & \underbrace{\frac{40.3}{f_{k,i}^2}\cdot \color{cyan}{TEC_i}}_{ionosphere} + \underbrace{\color{cyan}{T_i}}_{troposphere} + \\
   & & \underbrace{k_{u,s} -k_{i,s}}_{phase\ instrumental\ delays} + \underbrace{m_{k,s}}_{multipath} + \underbrace{\lambda \cdot \color{green}{w_{k,i}}}_{wind-up} + \underbrace{\color{red}{N_{k,i}}}_{ambiguity} + \underbrace{\varepsilon_i}_{noise}
