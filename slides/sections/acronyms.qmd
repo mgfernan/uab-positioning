@@ -37,6 +37,8 @@ acronyms:
       longname: Geometric Dilution of Precision
     - shortname: GEO
       longname: Geostationary Earth Orbit
+    - shortname: GIM
+      longname: Global Ionosphere Map
     - shortname: GLONASS
       longname: Глобальная навигационная спутниковая система
     - shortname: GNSS
@@ -67,8 +69,16 @@ acronyms:
       longname: Master Control Station
     - shortname: NLOS
       longname: Non-Line-of-Sight
+    - shortname: NTRIP
+      longname: Networked Transport of RTCM via Internet Protocol
     - shortname: OS
       longname: Open Service
+    - shortname: PPP
+      longname: Precise Point Positioning
+    - shortname: PRC
+      longname: Pseudo-Range Correction
+    - shortname: RTCM
+      longname: Radio Technical Commission for Maritime Services
     - shortname: RTK
       longname: Real Time Kinematics
     - shortname: RTT

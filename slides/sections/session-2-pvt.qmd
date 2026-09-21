@@ -993,7 +993,7 @@ $$
 
 $$
 \begin{eqnarray}
-\color{blue}{\L_i} & =& \underbrace{\sqrt{(\color{red}{x_u} - \color{green}{x_i})^2 + (\color{red}{y_u} - \color{green}{y_i})^2 + (\color{red}{z_u} - \color{green}{z_i})^2}}_{geometric\ range} + \\
+\color{blue}{L_i} & =& \underbrace{\sqrt{(\color{red}{x_u} - \color{green}{x_i})^2 + (\color{red}{y_u} - \color{green}{y_i})^2 + (\color{red}{z_u} - \color{green}{z_i})^2}}_{geometric\ range} + \\
   & & \underbrace{c \cdot \color{red}{\delta t_u}}_{rx\ clock\ error} - \underbrace{c \cdot \color{green}{\delta t_i}}_{sat\ clock\ error} - \\
   & & \underbrace{\frac{40.3}{f_{k,i}^2}\cdot \color{cyan}{TEC_i}}_{ionosphere} + \underbrace{\color{cyan}{T_i}}_{troposphere} + \\
   & & \underbrace{k_{u,s} -k_{i,s}}_{phase\ instrumental\ delays} + \underbrace{m_{k,s}}_{multipath} + \underbrace{\lambda \cdot \color{green}{w_{k,i}}}_{wind-up} + \underbrace{\color{red}{N_{k,i}}}_{ambiguity} + \underbrace{\varepsilon_i}_{noise}
@@ -1444,12 +1444,13 @@ This section covers the inner workings of a **positioning engine**:
 *How to translate from measurements to positions?*
 :::
 
-- In simplistic terms, if $\vec{r} = (r_1, ..., r_N)$ and $\vec{p_u} = (x_u, y_u, z_u)$ are the array of measurements and user position vector respectively:
+- In simplistic terms, let $\mathbf{z} = (z_1, ..., z_N)^\mathsf{T}$ be the measurement vector and let $\mathbf{x}$ be the estimation state. The state contains every unknown being estimated, not only the receiver position:
 
 $$
-\vec{r} = f(\vec{p_u}) \Longrightarrow \vec{p_u} = f^{-1}(\vec{r})
+\mathbf{z} = h(\mathbf{x}) \Longrightarrow \hat{\mathbf{x}} = \underset{\mathbf{x}}{\operatorname{arg\,min}}\;\|\mathbf{z}-h(\mathbf{x})\|
 $$
 
+- The receiver position will be in general only one part of the state:
 
 ### Navigation solution: linearization
 
@@ -1460,13 +1461,13 @@ $$
 $$
 
 - Solution: use a **first-order Taylor approximation** around an
-  *a-priori* state $\vec{p}_0$ (e.g. an approximate position)
+  *a-priori* state $\mathbf{x}_0$ (e.g. an approximate state)
 
 $$
 \small
 \begin{eqnarray}
-f(\vec p_u) & \approx & f(\vec p_0) + \nabla f(\vec p_0)^\mathsf{T} (\vec p_u-\vec p_0) \\
-          & = & f(\vec p_0) + \nabla f(\vec p_0)^\mathsf{T} \cdot \Delta \vec p_u
+h(\mathbf{x}_u) & \approx & h(\mathbf{x}_0) + \mathbf{H}(\mathbf{x}_0) (\mathbf{x}_u-\mathbf{x}_0) \\
+          & = & h(\mathbf{x}_0) + \mathbf{H}(\mathbf{x}_0) \cdot \Delta \mathbf{x}_u
 \end{eqnarray}
 $$
 
@@ -1524,25 +1525,24 @@ $$
 
 ### Navigation solution: linear system
 
-- Rearranging terms we can transform this into $\vec r = {\bf A}\cdot \vec p \ \Rightarrow\ \vec p = {\bf A}^{-1} \cdot \vec r$
-
+- Rearranging:  $\mathbf{y} = \mathbf{H}_k\cdot \Delta\mathbf{x}$, where $\mathbf{H}_k$ is the linearized measurement model at epoch $k$.
 
 $$
 \tiny
-\underbrace{\begin{bmatrix} PR_1 - \rho_{1,0} \\ PR_2 - \rho_{2,0} \\ PR_3 - \rho_{3,0} \\ PR_4 - \rho_{4,0} \end{bmatrix}}_{prefit\ residuals} = \underbrace{\begin{bmatrix} -\frac{(x_1 - x_0)}{\rho_{1,0}} & -\frac{(y_1 - y_0)}{\rho_{1,0}} & -\frac{(z_1 - z_0)}{\rho_{1,0}} & 1 \\ -\frac{(x_2 - x_0)}{\rho_{2,0}} & -\frac{(y_2 - y_0)}{\rho_{2,0}} & -\frac{(z_2 - z_0)}{\rho_{2,0}} & 1 \\ -\frac{(x_3 - x_0)}{\rho_{3,0}} & -\frac{(y_3 - y_0)}{\rho_{3,0}} & -\frac{(z_3 - z_0)}{\rho_{3,0}} & 1 \\ -\frac{(x_4 - x_0)}{\rho_{4,0}} & -\frac{(y_4 - y_0)}{\rho_{4,0}} & -\frac{(z_4 - z_0)}{\rho_{4,0}} & 1 \end{bmatrix}}_{design\ matrix} \cdot \underbrace{\begin{bmatrix} \color{red}{\Delta x} \\ \color{red}{\Delta y} \\ \color{red}{\Delta z} \\ \color{red}{c \cdot \delta t_u} \end{bmatrix}}_{state}
+\underbrace{\begin{bmatrix} PR_1 - \rho_{1,0} \\ PR_2 - \rho_{2,0} \\ PR_3 - \rho_{3,0} \\ PR_4 - \rho_{4,0} \end{bmatrix}}_{\mathbf{y}\;\mathrm{(prefit\ residuals)}} = \underbrace{\begin{bmatrix} -\frac{(x_1 - x_0)}{\rho_{1,0}} & -\frac{(y_1 - y_0)}{\rho_{1,0}} & -\frac{(z_1 - z_0)}{\rho_{1,0}} & 1 \\ -\frac{(x_2 - x_0)}{\rho_{2,0}} & -\frac{(y_2 - y_0)}{\rho_{2,0}} & -\frac{(z_2 - z_0)}{\rho_{2,0}} & 1 \\ -\frac{(x_3 - x_0)}{\rho_{3,0}} & -\frac{(y_3 - y_0)}{\rho_{3,0}} & -\frac{(z_3 - z_0)}{\rho_{3,0}} & 1 \\ -\frac{(x_4 - x_0)}{\rho_{4,0}} & -\frac{(y_4 - y_0)}{\rho_{4,0}} & -\frac{(z_4 - z_0)}{\rho_{4,0}} & 1 \end{bmatrix}}_{\mathbf{H}_k\;\mathrm{(measurement\ Jacobian)}} \cdot \underbrace{\begin{bmatrix} \color{red}{\Delta x} \\ \color{red}{\Delta y} \\ \color{red}{\Delta z} \\ \color{red}{\Delta b_u} \end{bmatrix}}_{\Delta\mathbf{x}}
 $$
 
-- ⚠️ Note that we do not estimate position anymore $(x,y,z)$!
-  - we estimate  $\Delta p = (\Delta x, \Delta y, \Delta z)$: the displacement relative to the apriori! (i.e. $p_u = p_0 + \Delta p$)
+- ⚠️ The solver estimates a correction relative to the a-priori state:
+  - $\Delta\mathbf{x} = [\Delta x, \Delta y, \Delta z, c \cdot \delta t_u]^\mathsf{T} \Rightarrow \mathbf{x}_u = \mathbf{x}_0 + \Delta\mathbf{x}$
 - This is the simplest solution of the navigation problem: \acr{SPP}
 
 ### Navigation solution: overdetermined systems
 
-- What to do when number of satellites $>4 \longrightarrow {\bf A}$ is not square, therefore not invertible!
+- What to do when number of satellites $>4 \longrightarrow \mathbf{H}_k$ is not square, therefore not invertible!
 - Use of the [*Moore-Penrose inverse*](https://en.wikipedia.org/wiki/Moore%E2%80%93Penrose_inverse) (aka *pseudoinverse*)
 
 $$
-\vec p = \left ( {\bf A}^T\cdot {\bf A} \right)^{-1} {\bf A}^T \cdot \vec r
+\Delta\mathbf{x} = \left ( \mathbf{H}_k^T\cdot \mathbf{H}_k \right)^{-1} \mathbf{H}_k^T \cdot \mathbf{y}
 $$
 
 ### Navigation solution: weighting observations
@@ -1553,13 +1553,13 @@ $$
 - With the $N$ noise variances we can build the *weighting matrix*:
 
 $$
-\mathbf{W} = diag\left ( \sigma_{\varepsilon,1}^2 \dots \sigma_{\varepsilon,i}^2 \dots \sigma_{\varepsilon,N}^2 \right )
+\mathbf{W} = diag\left ( \sigma_{\varepsilon,1}^{-2} \dots \sigma_{\varepsilon,i}^{-2} \dots \sigma_{\varepsilon,N}^{-2} \right )
 $$
 
 - And the full pseudoinverse with weighting matrix can be computed as:
 
 $$
-\vec p = \left ( {\bf A}^T\cdot {\bf W} \cdot {\bf A} \right)^{-1} {\bf A}^T \cdot {\bf W} \cdot \vec r
+\Delta\mathbf{x} = \left ( \mathbf{H}_k^T\cdot \mathbf{W} \cdot \mathbf{H}_k \right)^{-1} \mathbf{H}_k^T \cdot \mathbf{W} \cdot \mathbf{y}
 $$
 
 
@@ -1617,12 +1617,12 @@ $$
 
 ### Dilution of Precision: computation
 
-- The \acr{GDOP} can be computed from the design matrix ${\bf A}$ of the linearized system.
+- The \acr{GDOP} can be computed from the measurement Jacobian $\mathbf{H}_k$ of the linearized system.
   - It depends only on the geometry of the satellites at the observation epoch, and not on the measurements themselves
 - The \acr{DOP} geometry matrix ${\bf G}$ is computed as:
 
 $$
-{\bf G} =\left ( {\bf A}^T\cdot {\bf A} \right )^{-1} =
+\mathbf{G} =\left ( \mathbf{H}_k^T\cdot \mathbf{H}_k \right )^{-1} =
 \begin{bmatrix}
 \color{crimson}{\sigma_x}^2 & \sigma_{xy}^2 & \sigma_{xz}^2 & \sigma_{xt}^2 \\
 \sigma_{xy}^2 & \color{crimson}{\sigma_y}^2 & \sigma_{yz}^2 & \sigma_{yt}^2 \\
@@ -1749,10 +1749,16 @@ $$
 - *"What does the sensor measure, given the current state?"*
   - Transfers the predicted state into the measurement space
 
-- Therefore, the predicted measurement ($\hat{z}_{k|k-1}$) is computed as:
+- Therefore, for a nonlinear measurement model, the predicted measurement ($\hat{\mathbf{z}}_{k|k-1}$) is computed as:
 
 $$
-\hat{z}_{k|k-1} = \mathbf{H} \cdot \hat{\mathbf{x}}_{k|k-1}
+\hat{\mathbf{z}}_{k|k-1} = h\left(\hat{\mathbf{x}}_{k|k-1}\right)
+$$
+
+- The matrix $\mathbf{H}_k$ is the Jacobian of $h$ evaluated at the predicted state:
+
+$$
+\mathbf{H}_k = \left.\frac{\partial h}{\partial \mathbf{x}}\right|_{\hat{\mathbf{x}}_{k|k-1}}
 $$
 
 - This is required for the **measurement update** step, where we compare the predicted measurement with the actual measurement.
@@ -1795,7 +1801,7 @@ $$
 $$
 \underbrace{\mathbf{y}_k}_{innovation} =
 \underbrace{\mathbf{z}_k}_{measurement} -
-\underbrace{\mathbf{H} \cdot \hat{\mathbf{x}}_{k|k-1}}_{prediction}
+\underbrace{h\left(\hat{\mathbf{x}}_{k|k-1}\right)}_{prediction}
 $$
 
 
@@ -1813,7 +1819,7 @@ and therefore there is little to correct.
 The weighting of the innovation is the Kalman gain, defined as:
 
 $$
-\mathbf{K}_k = \mathbf{P}_{k|k-1} \cdot \mathbf{H}^T \ \left( \mathbf{H} \cdot \mathbf{P}_{k|k-1} \cdot \mathbf{H}^T + \mathbf{R} \right)^{-1}
+\mathbf{K}_k = \mathbf{P}_{k|k-1} \cdot \mathbf{H}_k^T \ \left( \mathbf{H}_k \cdot \mathbf{P}_{k|k-1} \cdot \mathbf{H}_k^T + \mathbf{R} \right)^{-1}
 $$
 
 Intuition: *$\mathbf{K}$ determines how strongly the measurement should influence the prediction.*
@@ -1836,8 +1842,8 @@ $$
 +
 \underbrace{ \underbrace{\mathbf{K}_k}_{\text{how much}} \cdot
 \underbrace{\left(
-z_k -
-\mathbf{H}\cdot \hat{\mathbf{x}}_{k|k-1}
+\mathbf{z}_k -
+h\left(\hat{\mathbf{x}}_{k|k-1}\right)
 \right)}_{\text{how wrong}}}_{\text{correction}}
 $$
 
@@ -1846,7 +1852,7 @@ $$
 - And the new uncertainty is updated as:
 
 $$
-\mathbf{P}_k = (\mathbf{I} - \mathbf{K}_k \cdot \mathbf{H}) \cdot \mathbf{P}_{k|k-1}
+\mathbf{P}_k = (\mathbf{I} - \mathbf{K}_k \cdot \mathbf{H}_k) \cdot \mathbf{P}_{k|k-1}
 $$
 
 
@@ -2125,21 +2131,268 @@ plt.show()
 :::
 
 
-### Precise Point Positioning
+### PPP: key idea
 
-### Differential GNSS
+::: {style="text-align: center;"}
+[*Can we improve the meter-level accuracy of \acr{SPP}?*]{style="font-size: 0.8em;"}
+:::
+
+- Main error sources of \acr{SPP}:
+  - **satellite orbit and clock errors** (broadcast information)
+  - **ionosphere and troposphere** (atmospheric delays)
+
+- Bonus points:
+  - Can we use **carrier-phase measurements** to benefit from their higher precision? Caveat: they are ambiguous!
+
+::: {style="text-align: center;"}
+[The \acr{PPP} technique addresses these issues to achieve decimenter-level accuracy]{style="font-size: 0.8em;"}
+:::
+
+### PPP: main points
+
+- The \acr{PPP} technique:
+  - uses **precise satellite orbit and clock information** (instead of broadcast information).
+  - uses **carrier-phase measurements** (instead of only code measurements)
+  - uses a [**Kalman filter**](#kalman-filter-key-idea) with the knowledge of the receiver motion to smooth/improve the solution
+  - adds additional estimated states to the Kalman filter (e.g. troposphere, ionosphere, etc.)
+  - it may also use **ambiguity resolution** to unlock centimeter-level accuracy (implementation dependent)
+- Main drawback:
+  - requires a **long convergence time** to achieve decimeter-level accuracy.
+
+::: {style="text-align: center;"}
+[\acr{PPP} uses a **richer observation model** to increase accuracy]{style="font-size: 0.8em;"}
+:::
 
 
-### Augmentation systems
+### PPP: observation model
+
+- Recall the [pseudorange](#measurement-model-pseudorange) and [carrier-phase](#measurement-model-carrier-phase) measurement models as well as the [range error budget](#uere-error-budget).
+
+| Error source | Mitigation within \acr{PPP} |
+|:---------------|:--------------------------|
+| Orbit errors   | Precise orbits |
+| Satellite clock errors | Precise clocks |
+| Ionospheric error  | [Ionosphere-free combination](#iono-free-combination-definition) |
+| Tropospheric error | additional unknown |
+| Receiver noise and local effects | [**Kalman filter**](#kalman-filter-key-idea) |
+| Code noise | Usage of carrier-phase + ambiguity resolution |
 
 
-### Real Time Kinematics
+<!-- TODO make two plots, one for orbit error and another one for clock error -->
+
+<!-- TODO make a plot with the position difference between SPP, PPP and RTK, use RTKLIB for this. Convergence time should be apparente -->
+
+### PPP: larger state
+
+- The estimation state for \acr{PPP} has more unknowns than \acr{SPP}. For example, an ionosphere-free PPP state can be written as:
+
+$$
+\small
+\mathbf{x} =
+\left [
+  \underbrace{
+\Delta x_{u,k} \quad
+\Delta y_{u,k} \quad
+\Delta z_{u,k} \quad
+c \cdot \delta t_{u,k}
+  }_{SPP} \quad
+T_{z,\mathrm{wet}} \quad
+N_1 \quad
+N_2 \quad
+\dots \quad
+N_n \quad
+\right]
+$$
+
+
+### PPP: navigation equations
+
+- Below is a summary of the *partials* (i.e. coefficients) that are required to solve for a PPP state using code and phase [ionosphere-free measurements](#iono-free-combination-definition):
+$$
+\tiny
+\begin{array}{c|ccccc|c}
+ & x & y & z & c\,\delta t_u & T_{z,\mathrm{wet}} & N_i \\[1mm]
+\hline
+PR_{i, PC}
+&
+g_{x,i} & g_{y,i} & g_{z,i} & 1 & m_{w,i} & 0 \\[1mm]
+L_{i, PC}
+&
+g_{x,i} & g_{y,i} & g_{z,i} & 1 & m_{w,i} & 1
+\end{array}
+$$
+
+
+[where the geometric *partials* $g_{x,i}, g_{y,i}, g_{z,i}$ are the same as in \acr{SPP}:]{style="font-size: 0.7em;"}
+
+$$
+\tiny
+g_{x,i} = -\frac{x_i-x_u}{\rho_i}, \quad
+g_{y,i} = -\frac{y_i-y_u}{\rho_i}, \quad
+g_{z,i} = -\frac{z_i-z_u}{\rho_i}
+$$
+
+- Note that the carrier phase introduces an additional unknown (the **integer ambiguity** $N_i$) for each satellite $i$.
+
+### PPP: navigation solution
+
+- Then the full linearized system for 4 satellites can be written as:
+
+$$
+\tiny
+\underbrace{
+\begin{bmatrix}
+PR_{1,PC}-\rho_{1,0}\\
+L_{1,PC}-\rho_{1,0}\\
+PR_{2,PC}-\rho_{2,0}\\
+L_{2,PC}-\rho_{2,0}\\
+PR_{3,PC}-\rho_{3,0}\\
+L_{3,PC}-\rho_{3,0}\\
+PR_{4,PC}-\rho_{4,0}\\
+L_{4,PC}-\rho_{4,0}
+\end{bmatrix}
+}_{\mathbf{y}\;\mathrm{(prefit\ residuals)}}
+=
+\underbrace{
+\begin{bmatrix}
+g_{x,1} & g_{y,1} & g_{z,1} & 1 & m_{w,1} & 0 & 0 & 0 & 0\\
+g_{x,1} & g_{y,1} & g_{z,1} & 1 & m_{w,1} & 1 & 0 & 0 & 0\\
+g_{x,2} & g_{y,2} & g_{z,2} & 1 & m_{w,2} & 0 & 0 & 0 & 0\\
+g_{x,2} & g_{y,2} & g_{z,2} & 1 & m_{w,2} & 0 & 1 & 0 & 0\\
+g_{x,3} & g_{y,3} & g_{z,3} & 1 & m_{w,3} & 0 & 0 & 0 & 0\\
+g_{x,3} & g_{y,3} & g_{z,3} & 1 & m_{w,3} & 0 & 0 & 1 & 0\\
+g_{x,4} & g_{y,4} & g_{z,4} & 1 & m_{w,4} & 0 & 0 & 0 & 0\\
+g_{x,4} & g_{y,4} & g_{z,4} & 1 & m_{w,4} & 0 & 0 & 0 & 1
+\end{bmatrix}
+}_{\mathbf{H}_k\;\mathrm{(design\ matrix)}}
+\cdot
+\underbrace{
+\begin{bmatrix}
+\Delta x\\
+\Delta y\\
+\Delta z\\
+c\,\delta t_u\\
+\Delta T_{z,\mathrm{wet}}\\
+N_1\\
+N_2\\
+N_3\\
+N_4
+\end{bmatrix}
+}_{\Delta\mathbf{x}_{PPP}}
+$$
+
+### PPP: long convergence time
+
+- The **long convergence time** of \acr{PPP} is due several factors:
+  - additional unknowns for the integer ambiguities $N_i$
+  - correlation between the wet troposphere, clock and the integer ambiguities
+- Longer geoemtry diversity (i.e. more satellites) helps to reduce the convergence time.
+  - This decorrelates the different unknowns of the filter
+
+
+### PPP: precise products
+
+- The precise products are provided by several organizations, such as the [International GNSS Service (IGS)](https://www.igs.org/). These products cover:
+  - **precise satellite orbits** (in ITRF)
+  - **precise satellite clocks** (in GPS time)
+- The products are available in different formats, such as:
+  - **SP3**: for precise orbits
+  - **CLK**: for precise clocks
+- Accurate ionospheric models are also available, such as the [\acr{GIM}](#ionosphere-error-daily-variation)
+  - These are needed to shorten the convergence time of PPP (specially for ambiguity resolution) in algorithms such as Fast PPP (see [@rovira2016fast])
+  - Delivered also by \acr{SBAS}
+
+### Differential techniques
+
+::: {style="text-align: center;"}
+*How to exploit the fact that the larger error sources in GNSS are highly correlated?*
+:::
+
+- This applies specially to:
+  - Atmospheric errors (ionosphere and troposphere)
+  - Satellite orbit and clock errors
+- What if we could use a **reference station** (aka **base station**) at a known location and change the measurement model so these errors are eliminated?
+
+
+### Differential techniques: base station
+
+<!-- TODO add a figure showing the base station and the rover -->
+
+#### Code base Differential GNSS
+
+- From the [pseudorange measurement model](#measurement-model-pseudorange), the **single-difference** between the rover ($r$) and the base station ($b$) for the $i$-th satellite is:
+
+$$
+\begin{eqnarray}
+\Delta PR_{r,b}^i &=& PR_r^i - PR_b^i \\
+      &=& \Delta \rho_{r,b}^i + c \cdot \Delta \delta t_{r,b} + \Delta I_{r,b}^i + \Delta T_{r,b}^i + \Delta K_{r,b} + \Delta \varepsilon_{r,b}^i
+\end{eqnarray}
+$$
+
+- Note that, since we are subtracting the measurements from the same satellite:
+  - The satellite clock error ($c\cdot \delta t^i$) is eliminated
+  - The satellite biases ($K^i$) are also eliminated
+  - If the base station is close enough to the rover, the atmospheric errors ($I_{r,b}^i$ and $T_{r,b}^i$) are also eliminated (or at least reduced)
+  - Thermal noise is uncorrelated: single-differencing increases the noise by $\sqrt{2}$
+
+#### Code base Differential GNSS: corrections
+
+- Two *flavors* of differential GNSS exist, depending on how the corrections are delivered to the rover:
+  - As **raw measurements**, full range measurements from the base station are sent to the rover. Deprecated in practice (e.g. \acr{RTCM} 2.x)
+  - As **corrections**, the base station computes the \acr{PRC} as the difference between the measured pseudorange and the expected pseudorange (computed from the known base station position). The rover then applies these corrections to its own measurements. Messages are sent in RTCM 3.x format.
+
+- Mathematically, both approaches are equivalent
+  - Note that we do not estimate the receiver clock bias at the base station, but only the **difference** between the rover and base station clock biases ($\Delta \delta t_{r,b}$)
+
+#### Code base Differential GNSS: solution
+
+- The result of the estimation process is not the rover position, but the **baseline** ($\Delta\mathbf{b_{rb}}= (\Delta b_x, \Delta b_y, \Delta b_z)$): the vector from the base station to the rover.
+- The rover position is then computed as:
+$$
+\mathbf{p}_r = \mathbf{p}_b +  \Delta \mathbf{b_{rb}}
+$$
+
+$$
+\tiny
+\begin{bmatrix}
+\Delta P_{rb}^{1} - \Delta \rho_{rb}^1\\
+\Delta P_{rb}^{2} - \Delta \rho_{rb}^2\\
+\Delta P_{rb}^{3} - \Delta \rho_{rb}^3\\
+\Delta P_{rb}^{4} - \Delta \rho_{rb}^4
+\end{bmatrix}
+=
+\begin{bmatrix}
+g_{x,1} & g_{y,1} & g_{z,1} & 1\\
+g_{x,2} & g_{y,2} & g_{z,2} & 1\\
+g_{x,3} & g_{y,3} & g_{z,3} & 1\\
+g_{x,4} & g_{y,4} & g_{z,4} & 1
+\end{bmatrix}
+\begin{bmatrix}
+\Delta b_x\\
+\Delta b_y\\
+\Delta b_z\\
+c \Delta \delta t_{rb}
+\end{bmatrix}
+$$
+
+### Differential techniques: RTCM format
+
+<!-- TODO description of the RTCM format -->
+
+[RTCM](https://www.rtcm.org/rtcm-standards) is a standard format for differential GNSS messages. It is used to send corrections from a base station to a rover.
+
+Usually sent via internet using the \acr{NTRIP} protocol
+
+
+<!-- TODO example of source table -->
+
+#### Real Time Kinematics
 
 \acr{RTK}
 
-### RTK Network
+#### RTK Network
 
-### RTK Virtual network
+#### RTK Virtual network
 
 
 ## Positioning strategies
