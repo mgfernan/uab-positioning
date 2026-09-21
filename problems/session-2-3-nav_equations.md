@@ -11,19 +11,19 @@ only one coordinate ($x_u$).
 We got two satellites in view with coordinates:
 
 $$
-\begin{align}
-(x_1,y_1) &=& (-3,6)\ \textrm{m} \\
-(x_2,y_2) &=& (2,2)\ \textrm{m}
-\end{align}
+\begin{matrix}
+(x_1,y_1) &= (-3,6)\ \textrm{m} \\
+(x_2,y_2) &= (2,2)\ \textrm{m}
+\end{matrix}
 $$
 
 The measured pseudoranges from each satellites are
 
 $$
-\begin{align}
-PR_1 &=& 7\ \textrm{m} \\
-PR_2 &=& 3\ \textrm{m}
-\end{align}
+\begin{matrix}
+PR_1 &= 7\ \textrm{m} \\
+PR_2 &= 3\ \textrm{m}
+\end{matrix}
 $$
 
 Take into account a clock offset in the receiver equal to $c \cdot \delta t_u$
@@ -46,19 +46,19 @@ Answer the following questions:
 2. The navigation equations are
 
 $$
-\begin{align}
+\begin{matrix}
 7 &=& \sqrt{(-3 - x_u)^2 + 6^2} + c \cdot \delta t_u \\
 3 &=& \sqrt{(2 - x_u)^2 + 2^2} + c \cdot \delta t_u
-\end{align}
+\end{matrix}
 $$
 
 3. Linearizing the equations around $x_{u,0} = 1\ \textrm{m}$ we get
 
 $$
-\begin{align}
-7 &\approx& \underbrace{\sqrt{(-3 - 1)^2 + 6^2}}_{\rho_{0,1}} - \frac{-3 - 1}{\sqrt{(-3 - 1)^2 + 6^2}} \cdot \Delta x + c \cdot \delta t_u \\
-3 &\approx& \underbrace{\sqrt{(2 - 1)^2 + 2^2}}_{\rho_{0,2}} - \frac{2 - 1}{\sqrt{(2 - 1)^2 + 2^2}} \cdot \Delta x + c \cdot \delta t_u
-\end{align}
+\begin{matrix}
+7 &\approx \underbrace{\sqrt{(-3 - 1)^2 + 6^2}}_{\rho_{0,1}} - \frac{-3 - 1}{\sqrt{(-3 - 1)^2 + 6^2}} \cdot \Delta x + c \cdot \delta t_u \\
+3 &\approx \underbrace{\sqrt{(2 - 1)^2 + 2^2}}_{\rho_{0,2}} - \frac{2 - 1}{\sqrt{(2 - 1)^2 + 2^2}} \cdot \Delta x + c \cdot \delta t_u
+\end{matrix}
 $$
 
 $$
@@ -77,7 +77,6 @@ $$
 c \cdot \delta t_u
 \end{bmatrix}
 $$
-
 
 $$
 \begin{bmatrix}
@@ -112,8 +111,9 @@ $$
 
 Therefore, the position is
 
-- $x_u = x_{u,0} + \Delta x = 1 - 0.97317212 \approx 0.02682788\ \textrm{m}$
-
+$$
+x_u = x_{u,0} + \Delta x = 1 - 0.97317212 \approx 0.02682788\ \textrm{m}
+$$
 
 4. Linearizing again the navigation equations around the solution found in `3` we get:
 
@@ -132,9 +132,7 @@ $$
 \Delta x \\
 c \cdot \delta t_u
 \end{bmatrix}
-
 \Rightarrow
-
 \begin{bmatrix}
 \Delta x \\
 c \cdot \delta t_u
@@ -144,7 +142,6 @@ c \cdot \delta t_u
 -0.0774 \\
 0.2449
 \end{bmatrix}
-
 \Rightarrow
 x_u = 0.0268 + 0.0774 \approx 0.1043\ \textrm{m}
 $$
@@ -165,9 +162,7 @@ $$
 \Delta x \\
 c \cdot \delta t_u
 \end{bmatrix}
-
 \Rightarrow
-
 \begin{bmatrix}
 \Delta x \\
 c \cdot \delta t_u
@@ -177,10 +172,8 @@ c \cdot \delta t_u
 0.0002 \\
 0.2444
 \end{bmatrix}
-
 \Rightarrow
 x_u = 0.1043 + 0.0002 \approx 0.1045\ \textrm{m}
-
 $$
 
 $$
