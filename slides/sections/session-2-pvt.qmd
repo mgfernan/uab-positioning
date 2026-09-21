@@ -1304,7 +1304,7 @@ $$
 
 ### Observable smoothing: definition
 
-- Can we obtain a measurement that is both **precise** (*carrier-phase*)and **unambiguous** (*code pseudorange*)? [Hatch filter]{.fragment .fade-in}
+- Can we obtain a measurement that is both **precise** (*carrier-phase*)and **unambiguous** (*code pseudorange*)? Hatch filter
 
 $$
 \begin{eqnarray}
@@ -1524,7 +1524,7 @@ $$
 
 ### Navigation solution: linear system
 
-- Rearranging terms we can transform this into $\vec r = {\bf A}\cdot \vec p$
+- Rearranging terms we can transform this into $\vec r = {\bf A}\cdot \vec p \ \Rightarrow\ \vec p = {\bf A}^{-1} \cdot \vec r$
 
 
 $$
@@ -1532,7 +1532,8 @@ $$
 \underbrace{\begin{bmatrix} PR_1 - \rho_{1,0} \\ PR_2 - \rho_{2,0} \\ PR_3 - \rho_{3,0} \\ PR_4 - \rho_{4,0} \end{bmatrix}}_{prefit\ residuals} = \underbrace{\begin{bmatrix} -\frac{(x_1 - x_0)}{\rho_{1,0}} & -\frac{(y_1 - y_0)}{\rho_{1,0}} & -\frac{(z_1 - z_0)}{\rho_{1,0}} & 1 \\ -\frac{(x_2 - x_0)}{\rho_{2,0}} & -\frac{(y_2 - y_0)}{\rho_{2,0}} & -\frac{(z_2 - z_0)}{\rho_{2,0}} & 1 \\ -\frac{(x_3 - x_0)}{\rho_{3,0}} & -\frac{(y_3 - y_0)}{\rho_{3,0}} & -\frac{(z_3 - z_0)}{\rho_{3,0}} & 1 \\ -\frac{(x_4 - x_0)}{\rho_{4,0}} & -\frac{(y_4 - y_0)}{\rho_{4,0}} & -\frac{(z_4 - z_0)}{\rho_{4,0}} & 1 \end{bmatrix}}_{design\ matrix} \cdot \underbrace{\begin{bmatrix} \color{red}{\Delta x} \\ \color{red}{\Delta y} \\ \color{red}{\Delta z} \\ \color{red}{c \cdot \delta t_u} \end{bmatrix}}_{state}
 $$
 
-- Solution can be obtained by simple matrix inversion: $\vec p = {\bf A}^{-1} \cdot \vec r$
+- ⚠️ Note that we do not estimate position anymore $(x,y,z)$!
+  - we estimate  $\Delta p = (\Delta x, \Delta y, \Delta z)$: the displacement relative to the apriori! (i.e. $p_u = p_0 + \Delta p$)
 - This is the simplest solution of the navigation problem: \acr{SPP}
 
 ### Navigation solution: overdetermined systems
