@@ -2433,11 +2433,76 @@ $$
 
 #### Real Time Kinematics
 
-\acr{RTK}
+- \acr{RTK} uses carrier-phase measurements from a known base station and a rover.
+- As in \acr{DGNSS}, the rover estimates the baseline relative to the base station.
+- Unlike code-based \acr{DGNSS}, \acr{RTK} also solves the integer ambiguities of the carrier-phase observations.
+
+- For satellite $i$, the single difference between rover ($r$) and base ($b$) is:
+
+$$
+\begin{eqnarray}
+\Delta L_{r,b}^i &=& L_r^i - L_b^i \\
+&=& \Delta\rho_{r,b}^i + c \cdot \Delta\delta t_{r,b}
+ + \Delta I_{r,b}^i + \Delta T_{r,b}^i + \Delta k_{r,b}^i
+ + \lambda \cdot \Delta N_{r,b}^i + \Delta\varepsilon_{r,b}^i
+\end{eqnarray}
+$$
+
+- Satellite clock errors and satellite-dependent biases cancel exactly.
+- The receiver clock difference and ambiguity difference remain.
+- For a short baseline, atmospheric differences are small, but do not generally vanish.
+
+#### RTK: carrier-phase double difference
+
+- A second difference between satellites $i$ and $j$ removes the receiver clock difference:
+
+$$
+\nabla\Delta L_{r,b}^{i,j} = \Delta L_{r,b}^i - \Delta L_{r,b}^j
+$$
+
+- The double-difference model is:
+
+$$
+\begin{eqnarray}
+\nabla\Delta L_{r,b}^{i,j} &=& \nabla\Delta\rho_{r,b}^{i,j}
+ + \nabla\Delta I_{r,b}^{i,j} + \nabla\Delta T_{r,b}^{i,j} \\
+&& + \nabla\Delta k_{r,b}^{i,j} + \lambda \cdot \nabla\Delta N_{r,b}^{i,j}
+ + \nabla\Delta\varepsilon_{r,b}^{i,j}
+\end{eqnarray}
+$$
+
+- The double difference contains no receiver or satellite clock terms.
+- $\nabla\Delta N_{r,b}^{i,j}$ is an **integer**, enabling integer ambiguity resolution.
+
+#### RTK: positioning solution
+
+- Define the baseline as $\mathbf{b}_{rb}=\mathbf{p}_r-\mathbf{p}_b$.
+- Linearizing the double-difference geometric range around an a-priori baseline gives:
+
+$$
+\nabla\Delta\rho_{r,b}^{i,j} \simeq \nabla\Delta\rho_{r,b,0}^{i,j}
+ + \mathbf{g}_{i,j}^{\mathsf{T}}\Delta\mathbf{b}_{rb}
+$$
+
+- The rover first estimates a **float solution** for the baseline and ambiguities.
+- It then performs **integer ambiguity resolution** and recomputes the baseline with the fixed integers.
+- Once fixed, the ambiguities enable centimeter-level positioning for short baselines.
+
+$$
+\mathbf{p}_r = \mathbf{p}_b + \mathbf{b}_{rb}
+$$
 
 #### RTK Network
 
+- Single-base RTK is limited by the baseline length because atmospheric and orbit errors become less correlated with distance.
+- \acr{NRTK} uses a network of reference stations to estimate spatially varying errors and provide corrections to the rover.
+- The network can select a nearby reference station, form a network solution, or generate a \acr{VRS}.
+
 #### RTK Virtual network
+
+- A \acr{VRS} is generated near the rover from a network of real reference stations.
+- The rover sends an approximate position to the correction service, usually through \acr{NTRIP}; the service returns observation-like corrections for the virtual station.
+- The rover then applies the same carrier-phase differencing and integer ambiguity resolution as in single-base RTK.
 
 
 
@@ -2445,18 +2510,38 @@ $$
 
 <!-- TODO description of the RTCM format -->
 
-[RTCM](https://www.rtcm.org/rtcm-standards) is a standard format for differential GNSS messages. It is used to send corrections from a base station to a rover.
+- [RTCM](https://www.rtcm.org/rtcm-standards) is a standard format for differential GNSS messages. It is used to send corrections from a base station to a rover.
 
-Usually sent via internet using the \acr{NTRIP} protocol
+- It is a binary format that is compact and efficient for transmission.
+- Widely used in the industry, and supported by many GNSS receivers and software.
+- Usually sent via internet using the \acr{NTRIP} protocol
 
 
-<!-- TODO example of source table -->
+### Differential techniques: NTRIP protocol
 
+- Sourcetable from [IGS real time service](https://igs-ip.net/)
+
+```{text}
+CAS;igs-ip.net;2101;IGS-IP;BKG;0;DEU;50.12;8.69;0.0.0.0;0;http://igs-ip.net/home
+CAS;rtcm-ntrip.org;2101;NtripInfoCaster;BKG;0;DEU;50.12;8.69;0.0.0.0;0;http://rtcm-ntrip.org/home
+NET;EUREF;EUREF;B;N;https://igs.bkg.bund.de/root_ftp/NTRIP/streams/streamlist_euref-ip.htm;https://igs.bkg.bund.de:443/root_ftp/EUREF/station/rnxskl/;http://register.rtcm-ntrip.org;none
+NET;IGS;IGS;B;N;https://igs.bkg.bund.de/root_ftp/NTRIP/streams/streamlist_igs-ip.htm;https://igs.bkg.bund.de:443/root_ftp/IGS/station/rnxskl/;http://register.rtcm-ntrip.org;none
+NET;MGEX;IGS;B;N;https://igs.bkg.bund.de/root_ftp/NTRIP/streams/streamlist_igs-ip.htm;https://igs.bkg.bund.de:443/root_ftp/MGEX/station/rnxskl/;http://register.rtcm-ntrip.org;none
+NET;MISC;BKG;B;N;https://igs.bkg.bund.de/root_ftp/NTRIP/streams/streamlist_igs-ip.htm;https://igs.bkg.bund.de:443/root_ftp/MISC/station/rnxskl/;http://register.rtcm-ntrip.org;none
+STR;ABMF00GLP0;Les-Abymes;RTCM 3.3;1006(30),1007(30),1008(30),1013(30),1019,1020,1033(30),1042,1045,1046,1074(1),1084(1),1094(1),1104(1),1114(1),1124(1),1230(30);2;GPS+GLO+GAL+BDS+QZS+SBAS;IGS;GLP;16.26;-61.53;0;0;SEPT POLARX5;none;B;N;10400;rgp-ip.ign.fr:2101/ABMF00GLP7(1)
+STR;ABPO00MDG0;Antananarivo;RTCM 3.2;1076(1);2;GPS;IGS;MDG;-19.02;47.23;0;0;SEPT POLARX5;none;B;N;3800;caster.cddis.eosdis.nasa.gov:443/ABPO00MDG0(2)
+STR;AC2300USA0;Soldotna;RTCM 3.3;1005(30),1007(30),1013(1),1019,1020,1033(30),1045,1046,1077(1),1087(1),1097(1),1107(1),1117(1),1127(1),1230(5);2;GPS+GLO+GAL+BDS+QZS+SBAS;IGS;USA;60.48;-150.88;0;0;SEPT POLARX5;None;B;N;22400;rtgpsout.earthscope.org:2101/AC23_RTCM3(1)
+STR;AC2400USA0;King Salmon;RTCM 3.3;1005(30),1007(30),1013(1),1019,1020,1033(30),1045,1046,1077(1),1087(1),1097(1),1107(1),1117(1),1127(1),1230(5);2;GPS+GLO+GAL+BDS+QZS+SBAS;IGS;USA;58.68;-156.65;0;0;SEPT POLARX5;None;B;N;23800;rtgpsout.earthscope.org:2101/AC24_RTCM3(1)
+STR;ACRG00GHA0;Accra;RTCM 3.3;1006(10),1007(10),1008(10),1019,1020,1033(10),1045,1046,1077(1),1087(1),1097(1);2;GPS+GLO+GAL;IGS;GHA;5.64;-0.21;0;1;euronet;;B;N;9200;139.17.3.112:2101/ACRG00GHA(1)
+STR;ACSO00USA0;Delaware;RTCM 3.3;1005(30),1007(30),1013(1),1019,1020,1033(30),1045,1046,1077(1),1087(1),1097(1),1107(1),1127(1),1230(5);2;GPS+GLO+GAL+BDS+SBAS;IGS;USA;40.23;-82.98;0;0;SEPT POLARX5;None;B;N;16800;rtgpsout.earthscope.org:2101/ACSO_RTCM3(1)
+STR;ADH100ARE0;Abu_Dhabi;RTCM 3.2;1033(1),1074(1),1084(1),1094(1),1124(1);2;GPS+GLO+GAL+BDS;MISC;ARE;24.38;54.52;0;0;SEPT POLARX5;none;B;N;11000;FUGRO
+```
+
+- Data can be streamed using this NTRIP address: `http://user:password@igs-ip.net:2101/ADH100ARE0`
 
 ## Positioning strategies
 
 ```{mermaid}
-%%| fig-cap: "Positioning strategies"
 flowchart LR
 
     A(["Positioning<br/>strategies"]) --> B1(["Absolute<br/>positioning"])
@@ -2469,8 +2554,7 @@ flowchart LR
     B211 --> B2112["SBAS"]
 
     B2 --> B22(["Carrier-phase<br/>positioning"]) --> B221["Real Time Kinematics<br/>RTK"] --> B2211["Single-base RTK"]
-    B221 --> B2212["Virtual Reference Station</br>VRS"]
-    B221 --> B2213["Network RTK"]
+    B221 --> B2212["Network RTK"]
 
     classDef root fill:#172a3a,stroke:#172a3a,color:#ffffff,stroke-width:2px
     classDef abs fill:#f6d7a7,stroke:#c26a2e,color:#4a2918,stroke-width:2px
@@ -2486,5 +2570,5 @@ flowchart LR
     class B111,B121 absLeaf
     class B2 diff
     class B21,B22 diffMethod
-    class B211,B2111,B2112,B221,B2211,B2212,B2213 diffLeaf
+    class B211,B2111,B2112,B221,B2211,B2212 diffLeaf
 ```
