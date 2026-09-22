@@ -15,6 +15,8 @@ acronyms:
       longname: Carrier-to-Noise Density Ratio
     - shortname: CTP
       longname: Conventional Terrestrial Pole
+    - shortname: DGNSS
+      longname: Differential Global Navigation Satellite System
     - shortname: DOP
       longname: Dilution of Precision
     - shortname: DoS
@@ -27,10 +29,14 @@ acronyms:
       longname: European Global Navigation Satellite System
     - shortname: EDAS
       longname: EGNOS Data Access Service
+    - shortname: EGNOS
+      longname: European Geostationary Navigation Overlay Service
     - shortname: ENU
       longname: East-North-Up
     - shortname: FOC
       longname: Full Operational Capability
+    - shortname: GAGAN
+      longname: GPS Aided GEO Augmented Navigation
     - shortname: GCC
       longname: Galileo Control Center
     - shortname: GDOP
@@ -53,40 +59,52 @@ acronyms:
       longname: Inclined Geosynchronous Satellite Orbit
     - shortname: ILS
       longname: Instrument Landing System
-    - shortname: INRSS
-      longname: Indian Regional Navigation Satellite System
     - shortname: INS
       longname: Inertial Navigation System
+    - shortname: INRSS
+      longname: Indian Regional Navigation Satellite System
     - shortname: IOV
       longname: In-Orbit Validation
     - shortname: LBS
       longname: Location Based Services
     - shortname: LORAN
       longname: Long Range Navigation
-    - shortname: MEO
-      longname: Medium Earth Orbit
     - shortname: MCS
       longname: Master Control Station
+    - shortname: MEO
+      longname: Medium Earth Orbit
+    - shortname: MSAS
+      longname: Multi-functional Satellite Augmentation System
     - shortname: NLOS
       longname: Non-Line-of-Sight
+    - shortname: NRTK
+      longname: Networked Real Time Kinematics
     - shortname: NTRIP
       longname: Networked Transport of RTCM via Internet Protocol
     - shortname: OS
       longname: Open Service
+    - shortname: OSR
+      longname: Observation State Representation
     - shortname: PPP
       longname: Precise Point Positioning
+    - shortname: PPP-RTK
+      longname: Precise Point Positioning with Real Time Kinematics
     - shortname: PRC
       longname: Pseudo-Range Correction
+    - shortname: PVT
+      longname: Position, Velocity and Time
+    - shortname: QZSS
+      longname: Quasi-Zenith Satellite System
     - shortname: RTCM
       longname: Radio Technical Commission for Maritime Services
     - shortname: RTK
       longname: Real Time Kinematics
     - shortname: RTT
       longname: Round Trip Time
-    - shortname: QZSS
-      longname: Quasi-Zenith Satellite System
     - shortname: SBAS
       longname: Satellite-Based Augmentation System
+    - shortname: SDCM
+      longname: System for Differential Corrections and Monitoring
     - shortname: SiS
       longname: Signal in Space
     - shortname: SoL
@@ -95,30 +113,24 @@ acronyms:
       longname: Signal-to-Noise Ratio
     - shortname: SPP
       longname: Single Point Positioning
+    - shortname: SSR
+      longname: Space State Representation
     - shortname: TEC
       longname: Total Electron Content
-    - shortname: ToA
-      longname: Time of Arrival
     - shortname: TDoA
       longname: Time Difference of Arrival
+    - shortname: ToA
+      longname: Time of Arrival
     - shortname: UERE
       longname: User Equivalent Range Error
     - shortname: ULS
       longname: Uplink Station
-    - shortname: WAAS
-      longname: Wide Area Augmentation System
-    - shortname: EGNOS
-      longname: European Geostationary Navigation Overlay Service
-    - shortname: MSAS
-      longname: Multi-functional Satellite Augmentation System
-    - shortname: PVT
-      longname: Position, Velocity and Time
-    - shortname: GAGAN
-      longname: GPS Aided GEO Augmented Navigation
-    - shortname: SDCM
-      longname: System for Differential Corrections and Monitoring
+    - shortname: VRS
+      longname: Virtual Reference Station
     - shortname: VTEC
       longname: Vertical Total Electron Content
+    - shortname: WAAS
+      longname: Wide Area Augmentation System
     - shortname: WGS84
       longname: World Geodetic System 1984
 ---

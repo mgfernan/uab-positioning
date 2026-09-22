@@ -2316,49 +2316,105 @@ $$
 
 ### Differential techniques: base station
 
-<!-- TODO add a figure showing the base station and the rover -->
+![](assets/figures/differential_positioning.svg)
 
-#### Code base Differential GNSS
 
-- From the [pseudorange measurement model](#measurement-model-pseudorange), the **single-difference** between the rover ($r$) and the base station ($b$) for the $i$-th satellite is:
+### Differential techniques: OSR
+
+- \acr{OSR}.
+
+- **Base station $\rightarrow$ rover:** GNSS observations
+  - Code $PR$
+  - Carrier phase $\phi$
+  - Doppler
+- Corrections are **implicit** through the reference observations
+
+- Typical techniques:
+  - \acr{DGNSS}.
+  - \acr{RTK}.
+  - \acr{NRTK} / \acr{VRS}
+
+::: {.callout-tip collapse="true" appearance="minimal" title="In OSR, Base transmits observations; the rover forms the differences"}
+:::
+
+### Differential techniques: SSR
+
+- \acr{SSR}.
+
+- **Correction service $\rightarrow$ rover:** estimates of GNSS error states
+- Corrections are provided **per satellite / signal**, such as:
+  - Satellite orbit corrections
+  - Satellite clock corrections
+  - Code and phase biases
+  - Atmospheric corrections, when provided
+
+- Typical techniques:
+  - \acr{PPP}.
+  - \acr{PPP-RTK}.
+
+
+::: {.callout-tip collapse="true" appearance="minimal" title="In SSR, Base transmits corrections; the rover corrects raw observations"}
+:::
+
+
+### Differential techniques: OSR vs SSR
+
+| | **OSR** | **SSR** |
+|---|---|---|
+| Transmitted | Observations | Error states / corrections |
+| Reference | Base station(s) | Correction service |
+| Rover model | Differenced | Undifferenced (raw) |
+| Typical solution | RTK / NRTK | PPP / PPP-RTK |
+| Coverage | Regional | Regional / global |
+| Main concept | **Cancel errors by differencing** | **Model & correct errors** |
+
+In summary:
+
+$$
+\boxed{\text{OSR: measurements}}
+\qquad
+\boxed{\text{SSR: corrections}}
+$$
+
+
+### Code-based Differential GNSS
+
+- From the [pseudorange measurement model](#measurement-model-pseudorange), the **single-difference** between the rover ($r$) and the base station ($b$), observing the same satellite and signal, is:
 
 $$
 \begin{eqnarray}
 \Delta PR_{r,b}^i &=& PR_r^i - PR_b^i \\
-      &=& \Delta \rho_{r,b}^i + c \cdot \Delta \delta t_{r,b} + \Delta I_{r,b}^i + \Delta T_{r,b}^i + \Delta K_{r,b} + \Delta \varepsilon_{r,b}^i
+      &=& \Delta \rho_{r,b}^i + c \cdot \Delta \delta t_{r,b} + \Delta I_{r,b}^i + \Delta T_{r,b}^i + \Delta K_{r,b,s} + \Delta \varepsilon_{r,b}^i
 \end{eqnarray}
 $$
 
-- Note that, since we are subtracting the measurements from the same satellite:
-  - The satellite clock error ($c\cdot \delta t^i$) is eliminated
-  - The satellite biases ($K^i$) are also eliminated
-  - If the base station is close enough to the rover, the atmospheric errors ($I_{r,b}^i$ and $T_{r,b}^i$) are also eliminated (or at least reduced)
-  - Thermal noise is uncorrelated: single-differencing increases the noise by $\sqrt{2}$
+- Since the same satellite and signal are observed at both receivers:
+  - The satellite clock error ($c\cdot \delta t^i$) and satellite-dependent bias cancel exactly.
+  - The receiver code-bias difference ($\Delta K_{r,b,s}=K_{r,s}-K_{b,s}$) remains.
+  - For a short baseline, the atmospheric differences ($\Delta I_{r,b}^i$ and $\Delta T_{r,b}^i$) are small, but do not generally vanish.
+  - For independent, equal-variance receiver noise, $\sigma_{\Delta\varepsilon}=\sqrt{2}\,\sigma_{\varepsilon}$.
 
-#### Code base Differential GNSS: corrections
 
-- Two *flavors* of differential GNSS exist, depending on how the corrections are delivered to the rover:
-  - As **raw measurements**, full range measurements from the base station are sent to the rover. Deprecated in practice (e.g. \acr{RTCM} 2.x)
-  - As **corrections**, the base station computes the \acr{PRC} as the difference between the measured pseudorange and the expected pseudorange (computed from the known base station position). The rover then applies these corrections to its own measurements. Messages are sent in RTCM 3.x format.
+#### Code-based Differential GNSS: solution
 
-- Mathematically, both approaches are equivalent
-  - Note that we do not estimate the receiver clock bias at the base station, but only the **difference** between the rover and base station clock biases ($\Delta \delta t_{r,b}$)
-
-#### Code base Differential GNSS: solution
-
-- The result of the estimation process is not the rover position, but the **baseline** ($\Delta\mathbf{b_{rb}}= (\Delta b_x, \Delta b_y, \Delta b_z)$): the vector from the base station to the rover.
+- Define the baseline from the base station to the rover as $\mathbf{b_{rb}}=\mathbf{p}_r-\mathbf{p}_b$.
+  - The solver estimates a correction to an a-priori baseline: $\mathbf{b_{rb}}=\mathbf{b_{rb,0}}+\Delta\mathbf{b_{rb}}$.
 - The rover position is then computed as:
 $$
-\mathbf{p}_r = \mathbf{p}_b +  \Delta \mathbf{b_{rb}}
+\mathbf{p}_r = \mathbf{p}_b +  \mathbf{b_{rb}}
 $$
+
+- Let $\Delta\rho_{r,b}^i=\rho_r^i-\rho_b^i$ and define
+  $\mathbf{g}_i=-\frac{\mathbf{s}_i-\mathbf{p}_{b,0}}{\rho_{b,0}^i}$, so that
+  $\Delta\rho_{r,b}^i\approx\Delta\rho_{r,b,0}^i+\mathbf{g}_i^\mathsf{T}\Delta\mathbf{b}_{rb}$.
 
 $$
 \tiny
 \begin{bmatrix}
-\Delta P_{rb}^{1} - \Delta \rho_{rb}^1\\
-\Delta P_{rb}^{2} - \Delta \rho_{rb}^2\\
-\Delta P_{rb}^{3} - \Delta \rho_{rb}^3\\
-\Delta P_{rb}^{4} - \Delta \rho_{rb}^4
+\Delta PR_{r,b}^{1} - \Delta \rho_{r,b,0}^1\\
+\Delta PR_{r,b}^{2} - \Delta \rho_{r,b,0}^2\\
+\Delta PR_{r,b}^{3} - \Delta \rho_{r,b,0}^3\\
+\Delta PR_{r,b}^{4} - \Delta \rho_{r,b,0}^4
 \end{bmatrix}
 =
 \begin{bmatrix}
@@ -2375,6 +2431,16 @@ c \Delta \delta t_{rb}
 \end{bmatrix}
 $$
 
+#### Real Time Kinematics
+
+\acr{RTK}
+
+#### RTK Network
+
+#### RTK Virtual network
+
+
+
 ### Differential techniques: RTCM format
 
 <!-- TODO description of the RTCM format -->
@@ -2385,14 +2451,6 @@ Usually sent via internet using the \acr{NTRIP} protocol
 
 
 <!-- TODO example of source table -->
-
-#### Real Time Kinematics
-
-\acr{RTK}
-
-#### RTK Network
-
-#### RTK Virtual network
 
 
 ## Positioning strategies
@@ -2430,4 +2488,3 @@ flowchart LR
     class B21,B22 diffMethod
     class B211,B2111,B2112,B221,B2211,B2212,B2213 diffLeaf
 ```
-
