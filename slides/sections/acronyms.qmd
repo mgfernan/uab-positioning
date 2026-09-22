@@ -135,7 +135,7 @@ acronyms:
       longname: World Geodetic System 1984
 ---
 
-### Acronyms {.compact-acronyms}
+### Acronyms {.compact-acronyms .scrollable}
 
 ::: {.compact-acronyms-list}
 \printacronyms
