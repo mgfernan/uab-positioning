@@ -2440,6 +2440,7 @@ $$
 - For satellite $i$, the single difference between rover ($r$) and base ($b$) is:
 
 $$
+\tiny
 \begin{eqnarray}
 \Delta L_{r,b}^i &=& L_r^i - L_b^i \\
 &=& \Delta\rho_{r,b}^i + c \cdot \Delta\delta t_{r,b}
@@ -2448,13 +2449,13 @@ $$
 \end{eqnarray}
 $$
 
-- Satellite clock errors and satellite-dependent biases cancel exactly.
-- The receiver clock difference and ambiguity difference remain.
-- For a short baseline, atmospheric differences are small, but do not generally vanish.
+  - Satellite clock errors and satellite-dependent biases cancel exactly.
+  - The receiver clock difference and ambiguity difference remain.
+  - For a short baseline, atmospheric differences are small
 
 #### RTK: carrier-phase double difference
 
-- A second difference between satellites $i$ and $j$ removes the receiver clock difference:
+- A second difference between satellites $i$ and $j$ removes the receiver clock difference as well as the biases ($k$):
 
 $$
 \nabla\Delta L_{r,b}^{i,j} = \Delta L_{r,b}^i - \Delta L_{r,b}^j
@@ -2463,12 +2464,7 @@ $$
 - The double-difference model is:
 
 $$
-\begin{eqnarray}
-\nabla\Delta L_{r,b}^{i,j} &=& \nabla\Delta\rho_{r,b}^{i,j}
- + \nabla\Delta I_{r,b}^{i,j} + \nabla\Delta T_{r,b}^{i,j} \\
-&& + \nabla\Delta k_{r,b}^{i,j} + \lambda \cdot \nabla\Delta N_{r,b}^{i,j}
- + \nabla\Delta\varepsilon_{r,b}^{i,j}
-\end{eqnarray}
+\nabla\Delta L_{r,b}^{i,j} = \nabla\Delta\rho_{r,b}^{i,j} + \nabla\Delta I_{r,b}^{i,j} + \nabla\Delta T_{r,b}^{i,j} + \lambda \cdot \nabla\Delta N_{r,b}^{i,j} + \nabla\Delta\varepsilon_{r,b}^{i,j}
 $$
 
 - The double difference contains no receiver or satellite clock terms.
@@ -2488,9 +2484,6 @@ $$
 - It then performs **integer ambiguity resolution** and recomputes the baseline with the fixed integers.
 - Once fixed, the ambiguities enable centimeter-level positioning for short baselines.
 
-$$
-\mathbf{p}_r = \mathbf{p}_b + \mathbf{b}_{rb}
-$$
 
 #### RTK Network
 
