@@ -31,8 +31,14 @@ RUN apt-get update \
 # ------------------------------------------------------------
 # Quarto
 # ------------------------------------------------------------
-RUN wget -q \
-        "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.deb" \
+RUN set -eux; \
+    case "$(dpkg --print-architecture)" in \
+        amd64) QUARTO_ARCH=amd64 ;; \
+        arm64) QUARTO_ARCH=arm64 ;; \
+        *) echo "Unsupported architecture: $(dpkg --print-architecture)" >&2; exit 1 ;; \
+    esac; \
+    wget -q \
+        "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-${QUARTO_ARCH}.deb" \
         -O /tmp/quarto.deb \
     && apt-get update \
     && apt-get install -y --no-install-recommends /tmp/quarto.deb \
