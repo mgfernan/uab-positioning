@@ -5,6 +5,149 @@
 - Navigation message.
 - Modernized signals.
 
+## Spread spectrum modulation
+
+- A narrowband signal ($s[n]$) concentrates most of its power in a very small frequency interval.
+- Problem: what if another narrowband signal or intereference occupies the same frequency band?
+  - Impact: the narrowband signal may be completely masked by the interference, and it cannot be detected or demodulated.
+
+
+```{python}
+from IPython.display import HTML
+import numpy as np
+import plotly.graph_objects as go
+import plotly.io as pio
+
+# Frequency axis (normalized to the carrier frequency)
+f = np.linspace(-5, 5, 2001);
+
+# Narrowband signal: Gaussian-shaped PSD concentrated around DC
+sigma_n = 0.35;
+psd_narrow = np.exp(-(f / sigma_n) ** 2); # Max value is 1 at f=0
+
+# Calculate area of narrowband signal using numerical integration
+area_narrow = np.trapz(psd_narrow, f);
+
+# Spread-spectrum signal: Gaussian-shaped over a wider bandwidth
+sigma_c = 2.0; # Wider sigma for spread spectrum
+psd_spread_raw = np.exp(-(f / sigma_c) ** 2); # Max value is 1 at f=0
+
+# Calculate area of raw spread-spectrum signal
+area_spread_raw = np.trapz(psd_spread_raw, f);
+
+# Scale spread-spectrum signal to have the same area as narrowband signal
+scale_factor = area_narrow / area_spread_raw;
+psd_spread = scale_factor * psd_spread_raw;
+
+# Interfering signal: Gaussian-shaped, designed to almost mask the narrowband signal
+sigma_i = 0.1;
+peak_amplitude_i = 1.4;
+frequency_shift = 0.2; # Shift the interfering signal to the right
+psd_interfering = peak_amplitude_i * np.exp(-((f - frequency_shift) / sigma_i) ** 2);
+
+fig = go.Figure();
+fig.add_trace(go.Scatter(x=f, y=psd_narrow, mode='lines', name='Narrowband (s)', line=dict(color='royalblue', width=3)));
+fig.add_trace(go.Scatter(x=f, y=psd_interfering, mode='lines', name='Interfering Signal', line=dict(color='red', width=3), visible=True));
+fig.add_trace(go.Scatter(x=f, y=psd_spread, mode='lines', name='Spread spectrum (c)', line=dict(color='green', width=3), visible=True));
+
+# Define bandwidths (e.g., 2*sigma as a proxy for effective bandwidth)
+B_s = 2 * sigma_n;
+B_c = 2 * sigma_c;
+B_i = 2 * sigma_i;
+
+# Define y-coordinates for the bandwidth arrows and annotations
+# Place narrowband arrow slightly above its peak (which is 1)
+arrow_y_narrow = 1.05;
+# Place interfering signal arrow at a higher level to avoid overlap
+arrow_y_interfering = np.max(psd_interfering) + 0.2;
+# Place spread spectrum arrow slightly above its peak (which is scale_factor)
+arrow_y_spread = np.max(psd_spread) + 0.05;
+
+fig.update_layout(
+    title='Spread Spectrum modulation principle',
+    xaxis_title='Frequency',
+    yaxis_title='Power Spectral Density',
+    template='plotly_white',
+    legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1),
+    margin=dict(l=50, r=20, t=50, b=50),
+    height=420,
+    width=820,
+    annotations=[
+        # Narrowband bandwidth text label
+        dict(
+            x=0, y=arrow_y_narrow + 0.05,
+            text=f'B<sub>s</sub>',
+            showarrow=False,
+            font=dict(color="royalblue", size=12),
+            yanchor="bottom"
+        ),
+        # Narrowband bandwidth double-sided arrow
+        dict(
+            x=B_s/2, y=arrow_y_narrow,
+            ax=-B_s/2, ay=arrow_y_narrow,
+            xref="x", yref="y", axref="x", ayref="y",
+            showarrow=True,
+            arrowhead=3, arrowsize=1, arrowwidth=2, arrowcolor="royalblue",
+            arrowside="start+end"
+        ),
+        # Interfering signal bandwidth text label
+        dict(
+            x=frequency_shift, y=arrow_y_interfering + 0.05,
+            text=f'B<sub>i</sub>',
+            showarrow=False,
+            font=dict(color="red", size=12),
+            yanchor="bottom",
+            visible=True
+        ),
+        # Interfering signal bandwidth double-sided arrow
+        dict(
+            x=frequency_shift + B_i/2, y=arrow_y_interfering,
+            ax=frequency_shift - B_i/2, ay=arrow_y_interfering,
+            xref="x", yref="y", axref="x", ayref="y",
+            showarrow=True,
+            arrowhead=3, arrowsize=1, arrowwidth=2, arrowcolor="red",
+            arrowside="start+end",
+            visible=True
+        ),
+        # Spread spectrum bandwidth text label
+        dict(
+            x=0, y=arrow_y_spread + 0.05,
+            text=f'B<sub>c</sub>',
+            showarrow=False,
+            font=dict(color="green", size=12),
+            yanchor="bottom",
+            visible=True
+        ),
+        # Spread spectrum bandwidth double-sided arrow
+        dict(
+            x=B_c/2, y=arrow_y_spread,
+            ax=-B_c/2, ay=arrow_y_spread,
+            xref="x", yref="y", axref="x", ayref="y",
+            showarrow=True,
+            arrowhead=3, arrowsize=1, arrowwidth=2, arrowcolor="green",
+            arrowside="start+end",
+            visible=True
+        )
+    ]
+);
+
+# Remove numerical x-ticks and y-ticks for a qualitative plot
+fig.update_xaxes(showticklabels=False);
+fig.update_yaxes(showticklabels=False, range=[0, 1.5]); # Keep range for consistent visual scale
+HTML(pio.to_html(fig, full_html=False, include_plotlyjs='cdn', include_mathjax=False))
+```
+
+## Spread spectrum modulation
+
+- By multiplying the information-bearing waveform by a much faster pseudorandom sequence, the transmitted energy is spread over a much wider bandwidth, producing a nearly flat power spectral density across the occupied band.
+
+
+The signal bandwidth increases dramatically, but the power density in any given narrow slice of spectrum decreases. This is the key reason GNSS signals can coexist on the same frequency band while preserving good ranging performance and resistance to narrowband interference.
+
+## Multiplexing techniques
+
+
+
 
 <!--- TODO: link with discrete systems, periodic sequence $x[n] = x[n+P]\ \forall\ P$, where $P$ depends on the code, for GPS C/A code $P = 1024$ --->
 
