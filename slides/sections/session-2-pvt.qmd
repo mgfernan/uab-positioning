@@ -1289,10 +1289,10 @@ HTML(pio.to_html(fig, full_html=False, include_plotlyjs='cdn', include_mathjax=F
 
 $$
 \tiny
-\begin{eqnarray}
-PR_{WL} &=& \frac{f_a \cdot PR_a - f_b \cdot PR_b}{f_a - f_b} \\
-L_{WL} &=& \frac{f_a \cdot L_a - f_b \cdot L_b}{f_a - f_b}
-\end{eqnarray}
+\begin{aligned}
+PR_{WL} &= \frac{f_a \cdot PR_a - f_b \cdot PR_b}{f_a - f_b} \\
+L_{WL} &= \frac{f_a \cdot L_a - f_b \cdot L_b}{f_a - f_b}
+\end{aligned}
 $$
 :::
 
@@ -1302,15 +1302,14 @@ $$
 
 $$
 \tiny
-\begin{eqnarray}
-PR_{NL} &=& \frac{f_a \cdot PR_a + f_b \cdot PR_b}{f_a + f_b} \\
-L_{NL} &=& \frac{f_a \cdot L_a + f_b \cdot L_b}{f_a + f_b}
-\end{eqnarray}
+\begin{aligned}
+PR_{NL} &= \frac{f_a \cdot PR_a + f_b \cdot PR_b}{f_a + f_b} \\
+L_{NL} &= \frac{f_a \cdot L_a + f_b \cdot L_b}{f_a + f_b}
+\end{aligned}
 $$
 :::
 
 :::
-
 
 
 ### Other combinations
@@ -1324,13 +1323,16 @@ $$
 
 $$
 \tiny
-PR_{MP} = PR_a
+\begin{aligned}
+PR_{GRAPHIC} &= \frac{PR_a + L_a}{2}\\
+PR_{MP} &= PR_a
 -\frac{2}{f_a^2-f_b^2}
 \left(
 f_a^2 L_b-f_b^2 L_a
 \right)
 -L_a
 -B_a
+\end{aligned}
 $$
 
 ### Observable smoothing: definition

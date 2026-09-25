@@ -8,6 +8,14 @@
 2. Derive the expression for the effective wavelength of each combination.
 3. If $f_{L1} = 1\,575.42\ MHz$ and $f_{L2} = 1\,227.6\ MHz$, what are the corresponding wide and narrowlane combination?
 
+### 2. GRAPHIC combination
+
+1. Write the expression for the GRAPHIC combination.
+2. What is the effective wavelength of the GRAPHIC combination?
+3. How large is the ionospheric delay for this combination?
+4. What is the effective noise for this combination?
+5. What would be the maximum noise of the code measurement (at $f_{L1} = 1\ 575.42\ MHz$) for which it would be possible to solve for the integer ambiguity of the GRAPHIC combination?
+
 ***
 
 ## Answers
@@ -60,3 +68,54 @@ $$
 &= \frac{\lambda_a \cdot \lambda_b}{\lambda_b + \lambda_a} \\
 \end{aligned}
 $$
+
+3. If $f_{L1} = 1\,575.42\ MHz$ and $f_{L2} = 1\,227.6\ MHz$, the corresponding wide and narrow-lane combinations are:
+
+   - Wide-lane combination:
+$$
+\lambda_1 = \frac{c}{f_{L1}} \approx 0.190293672\ m
+\lambda_2 = \frac{c}{f_{L2}} \approx 0.244210213\ m
+\lambda_{WL} \approx 0.862\ m
+$$
+
+    - Narrow-lane combination:
+$$
+\lambda_{NL} \approx 0.107\ m
+$$
+
+### 2.
+
+1. The GRAPHIC combination is given by:
+$$
+\begin{aligned}
+PR_{GRAPHIC,a} &= \frac{PR_a + L_a}{2} \\
+&= \rho + c \cdot dt + T + \frac{\lambda_a}{2}\cdot N_a + \frac{\varepsilon_{PR}}{2} + \frac{\varepsilon_L}{2}
+\end{aligned}
+$$
+
+2. The effective wavelength of the GRAPHIC combination is:
+$$
+\lambda_{GRAPHIC} = \frac{\lambda_a}{2}
+$$
+
+3. The ionospheric delay for this combination is $0$ (cancels out)
+4.
+$$
+\varepsilon_{GRAPHIC} = \frac{\varepsilon_{PR}}{2} + \frac{\varepsilon_L}{2} \approx \frac{\varepsilon_{PR}}{2}
+$$
+
+$$
+\sigma_{\varepsilon,{GRAPHIC}} = \frac{\sigma_{\varepsilon,PR}}{\sqrt{2}}
+$$
+
+5. The maximum noise of the code measurement for which it would be possible to solve for the integer ambiguity of the GRAPHIC combination is:
+
+$$
+\begin{aligned}
+\lambda_1 &= 0.190293672\ m \\
+\lambda_{GRAPHIC} &= \frac{\lambda_1}{2} \approx 0.095146836\ m \\
+\sigma_{\varepsilon,PR} &< \frac{\lambda_{GRAPHIC}}{2} \\
+\sigma_{\varepsilon,PR} &< 0.047573418\ m
+\end{aligned}
+$$
+
