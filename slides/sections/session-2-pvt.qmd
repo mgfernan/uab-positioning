@@ -1273,6 +1273,46 @@ fig.update_yaxes(showgrid=True, gridcolor='lightgray')
 HTML(pio.to_html(fig, full_html=False, include_plotlyjs='cdn', include_mathjax=False))
 ```
 
+### Narrow- and wide-lane combinations
+
+::: {style="text-size: 0.8em;"}
+- These combinations linearly combine the carrier-phase observables to create a new effective wavelength.
+  - Used in the ambiguity resolution process, as they are more sensitive to cycle slips than the original observables.
+  - Neither combination removes the ionospheric delay. Their effective wavelengths are $\lambda_{WL}=c/(f_a-f_b)$ and $\lambda_{NL}=c/(f_a+f_b)$.
+:::
+
+::: {.columns}
+
+::: {.column}
+
+[Wide lane $L_{WL}$]{style="text-size: 0.8em;"}
+
+$$
+\tiny
+\begin{eqnarray}
+PR_{WL} &=& \frac{f_a \cdot PR_a - f_b \cdot PR_b}{f_a - f_b} \\
+L_{WL} &=& \frac{f_a \cdot L_a - f_b \cdot L_b}{f_a - f_b}
+\end{eqnarray}
+$$
+:::
+
+::: {.column}
+
+[Narrow lane $L_{NL}$]{style="text-size: 0.8em;"}
+
+$$
+\tiny
+\begin{eqnarray}
+PR_{NL} &=& \frac{f_a \cdot PR_a + f_b \cdot PR_b}{f_a + f_b} \\
+L_{NL} &=& \frac{f_a \cdot L_a + f_b \cdot L_b}{f_a + f_b}
+\end{eqnarray}
+$$
+:::
+
+:::
+
+
+
 ### Other combinations
 
 - [Additional combinations](https://gssc.esa.int/navipedia/index.php/Combination_of_GNSS_Measurements) used to mitigate/analyze specific error sources:
@@ -1281,8 +1321,6 @@ HTML(pio.to_html(fig, full_html=False, include_plotlyjs='cdn', include_mathjax=F
     - Removes geometry exposing the ionospheric delay (for single-frequency receivers)
   - Multipath combination ($PR_{MP}$, see [@montenbruck2003flight])
     - isolates multipath error in the code measurement
-  - Wide lane ($L_{WL}$, longer effective wavelength, )
-    - Removes ionospheric delay and has longer effective wavelength that amplifies the ambiguity term (used to resolve ambiguities)
 
 $$
 \tiny
@@ -1294,13 +1332,6 @@ f_a^2 L_b-f_b^2 L_a
 -L_a
 -B_a
 $$
-
-
-$$
-\tiny
-L_{WL} = \frac{f_a \cdot L_a - f_b \cdot L_b}{f_a - f_b}
-$$
-
 
 ### Observable smoothing: definition
 
