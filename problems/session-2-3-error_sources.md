@@ -37,8 +37,8 @@ PR_{L2} = 24\,130\,802.72\ m
 $$
 
 1. Compute the ionosphere-free pseudorange.
-2. What is the ionospheric delay for L1 and L2 (assuming code biases are almost 0)?
-3. What TEC corresponds to the previous ionospheric delay?
+2. Compute the ionospheric TEC (assuming code biases are almost 0)
+3. What is the ionospheric delay for L1 and L2
 
 
 ### 4. Troposphere: zenith and slant delay
@@ -221,7 +221,7 @@ Compute its standard deviation for the correlated case.
 
 1.
 $$
-I = \frac{40.3}{f^2} \cdot VTEC = \frac{40.3}{(1575.42 \times 10^6)^2} \cdot 12.5 \times 10^{16} = 0.203\ m
+I = \frac{40.3}{f^2} \cdot VTEC = \frac{40.3}{(1575.42 \times 10^6)^2} \cdot 12.5 \times 10^{16} = 2.03\ m
 $$
 2.
 
@@ -235,7 +235,7 @@ $$
 
 3. The ionospheric delay is inversely proportional to the square of the frequency. Therefore, the delay at $f_{L2}$ will be greater than at $f_{L1}$.
 
-4. The ionospheric phase delay is the negative of the group delay, so it will be -0.203 m for the vertical signal and -0.203 * 2.14 = -0.434 m for the signal at 20° elevation.
+4. The ionospheric phase delay is the negative of the group delay, so it will be $-2.03\ m$ for the vertical signal and $-2.03 \cdot 2.14 = -4.34\ m$ for the signal at $20^\circ$ elevation.
 
 ### 2.
 
@@ -248,7 +248,7 @@ I_v = \frac{I}{m(e)} = \frac{14.7\ m}{1.72} \approx 8.52\ m
 $$
 
 $$
-STEC = \frac{I_v \cdot f^2}{40.3} = \frac{8.52\ m \cdot (1575.42 \times 10^6)^2}{40.3} \approx 52.48\ TECU
+STEC = \frac{I_v \cdot f^2}{40.3} = \frac{8.52\ m \cdot (1575.42 \times 10^6)^2}{40.3} \approx 52.47\ TECU
 $$
 
 ### 3.
@@ -263,17 +263,23 @@ $$
 PR_{IF} = \frac{(1575.42 \times 10^6)^2 \cdot 24\,130\,795.37 - (1227.6 \times 10^6)^2 \cdot 24\,130\,802.72}{(1575.42 \times 10^6)^2 - (1227.6 \times 10^6)^2} \approx 24\,130\,784.01\ m
 $$
 
-2. The ionospheric delay for L1 and L2 can be calculated with the geometry combination (assuming code biases are negligible):
+2. The $TEC$ can be calculated from the geometry free combination
 
 $$
-I \approx PR_{LI} = 24\,130\,802.72 - 24\,130\,795.37 \approx 7.35\ m
+PR_{LI} \approx 40.3\cdot (\frac{1}{f_2^2}-\frac{1}{f_1^2}) \cdot TEC
 $$
 
-3. The TEC corresponding to the ionospheric delay can be calculated using the formula:
+$$
+TEC \approx \frac{24\,130\,802.72 - 24\,130\,795.37}{40.3\cdot (\frac{1}{(1227.6e6)^2}-\frac{1}{(1575.42e6)^2})} \approx 69.97\ TECU
+$$
+
+3. The ionospheric delay for L1 and L2 are then:
 
 $$
-TEC = \frac{I \cdot f^2}{40.3} = \frac{7.35\ m \cdot (1575.42 \times 10^6)^2}{40.3} \approx 45.26\ TECU
+I_1 = \frac{40.3}{(1575.42e6)^2} \cdot 69.97e16 \approx 11.36\ m \\
+I_2 = \frac{40.3}{(1227.6e6)^2} \cdot 69.97e16 \approx 18.71\ m \\
 $$
+
 
 ### 4.
 
