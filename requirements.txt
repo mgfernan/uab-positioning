@@ -9,5 +9,6 @@ plotly==6.1.1
 pyyaml
 # No aarch64/manylinux wheels or sdist on PyPI; build from source on ARM (e.g. this devcontainer)
 pygnss @ git+https://github.com/mgfernan/pygnss.git
+scipy
 seaborn>=0.13
 tabulate
