@@ -21,6 +21,8 @@ acronyms:
       longname: Dilution of Precision
     - shortname: DoS
       longname: Denial of Service
+    - shortname: DSSS
+      longname: Direct Sequence Spread Spectrums
     - shortname: EC
       longname: European Commission
     - shortname: ECEF
@@ -33,6 +35,8 @@ acronyms:
       longname: European Geostationary Navigation Overlay Service
     - shortname: ENU
       longname: East-North-Up
+    - shortname: FHSS
+      longname: Frequency Hopping Spread Spectrum
     - shortname: FOC
       longname: Full Operational Capability
     - shortname: GAGAN
@@ -95,6 +99,8 @@ acronyms:
       longname: Position, Velocity and Time
     - shortname: QZSS
       longname: Quasi-Zenith Satellite System
+    - shortname: PRN
+      longname: Pseudo-Random Noise
     - shortname: RTCM
       longname: Radio Technical Commission for Maritime Services
     - shortname: RTK
