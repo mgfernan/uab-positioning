@@ -1775,7 +1775,6 @@ A better estimation is done by combining the **prediction** and **measurement** 
 
 This loop runs continuously as new measurements arrive.
 
-
 #### Kalman filter: Prediction
 
 - *"What should the next state be, given the current state?"*
