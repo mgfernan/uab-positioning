@@ -75,6 +75,8 @@ acronyms:
       longname: In-Orbit Validation
     - shortname: LBS
       longname: Location Based Services
+    - shortname: LFSR
+      longname: Linear Feedback Shift Register
     - shortname: LORAN
       longname: Long Range Navigation
     - shortname: MCS
@@ -83,6 +85,8 @@ acronyms:
       longname: Medium Earth Orbit
     - shortname: MSAS
       longname: Multi-functional Satellite Augmentation System
+    - shortname: MLS
+      longname: Maximum Length Sequence
     - shortname: NLOS
       longname: Non-Line-of-Sight
     - shortname: NRTK
@@ -99,12 +103,12 @@ acronyms:
       longname: Precise Point Positioning with Real Time Kinematics
     - shortname: PRC
       longname: Pseudo-Range Correction
+    - shortname: PRN
+      longname: Pseudo-Random Noise
     - shortname: PVT
       longname: Position, Velocity and Time
     - shortname: QZSS
       longname: Quasi-Zenith Satellite System
-    - shortname: PRN
-      longname: Pseudo-Random Noise
     - shortname: RHCP
       longname: Right-Hand Circular Polarization
     - shortname: RTCM
