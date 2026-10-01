@@ -11,6 +11,8 @@ acronyms:
       longname: Additive White Gaussian Noise
     - shortname: BDGIM
       longname: BeiDou Global Ionosphere Model
+    - shortname: CDMA
+      longname: Code Division Multiple Access
     - shortname: C/N0
       longname: Carrier-to-Noise Density Ratio
     - shortname: CTP
@@ -35,6 +37,8 @@ acronyms:
       longname: European Geostationary Navigation Overlay Service
     - shortname: ENU
       longname: East-North-Up
+    - shortname: FDMA
+      longname: Frequency Division Multiple Access
     - shortname: FHSS
       longname: Frequency Hopping Spread Spectrum
     - shortname: FOC
@@ -101,6 +105,8 @@ acronyms:
       longname: Quasi-Zenith Satellite System
     - shortname: PRN
       longname: Pseudo-Random Noise
+    - shortname: RHCP
+      longname: Right-Hand Circular Polarization
     - shortname: RTCM
       longname: Radio Technical Commission for Maritime Services
     - shortname: RTK

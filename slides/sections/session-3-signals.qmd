@@ -539,9 +539,76 @@ $$
 
 ## Multiplexing techniques
 
+- How can multiple signals be transmitted in the same channel without interfering with each other?
+- Each GNSS constellation has a compled signal structure that needs to co-exist in the same frequency bands
+  - Multiplexing techniques are used to allow non-interfering co-existence
 
+### TDMA: Time Division Multiple Access
 
+Different signals are transmitted in different time slots, but they share the same frequency band.
 
-<!--- TODO: link with discrete systems, periodic sequence $x[n] = x[n+P]\ \forall\ P$, where $P$ depends on the code, for GPS C/A code $P = 1024$ --->
+![](assets/figures/multiplex_tdma.svg){fig-align="center"}
+
+### FDMA: Frequency Division Multiple Access
+
+Different signals are transmitted in different frequency bands, but they share the same time slot.
+
+![](assets/figures/multiplex_fdma.svg){fig-align="center"}
+
+### CDMA: Code Division Multiple Access
+
+Different signals are transmitted using different codes, but they share time slots and frequency bands
+
+![](assets/figures/multiplex_cdma.svg){fig-align="center"}
+
+### Multiplexing techniques in GNSS
+
+- GPS, Galileo, Beidou, QZSS, and IRNSS $\Rightarrow$ \acr{CDMA}
+- Each satellite transmits a different ranging (spreading)
+  - Satellite share time slots and frequency bands
+  - Ranging codes are orthogonal $\Rightarrow$ avoids self-intereference and interference with other constellations
+  - Ranging codes spread the narrowband signal (i.e. the navigation message)
+
+### FDMA Multiplexing techniques in GLONASS
+
+- GLONASS $\Rightarrow$ \acr{FDMA}
+  - But, newer GLONASS signals are also \acr{CDMA} (L3OC in the L3 band)
+  - Frequencies are grouped in slots of
+    - $562.5\ kHz$ in R1 ($1.602\ MHz$)
+    - $437.5\ kHz$ in R2 ($1.246\ MHz$) bands
+  - Frequency reuse in antipodal satellites to avoid self-interference
+
+![](assets/figures/GLONASS_Sig_Plan_Fig_1.png){fig-align="center"}
+
+## Radio frequency signals
+
+### Frequency plan
+
+### Polarization
 
 <!--- TODO: Mention polarization of signal (RHCP) and link it to phase wind up --->
+
+\acr{RHCP} is used for GNSS signals because it is less susceptible to multipath interference and can penetrate through obstacles better than linear polarization.
+
+### Signal structure
+
+Phase and quadrature
+
+### Binary Offset Carrier modulation
+
+Binary Offset Carrier (BOC) modulation is a technique used in GNSS signals to improve the performance of the system. It involves the use of a binary code to modulate the carrier signal, resulting in a more robust and accurate positioning solution.
+
+Usage of a *subcarrier*
+
+Notation: BOC(n, m), where n is the subcarrier frequency and m is the chip rate of the spreading code, both expressed in multiples of 1.023 MHz.
+- BOC(1, 1) means that the subcarrier frequency is 1.023 MHz and the chip rate of the spreading code is also 1.023 MHz.
+
+## PRN Codes
+
+Gold codes used in GPS
+
+Galileo uses a combination of Gold codes and other types of codes for its signals, including the E1 OS signal which uses a combination of two different codes (C/A and C) to provide better performance in terms of multipath resistance and signal acquisition.
+
+## Navigation message
+
+Contents of the *narrowband signal* that is modulated by the spreading code (i.e. the $m[n]$). It contains information about the satellite's position, clock corrections, and other data necessary for accurate positioning.
