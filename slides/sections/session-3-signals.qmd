@@ -654,6 +654,26 @@ Different signals are transmitted using different codes, but they share time slo
 
 ![](assets/figures/gold_codes__ca.svg)
 
+### Gold codes in GPS C/A: selectors
+
+- The following table shows the code phase selection for the first \acr{PRN} of GPS L1 C/A signals (up tp 32). The full table can be found in [IS-GPS-200N, Table 3-Ia, page 6](https://www.gps.gov/sites/default/files/2025-07/IS-GPS-200N.pdf).
+
+| PRN | Tap 1 | Tap 2|
+|:---:|:---:|:---:|
+| 1 | 2 | 6 |
+| 2 | 3 | 7 |
+| 3 | 4 | 8 |
+| 4 | 5 | 9 |
+| 5 | 1 | 9 |
+| 6 | 2 | 10 |
+| 7 | 1 | 8 |
+| 8 | 2 | 9 |
+| 9 | 3 | 10 |
+| 10 | 2 | 3 |
+
+- A similar table can be found for the [Galileo](https://www.gsc-europa.eu/sites/default/files/sites/all/files/Galileo_OS_SIS_ICD_v2.2.pdf) and [Beidou](http://en.beidou.gov.cn/SYSTEMS/ICD/201902/P020190227702348791891.pdf) constellations.
+
+
 ## Radio frequency signals
 
 ### Frequency plan
@@ -664,9 +684,19 @@ Different signals are transmitted using different codes, but they share time slo
 
 \acr{RHCP} is used for GNSS signals because it is less susceptible to multipath interference and can penetrate through obstacles better than linear polarization.
 
-### Signal structure
+## Signal structure
 
 Phase and quadrature
+
+### GPS P code
+
+- The military codes used in GPS is a combination of two codes
+  - A public code (P code)
+  - A secret code (W code) used to encrypt the P code and produce the P(Y) code
+
+$$
+P(Y)(t) = P(t) \cdot W(t)
+$$
 
 ### Binary Offset Carrier modulation
 
