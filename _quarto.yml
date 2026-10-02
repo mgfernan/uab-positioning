@@ -1,6 +1,8 @@
 project:
   title: "AMI Presentation"
   output-dir: dist
+  render:
+    - ami_presentation.qmd
   resources:
     - assets/
     - docs/

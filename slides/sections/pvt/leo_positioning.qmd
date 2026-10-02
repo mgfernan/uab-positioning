@@ -1,0 +1,100 @@
+## LEO positioning with Doppler
+
+- Fundamental principle: [the shape of the Doppler shift curve depends on the relative position of the receiver and the satellite](#doppler-geometric-interpretation).
+- Doppler measures **range rate** (i.e. the time derivative of the range). Recall:
+  - The Doppler shift is **positive** when the satellite is approaching the receiver, and **negative** when it is moving away.
+  - For an idealized overhead pass, Doppler is zero at zenith (closest approach), and its magnitude approaches its maximum toward the horizon.
+
+$$
+\tiny
+f_D(t) = -\frac{f_0}{c} \dot \rho(t)\quad  \Rightarrow\quad  \dot \rho(t) = -\frac{c}{f_0} f_D(t)
+$$
+
+- In a fast changing environment (e.g. LEO satellites), Doppler measurements are used to estimate the position of the receiver
+
+### Doppler positioning: positioning problem
+
+- A single satellite can provide $N_{\mathrm{obs}}$ samples of the Doppler shift over time.
+
+![](assets/figures/leo_positioning_with_doppler.svg){align="center"}
+
+- The positioning solution is obtained by **matching the Doppler shift curve**
+
+### Doppler positioning: math formulation
+
+- *Matching a set of Doppler shift curves* (for $N_\mathrm{sat}$ satellites) can be formulated as a **non-linear least squares problem**:
+
+$$
+\hat{\mathbf{x}}_u = \arg\min_{\mathbf{x}_u} \sum_{i=1}^{N_\mathrm{sat}} \sum_{k=1}^{N_\mathrm{obs}} \left( f_{D,i,k}^{\mathrm{obs}} - f_{D,i,k}(\mathbf{x}_u) \right)^2
+$$
+
+["Find the receiver position and clock drift that best explain the observed Doppler shifts."]{style="font-size: 0.8em; text-align: center"}
+
+- Assuming a stationary receiver and constant receiver clock drift over the observation arc, the estimated state is $\mathbf{x}_u = [\mathbf{r}_u^{T}, \dot{\delta t}_u]^{T}$.
+
+
+### Doppler positioning: Doppler model
+
+- For a stationary receiver, the Doppler observation model at epoch $k$ is:
+
+$$
+\tiny
+f_{D,i,k} = -\frac{f_0}{c} \left ( \mathbf{v}_{i,k} \cdot \underbrace{\frac{\mathbf{r}_{i,k} - \mathbf{r}_u}{\rho_{i,k}}}_{\mathbf{e}_{i,k}} + \dot{\delta t}_u - \dot{\delta t}_{i,k} \right ) + \varepsilon_{D,i,k}
+$$
+
+### Doppler positioning: linearized system
+
+- Linearizing around the a priori state $\mathbf{x}_0$ (with $\mathbf{x}_u = \mathbf{x}_0 + \delta\mathbf{x}$), the system can be expressed in matrix form for the **correction** $\delta\mathbf{x}$. Let $n$ index the stacked observations, with observation $n$ belonging to satellite $i_n$ at epoch $k_n$; define $H_n^{(q)} = H_{i_n,k_n}^{(q)}$ for $q \in \{x,y,z\}$:
+
+$$
+\tiny
+\underbrace{
+\begin{bmatrix}
+f_{D,1}^{obs} - f_{D,i_1,k_1}(\mathbf{x}_0)\\
+f_{D,2}^{obs} - f_{D,i_2,k_2}(\mathbf{x}_0)\\
+f_{D,3}^{obs} - f_{D,i_3,k_3}(\mathbf{x}_0)\\
+f_{D,4}^{obs} - f_{D,i_4,k_4}(\mathbf{x}_0)\\
+f_{D,5}^{obs} - f_{D,i_5,k_5}(\mathbf{x}_0)
+\end{bmatrix}
+}_{\mathbf{y},\ prefit\ residuals}
+=
+\underbrace{
+\begin{bmatrix}
+H_1^{(x)} & H_1^{(y)} & H_1^{(z)} & -\frac{f_0}{c}\\
+H_2^{(x)} & H_2^{(y)} & H_2^{(z)} & -\frac{f_0}{c}\\
+H_3^{(x)} & H_3^{(y)} & H_3^{(z)} & -\frac{f_0}{c}\\
+H_4^{(x)} & H_4^{(y)} & H_4^{(z)} & -\frac{f_0}{c}\\
+H_5^{(x)} & H_5^{(y)} & H_5^{(z)} & -\frac{f_0}{c}
+\end{bmatrix}
+}_{\mathbf{H}, Jacobian\ matrix}
+\underbrace{
+\begin{bmatrix}
+\delta x_u\\
+\delta y_u\\
+\delta z_u\\
+\delta\dot{t}_u
+\end{bmatrix}
+}_{\delta\mathbf{x}}
+$$
+
+### Doppler positioning: Jacobian terms
+
+- For each satellite-epoch pair, define the offset to the a priori position
+
+$$
+\tiny
+d_{x,i,k} = x_{i,k} - x_0,\ d_{y,i,k} = y_{i,k} - y_0,\ d_{z,i,k} = z_{i,k} - z_0,\ with\ \rho_{i,k} = \|\mathbf{d}_{i,k}\|
+$$
+
+- The position Jacobian components (evaluated at $\mathbf{x}_0$) are:
+
+$$
+\tiny
+\begin{aligned}
+H_{i,k}^{(x)} &= \frac{f_0}{c\rho_{i,k}^3} \left(v_{i,k}^{(x)} (d_{y,i,k}^2 + d_{z,i,k}^2) - v_{i,k}^{(y)} d_{x,i,k}d_{y,i,k} - v_{i,k}^{(z)} d_{x,i,k}d_{z,i,k}\right) \\
+H_{i,k}^{(y)} &= \frac{f_0}{c\rho_{i,k}^3} \left(-v_{i,k}^{(x)} d_{x,i,k}d_{y,i,k} + v_{i,k}^{(y)} (d_{x,i,k}^2 + d_{z,i,k}^2) - v_{i,k}^{(z)} d_{y,i,k}d_{z,i,k}\right) \\
+H_{i,k}^{(z)} &= \frac{f_0}{c\rho_{i,k}^3} \left(-v_{i,k}^{(x)} d_{x,i,k}d_{z,i,k} - v_{i,k}^{(y)} d_{y,i,k}d_{z,i,k} + v_{i,k}^{(z)} (d_{x,i,k}^2 + d_{y,i,k}^2)\right)
+\end{aligned}
+$$
+
+- The least squares solution is: $\delta\mathbf{x} = (\mathbf{H}^T \mathbf{H})^{-1} \mathbf{H}^T \mathbf{y}$

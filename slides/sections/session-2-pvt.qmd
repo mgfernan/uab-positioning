@@ -2667,7 +2667,7 @@ ENDSOURCETABLE
 
 ![source: ICGC](assets/figures/icgc_network.png){width="100%"}
 
-
+{{< include slides/sections/pvt/leo_positioning.qmd >}}
 
 ## Positioning strategies
 
@@ -2702,3 +2702,4 @@ flowchart LR
     class B21,B22 diffMethod
     class B211,B2111,B2112,B221,B2211,B2212 diffLeaf
 ```
+
