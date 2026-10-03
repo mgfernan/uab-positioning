@@ -47,4 +47,4 @@ $$
 ### 1.
 
 
-see [this notebook for the solution of the problem](notebooks/session_2_5_pvt_1.ipynb)
+see [this notebook for the solution of the problem](notebooks/pvt_solution_2D.ipynb)
