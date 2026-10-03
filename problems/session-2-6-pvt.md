@@ -40,6 +40,29 @@ $$
 
 7. What is the clock offset of the receivers?
 
+### 2. DOP computation
+
+A receiver is located at $(1, 1)$ and receives signals from three transmitters located at:
+
+`Scenario A`
+
+$$
+T_{A,1} = (5, 2)\\
+T_{A,2} = (-2, 4)\\
+T_{A,3} = (0, -4)
+$$
+
+
+`Scenario B`
+
+$$
+T_{B,1} = (5, 2)\\
+T_{B,2} = (-4, -7)\\
+T_{B,3} = (0, -4)
+$$
+
+1. Compute the DOP for both scenarios. Which one is better?
+
 ***
 
 ## Answers
@@ -48,3 +71,7 @@ $$
 
 
 see [this notebook for the solution of the problem](notebooks/pvt_solution_2D.ipynb)
+
+### 2.
+
+see [this notebook for the solution of the problem](notebooks/pvt_dop_computation.ipynb)
