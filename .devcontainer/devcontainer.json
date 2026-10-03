@@ -30,5 +30,7 @@
     }
   },
 
+  "runArgs": ["--add-host=host.docker.internal:host-gateway"],
+
   "postCreateCommand": "bash .devcontainer/post-create.sh"
 }
