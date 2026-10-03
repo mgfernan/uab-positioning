@@ -673,22 +673,200 @@ Different signals are transmitted using different codes, but they share time slo
 
 - A similar table can be found for the [Galileo](https://www.gsc-europa.eu/sites/default/files/sites/all/files/Galileo_OS_SIS_ICD_v2.2.pdf) and [Beidou](http://en.beidou.gov.cn/SYSTEMS/ICD/201902/P020190227702348791891.pdf) constellations.
 
+## Binary Offset Carrier modulation
 
-## Radio frequency signals
+- \acr{BOC} modulation is a technique used in GNSS signals to improve the performance of the system.
+- It uses a periodic binary code that multiplies the ranging code, resulting in a more robust and accurate positioning solution.
+
+- Notation: BOC(n, m), where $n$ is the subcarrier frequency and $m$ is the chip rate of the spreading code, both expressed in multiples of 1.023 MHz.
+  - Example: BOC(1, 1) means that the subcarrier frequency is 1.023 MHz and the chip rate of the spreading code is also 1.023 MHz $\Rightarrow$ 1 subcarrier cycle per chip of the spreading code.
+- The ratio $\frac{n}{m}$ is called the *subcarrier-to-chip ratio* and determines the number of subcarrier cycles per chip of the spreading code (e.g. BOC(10, 5) $\Rightarrow$ 2 subcarrier cycles per chip of the spreading code).
+
+### BOC: Spectrum
+
+- BOC introduces a frequency shift $\Rightarrow$ Split spectrum $\Rightarrow$ increase robustness to interference and multipath
+
+```{python}
+from IPython.display import HTML
+import numpy as np
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+chip_rate = 1.023e6
+samples_per_chip = 32
+sampling_rate = chip_rate * samples_per_chip
+prn_code = gps_ca_code(1).astype(float)
+bpsk_signal = np.repeat(prn_code, samples_per_chip)
+
+sample_indices = np.arange(bpsk_signal.size)
+subcarrier = np.where((sample_indices // (samples_per_chip // 2)) % 2 == 0, 1, -1)
+boc_signal = bpsk_signal * subcarrier
+
+frequency = np.fft.fftshift(np.fft.fftfreq(bpsk_signal.size, d=1 / sampling_rate)) / 1e6
+bpsk_power = np.abs(np.fft.fftshift(np.fft.fft(bpsk_signal))) ** 2
+boc_power = np.abs(np.fft.fftshift(np.fft.fft(boc_signal))) ** 2
+smoothing_bins = 9
+smoothing_kernel = np.ones(smoothing_bins) / smoothing_bins
+bpsk_power_smooth = np.convolve(bpsk_power, smoothing_kernel, mode="same")
+boc_power_smooth = np.convolve(boc_power, smoothing_kernel, mode="same")
+bpsk_spectrum_db = 10 * np.log10(bpsk_power_smooth / bpsk_power_smooth.max() + 1e-10)
+boc_spectrum_db = 10 * np.log10(boc_power_smooth / boc_power_smooth.max() + 1e-10)
+
+samples_to_show = 10 * samples_per_chip
+time_chips = sample_indices[:samples_to_show] / samples_per_chip
+fig = make_subplots(
+    rows=2,
+    cols=1,
+    subplot_titles=("BPSK(1)/BOC(1,1) time signal", "Smoothed normalized power spectra"),
+    vertical_spacing=0.18,
+)
+
+fig.add_trace(
+    go.Scatter(x=time_chips, y=bpsk_signal[:samples_to_show], mode="lines", line_shape="hv", name="BPSK(1)", line=dict(color="royalblue", width=4)),
+    row=1,
+    col=1,
+)
+fig.add_trace(
+    go.Scatter(x=time_chips, y=boc_signal[:samples_to_show], mode="lines", line_shape="hv", name="BOC(1,1)", line=dict(color="firebrick")),
+    row=1,
+    col=1,
+)
+fig.add_trace(
+    go.Scatter(x=frequency, y=bpsk_spectrum_db, mode="lines", name="BPSK(1)", line=dict(color="royalblue")),
+    row=2,
+    col=1,
+)
+fig.add_trace(
+    go.Scatter(x=frequency, y=boc_spectrum_db, mode="lines", name="BOC(1,1)", line=dict(color="firebrick")),
+    row=2,
+    col=1,
+)
+
+fig.update_xaxes(title_text="Time (chips)", range=[0, 10], row=1, col=1)
+fig.update_xaxes(title_text="Frequency (MHz)", range=[-10, 10], row=2, col=1)
+fig.update_yaxes(title_text="Amplitude", range=[-1.2, 1.2], row=1, col=1)
+fig.update_yaxes(title_text="Power (dB, normalized)", range=[-60, 3], row=2, col=1)
+fig.update_layout(
+    height=450,
+    width=900,
+    template="plotly_white",
+    title="BPSK and BOC(1,1) modulation of GPS C/A PRN 1",
+    legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+    margin=dict(l=60, r=25, t=80, b=50),
+)
+HTML(fig.to_html(full_html=False, include_plotlyjs="cdn"))
+```
+
+
+### BOC: Auto-correlation
+
+- Recall: \acr{PRN} over a \acr{BPSK} signal has a single peak in the auto-correlation function with a width $-T_{chip} \leq \tau \leq T_{chip}$.
+
+
+```{python}
+max_lag_samples = 2 * samples_per_chip
+lag_samples = np.arange(-max_lag_samples, max_lag_samples + 1)
+lag_chips = lag_samples / samples_per_chip
+
+def periodic_autocorrelation(signal):
+    return np.array([
+        np.dot(signal, np.roll(signal, lag)) / signal.size
+        for lag in lag_samples
+    ])
+
+bpsk_autocorrelation = periodic_autocorrelation(bpsk_signal)
+boc_autocorrelation = periodic_autocorrelation(boc_signal)
+
+fig = go.Figure()
+fig.add_trace(go.Scatter(
+    x=lag_chips,
+    y=bpsk_autocorrelation,
+    mode="lines",
+    name="BPSK(1)",
+    line=dict(color="royalblue", width=4),
+))
+fig.add_trace(go.Scatter(
+    x=lag_chips,
+    y=boc_autocorrelation,
+    mode="lines",
+    name="BOC(1,1)",
+    line=dict(color="firebrick"),
+))
+fig.update_xaxes(title_text="Lag (chips)", range=[-2, 2])
+fig.update_yaxes(title_text="Normalized autocorrelation", range=[-0.5, 1.05])
+fig.update_layout(
+    height=450,
+    width=900,
+    template="plotly_white",
+    title="BPSK and BOC(1,1) autocorrelation of GPS C/A PRN 1",
+    legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+    margin=dict(l=60, r=25, t=80, b=50),
+)
+HTML(fig.to_html(full_html=False, include_plotlyjs="cdn"))
+```
+
+
+
+## Radio-frequency signals
+
+A GNSS signal is characterized by the following attributes:
+
+- Frequency band / carrier frequency $f_c$ (e.g. L band / L1)
+- Modulation scheme (e.g. \acr{BPSK}, \acr{BOC})
+- Multiplexing technique (e.g. \acr{CDMA}, \acr{FDMA})
+- Ranging code (e.g. \acr{PRN} code)
+- Navigation message
+- Transmiited power
+
+### Signal structure
+
+- GNSS signals are modulated using a combination of in-phase ($I$, i.e. $\cos$) and quadrature ($Q$, i.e. $\sin$)
+  - This allows for more efficient use of the available bandwidth and enables the transmission of more information.
+
+$$
+s(t) = I(t) \cdot \cos(2\pi f_c t) + Q(t) \cdot \sin(2\pi f_c t)
+$$
+
+- The terms $I(t)$ and $Q(t)$ contain the modulation of the navigation message ($m[n]$) and the ranging code ($p[n]$).
+
+### Signal structure: illustration
+
+- Taking only the in-phase component, the signal could be expressed as:
+$$
+s(t) = \underbrace{\sqrt{2 P_s}\ \color{blue}{p(t)}\ \color{brown}{s_c(t)}\ \color{green}{m(t)}}_{I(t)}\ \sin(2\pi \color{magenta}{f_c} t) + \dots
+$$
+
+![](assets/figures/signal_structure.svg){fig-align="center"}
 
 ### Frequency plan
 
+![](assets/figures/gnss_frequency_plan.svg){fig-align="center"}
+
+
 ### Polarization
 
-<!--- TODO: Mention polarization of signal (RHCP) and link it to phase wind up --->
+- The GNSS signals can be impacted by:
+  - Changing attitude of the transmitter and receiver antennas
+  - Faraday rotation of the signal as it propagates through the ionosphere, i.e. $\propto \int N_e \vec{B} \cdot d\vec{l}$ (where $N_e$ is the electron density and $\vec{B}$ is the magnetic field)
+- A linear polarization could cause severe amplitude fading $\Rightarrow$ GNSS signals are transmitted using circular polarization, in particular \acr{RHCP}.
 
-\acr{RHCP} is used for GNSS signals because it is less susceptible to multipath interference and can penetrate through obstacles better than linear polarization.
+### Example: GPS L1
 
-## Signal structure
+- Simplified representation of the GPS L1 signal
 
-Phase and quadrature
+![based on [IS-GPS-200N](https://www.gps.gov/sites/default/files/2025-07/IS-GPS-200N.pdf)](assets/figures/signals__gps_l1_flow.svg){fig-align="center"}
 
-### GPS P code
+- Note: new GPS L1C signals are \acr{BOC} not included here. The L1C signal (transmitted by GPS Block III satellites) is composed of two components:
+  - $L1C_p$: pilot channel (no navigation message)
+  - $L1C_d$: data channel (with navigation message)
+
+### Example: GPS L1 (components)
+
+| Component | Description | Modulation | N chips |  Code duration |Chip duration |
+|:---------:|:------------|:------:|:-----:|:-------------:|:--------------:|
+| $C_{C/A}(t)$ | C/A ranging code | BPSK(1) | 1023 |  1 ms | $1\ ms/1023 = 977.5\ ns \approx 1 \mu s$ |
+| $D_{L1}(t)$ | Navigation message | BPSK(1) | - |  - | $1/{50\ bps} = 20\ ms$ |
+| $C_{P(Y)}(t)$ | P(Y) ranging code | BPSK(10) |  |  1 ms | $1\ ms/10230 = 97.75\ ns$ |
 
 - The military codes used in GPS is a combination of two codes
   - A public code (P code)
@@ -698,15 +876,152 @@ $$
 P(Y)(t) = P(t) \cdot W(t)
 $$
 
-### Binary Offset Carrier modulation
 
-Binary Offset Carrier (BOC) modulation is a technique used in GNSS signals to improve the performance of the system. It involves the use of a binary code to modulate the carrier signal, resulting in a more robust and accurate positioning solution.
+### Example: Galileo E1 signal
 
-Usage of a *subcarrier*
+![based on [Galileo ICD Figure 7](https://www.gsc-europa.eu/sites/default/files/sites/all/files/Galileo_OS_SIS_ICD_v2.2.pdf)](assets/figures/signals__galileo_e1_flow.svg){fig-align="center"}
 
-Notation: BOC(n, m), where n is the subcarrier frequency and m is the chip rate of the spreading code, both expressed in multiples of 1.023 MHz.
-- BOC(1, 1) means that the subcarrier frequency is 1.023 MHz and the chip rate of the spreading code is also 1.023 MHz.
+$$
+\tiny
+\begin{aligned}
+s_{E1}(t) = \frac{1}{\sqrt{2}} & \left[ \underbrace{\color{blue}{C_{E1-B}(t)}\ \color{green}{D_{E1-B}(t)}}_{data\ channel}\ \left( \color{brown}{\alpha\ sc_{E1-B,a} + \beta\ sc_{E1-B,b}}\right) \right.\\
+ & \left.+\underbrace{\color{blue}{C_{E1-C}(t)}}_{pilot\ channel}\ \left( \color{brown}{\alpha\ sc_{E1-C,a} - \beta\ sc_{E1-C,b}}\right) \right]\ cos(2\pi \color{magenta}{f_{E1}} t) + \dots
+\end{aligned}
+$$
 
-## Navigation message
+### Example: Galileo E1 signal (components)
 
-Contents of the *narrowband signal* that is modulated by the spreading code (i.e. the $m[n]$). It contains information about the satellite's position, clock corrections, and other data necessary for accurate positioning.
+From the previous equation, we can identify the following components:
+
+| Component | Description |
+|:---------:|:------------|
+| $C_{E1-B}(t)$ | Data channel ranging code |
+| $D_{E1-B}(t)$ | Data channel navigation message |
+| $\alpha\ sc_{E1-B,a} +  \beta\ sc_{E1-B,b}$ | CBOC subcarrier component |
+| $C_{E1-C}(t)$ | Pilot channel ranging code |
+| $\alpha\ sc_{E1-C,a} -  \beta\ sc_{E1-C,b}$ | CBOC subcarrier component  |
+
+- Pilot channel does not contain navigation bits: allows for larger integration times (not limited to bit transitions $\Rightarrow$ higher sensitivity).
+- Note: the quadrature component of the signal is not shown in the figure, as it corresponds to the \acr{PRS} which is encrypted and not publicly available.
+
+
+### Example: Galileo E1 signal (CBOC)
+
+- \acr{CBOC} is the combination of two \acr{BOC} signals with different subcarrier frequencies and amplitudes.
+
+[CBOC = main BOC component + small high-frequency BOC component]{style="font-size: 0.8em; text-align: center;"}
+
+- In Galileo, the main BOC component is a BOC(1,1) and the high-frequency BOC component is a BOC(6,1). The amplitudes of the two components are $\alpha = \sqrt{10/11}$ and $\beta = \sqrt{1/11}$.
+- The resulting spectrum has more energy away from the carrier than a pure BOC(1,1) signal
+
+### Example: Galileo E1 signal (CBOC cont'd)
+
+```{python}
+subcarrier_61 = np.where(
+    ((sample_indices * 12) // samples_per_chip) % 2 == 0,
+    1,
+    -1,
+)
+boc_61_signal = bpsk_signal * subcarrier_61
+cboc_signal = np.sqrt(10 / 11) * boc_signal + np.sqrt(1 / 11) * boc_61_signal
+
+boc_11_power = np.abs(np.fft.fftshift(np.fft.fft(boc_signal))) ** 2
+cboc_power = np.abs(np.fft.fftshift(np.fft.fft(cboc_signal))) ** 2
+boc_11_power_smooth = np.convolve(boc_11_power, smoothing_kernel, mode="same")
+cboc_power_smooth = np.convolve(cboc_power, smoothing_kernel, mode="same")
+boc_11_spectrum_db = 10 * np.log10(
+    boc_11_power_smooth / boc_11_power_smooth.max() + 1e-10
+)
+cboc_spectrum_db = 10 * np.log10(
+    cboc_power_smooth / cboc_power_smooth.max() + 1e-10
+)
+
+fig = make_subplots(
+    rows=2,
+    cols=1,
+    subplot_titles=("BOC(1,1)/CBOC(6,1) time signal", "Smoothed normalized power spectra"),
+    vertical_spacing=0.18,
+)
+
+fig.add_trace(
+    go.Scatter(x=time_chips, y=boc_signal[:samples_to_show], mode="lines", line_shape="hv", name="BOC(1,1)", line=dict(color="firebrick")),
+    row=1,
+    col=1,
+)
+fig.add_trace(
+    go.Scatter(x=time_chips, y=cboc_signal[:samples_to_show], mode="lines", line_shape="hv", name="CBOC(6,1)", line=dict(color="seagreen")),
+    row=1,
+    col=1,
+)
+fig.add_trace(
+    go.Scatter(x=frequency, y=boc_11_spectrum_db, mode="lines", name="BOC(1,1)", line=dict(color="firebrick")),
+    row=2,
+    col=1,
+)
+fig.add_trace(
+    go.Scatter(x=frequency, y=cboc_spectrum_db, mode="lines", name="CBOC(6,1)", line=dict(color="seagreen")),
+    row=2,
+    col=1,
+)
+
+fig.update_xaxes(title_text="Time (chips)", range=[0, 10], row=1, col=1)
+fig.update_xaxes(title_text="Frequency (MHz)", range=[-10, 10], row=2, col=1)
+fig.update_yaxes(title_text="Amplitude", range=[-1.5, 1.5], row=1, col=1)
+fig.update_yaxes(title_text="Power (dB, normalized)", range=[-60, 3], row=2, col=1)
+fig.update_layout(
+    height=450,
+    width=900,
+    template="plotly_white",
+    title="BOC(1,1) and CBOC(6,1) modulation of Galileo E1 PRN 1",
+    legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+    margin=dict(l=60, r=25, t=80, b=50),
+)
+HTML(fig.to_html(full_html=False, include_plotlyjs="cdn"))
+```
+
+## Navigation message
+
+- Recall: the user needs to know the satellite (transmitter) position (among other information) to compute its own position.
+  - This information is transmitted in the *navigation message* of the GNSS signal (i.e. $\color{green}{m[n]}$).
+- This constitutes the *narrowband signal* that is modulated by the spreading code.
+- Navigation message contains information on:
+  - satellite's position
+  - clock corrections
+  - signal biases
+  - ionospheric model
+- Structure of the navigation message is different for each GNSS:
+  - Fully described in the respective \acr{ICD}s [@GPS_ICD_200N], [@Galileo_OS_SIS_ICD], [@BeiDou_SIS_ICD_B1I], [@GLONASS_ICD_4_0]
+
+### GPS L1 C/A Navigation message
+
+- Main characteristics of the GPS L1 C/A navigation message:
+  - Transmitted at 50 bps $\Rightarrow$ Bit duration of 20 ms
+  - 12.5 minutes to transmit all the message
+  - Ephemeris and clock data transmitted repeatedly each 30 s
+  - Frames of 1500 bits (30 seconds each)
+  - Each frame subdivided into 5 subframes (6 seconds each)
+
+- Similar structure for Galileo, Beidou, QZSS, and IRNSS navigation messages, but with different frame and subframe lengths and data rates.
+
+### GPS L1 C/A Nav message frames
+
+![based on [IS-GPS-200N Appendix IV](https://www.gps.gov/sites/default/files/2025-07/IS-GPS-200N.pdf)](assets/figures/signals__gps_l1_nav_message.svg){fig-align="center"}
+
+### GPS L1 C/A Nav message subframes
+
+- What's in a suframe?
+  - header and a payload
+  - time stamp (e.g. GPS week number and time of week)
+  - parity check (e.g. Hamming code)
+
+
+| Subframe | Content |
+|:--------:|:-------:|
+| 1 | Clock correction parameters, signal biases |
+| 2 | Ephemeris parameters |
+| 3 | Ephemeris parameters (cont'd) |
+| 4 | Almanac data, ionospheric model parameters |
+| 5 | Almanac data |
+
+- Almanac data is a coarse orbit and status information for all satellites in the constellation.
+  - It is used to speed up the acquisition of the signal

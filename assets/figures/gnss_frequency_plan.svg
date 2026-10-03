@@ -1,0 +1,849 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="947"
+   height="517.53876"
+   viewBox="0 0 947 517.53876"
+   version="1.1"
+   id="svg79"
+   sodipodi:docname="gnss_frequency_plan.svg"
+   inkscape:version="1.4.4 (1:1.4.4+202605061436+dcaf3e7d9e)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs79" />
+  <sodipodi:namedview
+     id="namedview79"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="true"
+     inkscape:zoom="0.73161048"
+     inkscape:cx="552.88984"
+     inkscape:cy="157.87089"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg79">
+    <inkscape:grid
+       id="grid79"
+       units="px"
+       originx="-18"
+       originy="47.970295"
+       spacingx="1"
+       spacingy="1"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14902"
+       empspacing="5"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
+  <path
+     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2, 6;stroke-dashoffset:0;stroke-opacity:1"
+     d="M 882,7.9702949 V 357.86121"
+     id="path79-8-6-3-3-3-0-8"
+     sodipodi:nodetypes="cc" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2, 6;stroke-dashoffset:0;stroke-opacity:1"
+     d="M 40.5,57.970295 V 357.97029"
+     id="path79" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2, 6;stroke-dashoffset:0;stroke-opacity:1"
+     d="M 114,87.970295 V 357.97029"
+     id="path79-8"
+     sodipodi:nodetypes="cc" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2, 6;stroke-dashoffset:0;stroke-opacity:1"
+     d="m 219,247.97029 v 110"
+     id="path79-8-6"
+     sodipodi:nodetypes="cc" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2, 6;stroke-dashoffset:0;stroke-opacity:1"
+     d="m 301,247.97029 v 110"
+     id="path79-8-6-3"
+     sodipodi:nodetypes="cc" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2, 6;stroke-dashoffset:0;stroke-opacity:1"
+     d="m 412.5,167.97029 v 190"
+     id="path79-8-6-3-3"
+     sodipodi:nodetypes="cc" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2, 6;stroke-dashoffset:0;stroke-opacity:1"
+     d="M 381,87.970295 V 357.97029"
+     id="path79-8-6-3-3-4"
+     sodipodi:nodetypes="cc" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2, 6;stroke-dashoffset:0;stroke-opacity:1"
+     d="M 604,87.970295 V 357.97029"
+     id="path79-8-6-3-3-3"
+     sodipodi:nodetypes="cc" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2, 6;stroke-dashoffset:0;stroke-opacity:1"
+     d="M 550.5,87.970295 V 357.97029"
+     id="path79-8-6-3-3-3-4"
+     sodipodi:nodetypes="cc" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2, 6;stroke-dashoffset:0;stroke-opacity:1"
+     d="m 716.5,247.97029 v 110"
+     id="path79-8-6-3-3-3-0"
+     sodipodi:nodetypes="cc" />
+  <style
+     id="style1">
+    .box { stroke:#3b3b3b; stroke-width:1.2; }
+    .galileo { fill:#ffebb4; }
+    .gps { fill:#49c2c6; }
+    .glonass { fill:#87b87b; }
+    .beidou { fill:#ae5d85; }
+    .label { font-family:Arial,Helvetica,sans-serif; font-size:14px; fill:#3b3b3b; text-anchor:middle; dominant-baseline:middle; }
+    .freq { font-family:Arial,Helvetica,sans-serif; font-size:12px; fill:#3b3b3b; text-anchor:middle; }
+    .major { font-family:Arial,Helvetica,sans-serif; font-size:24px; fill:#3b3b3b; text-anchor:middle; }
+    .axis { stroke:#3b3b3b; stroke-width:2; }
+    .tick { stroke:#3b3b3b; stroke-width:1; }
+  </style>
+  <!-- Galileo E5a / E5b -->
+  <rect
+     class="box galileo"
+     x="3.8725052"
+     y="157.13155"
+     width="73.027992"
+     height="81.677505"
+     id="rect2" />
+  <rect
+     class="box galileo"
+     x="76.900497"
+     y="157.13155"
+     width="74.028374"
+     height="81.677505"
+     id="rect3" />
+  <!-- GPS L5 -->
+  <rect
+     class="box gps"
+     x="3.8196373"
+     y="236.80956"
+     width="73.035065"
+     height="81.160728"
+     id="rect4" />
+  <!-- GLONASS L3 -->
+  <rect
+     class="box glonass"
+     x="76.854698"
+     y="236.80956"
+     width="74.035545"
+     height="81.160728"
+     id="rect5" />
+  <!-- BeiDou B2 -->
+  <rect
+     class="box beidou"
+     x="76.952347"
+     y="78.749718"
+     width="74.095299"
+     height="78.381821"
+     id="rect6" />
+  <rect
+     class="box beidou"
+     x="4"
+     y="78.970291"
+     width="72.952347"
+     height="78.161255"
+     id="rect6-7"
+     style="fill:#ae5d85;stroke:#3b3b3b;stroke-width:1.61808" />
+  <rect
+     class="box beidou"
+     x="3.8609962"
+     y="0.80904001"
+     width="72.952347"
+     height="78.161255"
+     id="rect6-7-0"
+     style="fill:#a9e257;fill-opacity:1;stroke:#3b3b3b;stroke-width:1.61808" />
+  <!-- GPS L2 / GLONASS L2 -->
+  <rect
+     class="box gps"
+     x="179.90417"
+     y="239.25415"
+     width="78.037468"
+     height="78.716125"
+     id="rect7" />
+  <rect
+     class="box glonass"
+     x="262.94403"
+     y="239.25415"
+     width="76.036507"
+     height="78.716125"
+     id="rect8" />
+  <rect
+     class="box glonass"
+     x="566.58978"
+     y="79.25415"
+     width="76.036507"
+     height="78.716125"
+     id="rect8-1"
+     style="fill:#ae5d85;fill-opacity:1;stroke:#3b3b3b;stroke-width:0.839275" />
+  <!-- Galileo E6 / BeiDou B3 -->
+  <rect
+     class="box galileo"
+     x="344.00287"
+     y="157.13155"
+     width="137.05254"
+     height="81.677505"
+     id="rect9" />
+  <rect
+     class="box beidou"
+     x="344"
+     y="79.970291"
+     width="74"
+     height="78"
+     id="rect10" />
+  <!-- Galileo E1 / GPS L1 / B1 / B1-2 / GLONASS L1 -->
+  <rect
+     class="box galileo"
+     x="539.07764"
+     y="157.13155"
+     width="130.04985"
+     height="81.677505"
+     id="rect11" />
+  <rect
+     class="box beidou"
+     x="539"
+     y="78.970291"
+     width="23"
+     height="79"
+     id="rect12" />
+  <rect
+     class="box gps"
+     x="562.08765"
+     y="239.25415"
+     width="85.040825"
+     height="78.716125"
+     id="rect13" />
+  <rect
+     class="box glonass"
+     x="678.14337"
+     y="239.25415"
+     width="77.036987"
+     height="78.716125"
+     id="rect15" />
+  <!-- Signal labels -->
+  <g
+     id="g88"
+     transform="translate(-18,43.61092)">
+    <text
+       class="label"
+       x="58.5"
+       y="146.16504"
+       id="text15">Galileo</text>
+    <text
+       class="label"
+       x="58.5"
+       y="165.16504"
+       id="text16">E5a</text>
+  </g>
+  <g
+     id="g89"
+     transform="translate(-18,43.61092)">
+    <text
+       class="label"
+       x="132"
+       y="146.16504"
+       id="text17">Galileo</text>
+    <text
+       class="label"
+       x="132"
+       y="165.16504"
+       id="text18">E5b</text>
+  </g>
+  <g
+     id="g83"
+     transform="translate(-18,82.011017)">
+    <text
+       class="label"
+       x="58.5"
+       y="187"
+       id="text19">GPS</text>
+    <text
+       class="label"
+       x="58.5"
+       y="206"
+       id="text20">L5</text>
+  </g>
+  <g
+     id="g84"
+     transform="translate(-18,82.079376)">
+    <g
+       id="g82"
+       transform="translate(0,47.931641)">
+      <text
+         class="label"
+         x="132"
+         y="139"
+         id="text21">GLONASS</text>
+      <text
+         class="label"
+         x="132"
+         y="158"
+         id="text22">L3</text>
+    </g>
+  </g>
+  <g
+     id="g92"
+     transform="translate(-18,44.951641)">
+    <text
+       class="label"
+       x="131.89062"
+       y="64.794655"
+       id="text23">BeiDou</text>
+    <text
+       class="label"
+       x="131.89062"
+       y="83.794655"
+       id="text24">B2b</text>
+  </g>
+  <g
+     id="g85"
+     transform="translate(-18,82.079376)">
+    <text
+       class="label"
+       x="237"
+       y="187"
+       id="text25">GPS</text>
+    <text
+       class="label"
+       x="237"
+       y="206"
+       id="text26">L2</text>
+  </g>
+  <g
+     id="g81"
+     transform="translate(-18,82.079376)">
+    <text
+       class="label"
+       x="319"
+       y="187"
+       id="text27">GLONASS</text>
+    <text
+       class="label"
+       x="319"
+       y="206"
+       id="text28">L2</text>
+  </g>
+  <g
+     id="g90"
+     transform="translate(-18,43.61092)">
+    <text
+       class="label"
+       x="430.5"
+       y="146.16504"
+       id="text29">Galileo</text>
+    <text
+       class="label"
+       x="430.5"
+       y="165.16504"
+       id="text30">E6</text>
+  </g>
+  <text
+     class="label"
+     x="604.49866"
+     y="110.49629"
+     id="text31-3"
+     style="font-size:14px;font-family:Arial, Helvetica, sans-serif;dominant-baseline:middle;text-anchor:middle;fill:#3b3b3b"><tspan
+       sodipodi:role="line"
+       id="tspan91"
+       x="604.49866"
+       y="110.49629">BeiDou</tspan><tspan
+       sodipodi:role="line"
+       id="tspan92"
+       x="604.49866"
+       y="127.99629">B1C</tspan></text>
+  <text
+     class="label"
+     x="40.366798"
+     y="110.49629"
+     id="text31-3-6"
+     style="font-size:14px;font-family:Arial, Helvetica, sans-serif;dominant-baseline:middle;text-anchor:middle;fill:#3b3b3b"><tspan
+       sodipodi:role="line"
+       id="tspan91-4"
+       x="40.366798"
+       y="110.49629">BeiDou</tspan><tspan
+       sodipodi:role="line"
+       id="tspan92-5"
+       x="40.366798"
+       y="127.99629">B2a</tspan></text>
+  <text
+     class="label"
+     x="40.366798"
+     y="110.49629"
+     id="text31-3-6-0"
+     style="font-size:14px;font-family:Arial, Helvetica, sans-serif;dominant-baseline:middle;text-anchor:middle;fill:#3b3b3b"><tspan
+       sodipodi:role="line"
+       id="tspan91-4-9"
+       x="40.366798"
+       y="110.49629">BeiDou</tspan><tspan
+       sodipodi:role="line"
+       id="tspan92-5-9"
+       x="40.366798"
+       y="127.99629">B2a</tspan></text>
+  <g
+     id="g93"
+     transform="translate(-18,48.746296)">
+    <text
+       class="label"
+       x="399"
+       y="61"
+       id="text31">BeiDou</text>
+    <text
+       class="label"
+       x="399"
+       y="80"
+       id="text32">B3I</text>
+  </g>
+  <g
+     id="g93-5"
+     transform="translate(-358.6332,-25.817542)">
+    <text
+       class="label"
+       x="399"
+       y="61"
+       id="text31-1"
+       style="font-size:14px;font-family:Arial, Helvetica, sans-serif;dominant-baseline:middle;text-anchor:middle;fill:#3b3b3b"><tspan
+         sodipodi:role="line"
+         id="tspan93"
+         x="399"
+         y="61">IRNSS</tspan><tspan
+         sodipodi:role="line"
+         id="tspan94"
+         x="399"
+         y="78.5">L5</tspan></text>
+  </g>
+  <rect
+     class="box beidou"
+     x="845.5238"
+     y="0.80904001"
+     width="72.952347"
+     height="78.161255"
+     id="rect6-7-0-3"
+     style="fill:#a9e257;fill-opacity:1;stroke:#3b3b3b;stroke-width:1.61808" />
+  <g
+     id="g93-5-7"
+     transform="translate(482.67529,-28.739239)">
+    <text
+       class="label"
+       x="399"
+       y="61"
+       id="text31-1-9"
+       style="font-size:14px;font-family:Arial, Helvetica, sans-serif;dominant-baseline:middle;text-anchor:middle;fill:#3b3b3b"><tspan
+         sodipodi:role="line"
+         id="tspan93-3"
+         x="399"
+         y="61">IRNSS</tspan><tspan
+         sodipodi:role="line"
+         id="tspan94-7"
+         x="399"
+         y="78.5">L5</tspan></text>
+  </g>
+  <g
+     id="g91"
+     transform="translate(-18,43.679279)">
+    <text
+       class="label"
+       x="622"
+       y="146.16504"
+       id="text33">Galileo</text>
+    <text
+       class="label"
+       x="622"
+       y="165.16504"
+       id="text34">E1</text>
+  </g>
+  <text
+     class="label"
+     x="-117.86885"
+     y="550.5"
+     transform="rotate(-90)"
+     id="text35">B1I</text>
+  <g
+     id="g86"
+     transform="translate(-18,82.079376)">
+    <text
+       class="label"
+       x="622.5"
+       y="187"
+       id="text36">GPS</text>
+    <text
+       class="label"
+       x="622.5"
+       y="206"
+       id="text37">L1</text>
+  </g>
+  <g
+     id="g87"
+     transform="translate(-18,82.079376)">
+    <text
+       class="label"
+       x="734.5"
+       y="187"
+       id="text39">GLONASS</text>
+    <text
+       class="label"
+       x="734.5"
+       y="206"
+       id="text40">L1</text>
+  </g>
+  <!-- Frequency axis -->
+  <line
+     class="axis"
+     x1="0"
+     y1="316.97031"
+     x2="760"
+     y2="316.97031"
+     id="line40" />
+  <line
+     class="axis"
+     x1="817"
+     y1="316.97031"
+     x2="947"
+     y2="316.97031"
+     id="line40-3"
+     style="stroke:#3b3b3b;stroke-width:0.827172" />
+  <!-- Minor/major ticks -->
+  <line
+     x1="4"
+     y1="316.97031"
+     x2="4"
+     y2="325.97031"
+     id="line41"
+     style="stroke:#3b3b3b;stroke-width:1" />
+  <line
+     x1="77"
+     y1="316.97031"
+     x2="77"
+     y2="325.97031"
+     id="line42"
+     style="stroke:#3b3b3b;stroke-width:1" />
+  <line
+     x1="151"
+     y1="316.97031"
+     x2="151"
+     y2="325.97031"
+     id="line44"
+     style="stroke:#3b3b3b;stroke-width:1" />
+  <line
+     x1="180"
+     y1="316.97031"
+     x2="180"
+     y2="325.97031"
+     id="line45"
+     style="stroke:#3b3b3b;stroke-width:1" />
+  <line
+     x1="258"
+     y1="316.97031"
+     x2="258"
+     y2="325.97031"
+     id="line46"
+     style="stroke:#3b3b3b;stroke-width:1" />
+  <line
+     x1="263"
+     y1="316.97031"
+     x2="263"
+     y2="325.97031"
+     id="line47"
+     style="stroke:#3b3b3b;stroke-width:1" />
+  <line
+     x1="339"
+     y1="316.97031"
+     x2="339"
+     y2="325.97031"
+     id="line48"
+     style="stroke:#3b3b3b;stroke-width:1" />
+  <line
+     x1="344"
+     y1="316.97031"
+     x2="344"
+     y2="325.97031"
+     id="line49"
+     style="stroke:#3b3b3b;stroke-width:1" />
+  <line
+     x1="481"
+     y1="316.97031"
+     x2="481"
+     y2="325.97031"
+     id="line51"
+     style="stroke:#3b3b3b;stroke-width:1" />
+  <line
+     x1="539"
+     y1="316.97031"
+     x2="539"
+     y2="325.97031"
+     id="line52"
+     style="stroke:#3b3b3b;stroke-width:1" />
+  <line
+     x1="562"
+     y1="316.97031"
+     x2="562"
+     y2="325.97031"
+     id="line53"
+     style="stroke:#3b3b3b;stroke-width:1" />
+  <line
+     x1="647"
+     y1="316.97031"
+     x2="647"
+     y2="325.97031"
+     id="line54"
+     style="stroke:#3b3b3b;stroke-width:1" />
+  <line
+     x1="669"
+     y1="316.97031"
+     x2="669"
+     y2="325.97031"
+     id="line55"
+     style="stroke:#3b3b3b;stroke-width:1" />
+  <line
+     x1="678"
+     y1="316.97031"
+     x2="678"
+     y2="325.97031"
+     id="line56"
+     style="stroke:#3b3b3b;stroke-width:1" />
+  <line
+     x1="755"
+     y1="316.97031"
+     x2="755"
+     y2="325.97031"
+     id="line57"
+     style="stroke:#3b3b3b;stroke-width:1" />
+  <!-- Frequency annotations -->
+  <g
+     transform="rotate(-90,190.99199,180.99199)"
+     id="g58">
+    <text
+       class="freq"
+       id="text57">1164 MHz</text>
+  </g>
+  <text
+     class="major"
+     id="text58"
+     style="font-size:18.6667px"
+     transform="rotate(-90)"
+     x="-457.97031"
+     y="47.294937"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;font-family:Monospace;-inkscape-font-specification:Monospace"
+       id="tspan79">1176.45 MHz</tspan></text>
+  <text
+     class="major"
+     id="text58-9"
+     style="font-size:18.6667px;font-family:Arial, Helvetica, sans-serif;text-anchor:middle;fill:#3b3b3b"
+     x="-457.97031"
+     y="610.79492"
+     transform="rotate(-90)"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;font-family:Monospace;-inkscape-font-specification:Monospace"
+       id="tspan79-0">1575.42 MHz</tspan></text>
+  <text
+     class="major"
+     id="text58-9-60"
+     style="font-size:18.6667px;font-family:Arial, Helvetica, sans-serif;text-anchor:middle;fill:#3b3b3b"
+     x="-452.35117"
+     y="556.97137"
+     transform="rotate(-90)"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;font-family:Monospace;-inkscape-font-specification:Monospace"
+       id="tspan79-0-6">1561.098 MHz</tspan></text>
+  <text
+     class="major"
+     id="text58-9-60-2"
+     style="font-size:18.6667px;font-family:Arial, Helvetica, sans-serif;text-anchor:middle;fill:#3b3b3b"
+     x="-457.97031"
+     y="385.85419"
+     transform="rotate(-90)"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;font-family:Monospace;-inkscape-font-specification:Monospace"
+       id="tspan79-0-6-8">1268.52 MHz</tspan></text>
+  <text
+     class="major"
+     id="text58-9-64"
+     style="font-size:18.6667px;font-family:Arial, Helvetica, sans-serif;text-anchor:middle;fill:#3b3b3b"
+     x="-457.97031"
+     y="723.29492"
+     transform="rotate(-90)"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;font-family:Monospace;-inkscape-font-specification:Monospace"
+       id="tspan79-0-74">1602.00 MHz</tspan></text>
+  <text
+     class="major"
+     id="text58-9-64-5"
+     style="font-size:18.6667px;font-family:Arial, Helvetica, sans-serif;text-anchor:middle;fill:#3b3b3b"
+     x="-457.97031"
+     y="307.79492"
+     transform="rotate(-90)"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;font-family:Monospace;-inkscape-font-specification:Monospace"
+       id="tspan79-0-74-8">1246.00 MHz</tspan></text>
+  <text
+     class="major"
+     id="text58-9-6"
+     style="font-size:18.6667px;font-family:Arial, Helvetica, sans-serif;text-anchor:middle;fill:#3b3b3b"
+     x="-457.97031"
+     y="225.79494"
+     transform="rotate(-90)"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;font-family:Monospace;-inkscape-font-specification:Monospace"
+       id="tspan79-0-7">1227.60 MHz</tspan></text>
+  <text
+     class="major"
+     y="75.761719"
+     id="text59"
+     transform="rotate(-90)"
+     x="-437.97031" />
+  <g
+     transform="rotate(-90,226.49199,145.49199)"
+     id="g60">
+    <text
+       class="freq"
+       id="text60">1188 MHz</text>
+  </g>
+  <text
+     class="major"
+     id="text61"
+     transform="rotate(-90)"
+     x="-457.97031"
+     y="120.79494"
+     style="font-size:18.6667px"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;font-family:Monospace;-inkscape-font-specification:Monospace"
+       id="tspan81">1207.14 MHz</tspan></text>
+  <g
+     transform="rotate(-90,263.70879,107.82987)"
+     id="g63">
+    <text
+       class="freq"
+       id="text63">1214 MHz</text>
+  </g>
+  <g
+     transform="rotate(-90,275.26933,96.26933)"
+     id="g64">
+    <text
+       class="freq"
+       id="text64">1217 MHz</text>
+  </g>
+  <g
+     transform="rotate(-90,313.76933,57.76933)"
+     id="g65">
+    <text
+       class="freq"
+       id="text65">1237 MHz</text>
+  </g>
+  <g
+     transform="rotate(-90,321.76933,49.76933)"
+     id="g66">
+    <text
+       class="freq"
+       id="text66">1239 MHz</text>
+  </g>
+  <g
+     transform="rotate(-90,358.63915,12.899511)"
+     id="g67">
+    <text
+       class="freq"
+       id="text67">1260 MHz</text>
+  </g>
+  <text
+     class="major"
+     id="text69"
+     transform="rotate(-90)"
+     x="-457.97031"
+     y="419.29492"
+     style="font-size:18.6667px"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;font-family:Monospace;-inkscape-font-specification:Monospace"
+       id="tspan80">1278.75 MHz</tspan></text>
+  <g
+     transform="rotate(-90,423.76933,-52.23067)"
+     id="g71">
+    <text
+       class="freq"
+       id="text71">1300 MHz</text>
+  </g>
+  <g
+     transform="rotate(-90,457.26933,-85.730673)"
+     id="g72">
+    <text
+       class="freq"
+       id="text72">1559 MHz</text>
+  </g>
+  <g
+     transform="rotate(-90,469.26933,-97.730673)"
+     id="g73">
+    <text
+       class="freq"
+       id="text73">1563 MHz</text>
+  </g>
+  <g
+     transform="rotate(-90,511.76933,-140.23067)"
+     id="g76">
+    <text
+       class="freq"
+       id="text76">1587 MHz</text>
+  </g>
+  <g
+     transform="rotate(-90,521.26933,-149.73067)"
+     id="g77">
+    <text
+       class="freq"
+       id="text77">1591 MHz</text>
+  </g>
+  <g
+     transform="rotate(-90,528.26933,-156.73067)"
+     id="g78">
+    <text
+       class="freq"
+       id="text78">1593 MHz</text>
+  </g>
+  <g
+     transform="rotate(-90,563.26933,-191.73067)"
+     id="g79">
+    <text
+       class="freq"
+       id="text79">1610 MHz</text>
+  </g>
+  <line
+     x1="843.5"
+     y1="316.86124"
+     x2="843.5"
+     y2="325.86124"
+     id="line56-7"
+     style="stroke:#3b3b3b;stroke-width:1" />
+  <line
+     x1="920.5"
+     y1="316.86124"
+     x2="920.5"
+     y2="325.86124"
+     id="line57-6"
+     style="stroke:#3b3b3b;stroke-width:1" />
+  <text
+     class="major"
+     id="text58-9-64-0"
+     style="font-size:18.6667px;font-family:Arial, Helvetica, sans-serif;text-anchor:middle;fill:#3b3b3b"
+     x="-451.49438"
+     y="888.79492"
+     transform="rotate(-90)"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;font-family:Monospace;-inkscape-font-specification:Monospace"
+       id="tspan79-0-74-9">2492.028 MHz</tspan></text>
+  <g
+     transform="rotate(-90,597.95795,-238.54205)"
+     id="g77-7" />
+  <g
+     transform="rotate(-90,606.69365,-243.80635)"
+     id="g78-9">
+    <text
+       class="freq"
+       id="text78-7"
+       style="font-size:12px;font-family:Arial, Helvetica, sans-serif;text-anchor:middle;fill:#3b3b3b">2483.50 MHz</text>
+  </g>
+  <g
+     transform="rotate(-90,641.69365,-278.80635)"
+     id="g79-8">
+    <text
+       class="freq"
+       id="text79-5"
+       style="font-size:12px;font-family:Arial, Helvetica, sans-serif;text-anchor:middle;fill:#3b3b3b">2500.00 MHz</text>
+  </g>
+</svg>

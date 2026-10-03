@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1142.8749"
+   height="549.02765"
+   viewBox="0 0 1142.8749 549.02766"
+   version="1.1"
+   id="svg21"
+   sodipodi:docname="signals__galileo_e1_flow.svg"
+   inkscape:version="1.4.4 (1:1.4.4+202605061436+dcaf3e7d9e)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview21"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.49261772"
+     inkscape:cx="679.02551"
+     inkscape:cy="268.97124"
+     inkscape:window-width="1538"
+     inkscape:window-height="991"
+     inkscape:window-x="26"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg21"
+     showgrid="true">
+    <inkscape:grid
+       id="grid40"
+       units="px"
+       originx="2.1021205e-05"
+       originy="5.345067e-06"
+       spacingx="0.99999998"
+       spacingy="1"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14902"
+       empspacing="5"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="2"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="2"
+       markerHeight="2"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <marker
+       id="arrow"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#111111"
+         id="path1" />
+    </marker>
+    <style
+       id="style1">
+      .wire { fill:none; stroke:#111; stroke-width:2.4; marker-end:url(#arrow); }
+      .wireNoArrow { fill:none; stroke:#111; stroke-width:2.4; }
+      .op { fill:#fff; stroke:#111; stroke-width:2.4; }
+      .txt { font-family:&quot;STIX Two Text&quot;,&quot;Times New Roman&quot;,serif; font-size:25px; fill:#111; }
+      .math { font-family:&quot;STIX Two Text&quot;,&quot;Times New Roman&quot;,serif; font-size:27px; font-style:italic; fill:#111; }
+      .smallmath { font-family:&quot;STIX Two Text&quot;,&quot;Times New Roman&quot;,serif; font-size:23px; font-style:italic; fill:#111; }
+      .sign { font-family:&quot;Times New Roman&quot;,serif; font-size:30px; fill:#111; }
+    </style>
+    <marker
+       id="arrow-5"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#111111"
+         id="path1-4" />
+    </marker>
+    <marker
+       id="arrow-2"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#111111"
+         id="path1-7" />
+    </marker>
+    <marker
+       id="arrow-5-9"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#111111"
+         id="path1-4-2" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-9"
+       refX="2"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="2"
+       markerHeight="2"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-2" />
+    </marker>
+    <marker
+       id="arrow-2-8"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#111111"
+         id="path1-7-3" />
+    </marker>
+  </defs>
+  <!-- Top input C_E1-B(t) -->
+  <line
+     class="wire"
+     x1="65.99707"
+     y1="187.23389"
+     x2="262.99707"
+     y2="187.23389"
+     id="line1" />
+  <text
+     class="math"
+     x="-1.0029297"
+     y="165.23389"
+     id="text1"><tspan
+       style="fill:#0000ff;fill-opacity:1;stroke:#0000ff;stroke-opacity:1"
+       id="tspan26">C<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan28">E1−B</tspan>(t)</tspan></text>
+  <!-- Top multiplier -->
+  <circle
+     class="op"
+     cx="290.99707"
+     cy="187.23389"
+     r="28"
+     id="circle1" />
+  <line
+     x1="272.99707"
+     y1="169.23389"
+     x2="308.99707"
+     y2="205.23389"
+     stroke="#111111"
+     stroke-width="2.4"
+     id="line2" />
+  <line
+     x1="308.99707"
+     y1="169.23389"
+     x2="272.99707"
+     y2="205.23389"
+     stroke="#111111"
+     stroke-width="2.4"
+     id="line3" />
+  <!-- D_E1-B(t) -->
+  <line
+     class="wire"
+     x1="290.99707"
+     y1="42.233887"
+     x2="290.99707"
+     y2="157.23389"
+     id="line4" />
+  <text
+     class="math"
+     x="228.99707"
+     y="19.233887"
+     id="text4"><tspan
+       style="fill:#05770f;fill-opacity:1;stroke:#05770f;stroke-opacity:1"
+       id="tspan30">D<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan31">E1−B</tspan>(t)</tspan></text>
+  <!-- e_E1-B(t) -->
+  <line
+     class="wire"
+     x1="318.99707"
+     y1="187.23389"
+     x2="495.99707"
+     y2="187.23389"
+     id="line5" />
+  <text
+     class="math"
+     x="352.99707"
+     y="162.23389"
+     id="text5">e<tspan
+   baseline-shift="sub"
+   font-size="18px"
+   id="tspan5">E1−B</tspan>(t)</text>
+  <!-- Upper second multiplier -->
+  <circle
+     class="op"
+     cx="523.99707"
+     cy="187.23389"
+     r="28"
+     id="circle5" />
+  <line
+     x1="505.99707"
+     y1="169.23389"
+     x2="541.99707"
+     y2="205.23389"
+     stroke="#111111"
+     stroke-width="2.4"
+     id="line6" />
+  <line
+     x1="541.99707"
+     y1="169.23389"
+     x2="505.99707"
+     y2="205.23389"
+     stroke="#111111"
+     stroke-width="2.4"
+     id="line7" />
+  <!-- Upper spreading-code combination -->
+  <line
+     class="wire"
+     x1="523.99707"
+     y1="42.233887"
+     x2="523.99707"
+     y2="157.23389"
+     id="line8" />
+  <text
+     class="smallmath"
+     x="405.07654"
+     y="22.13446"
+     id="text8"><tspan
+       style="fill:#bf8040;fill-opacity:1;stroke:#bf8040;stroke-opacity:1"
+       id="tspan32">α sc</tspan><tspan
+       style="font-size:65%;baseline-shift:sub;fill:#bf8040;fill-opacity:1;stroke:#bf8040;stroke-opacity:1"
+       id="tspan23">E1−B,a</tspan><tspan
+       style="fill:#bf8040;fill-opacity:1;stroke:#bf8040;stroke-opacity:1"
+       id="tspan33">(t) + β sc</tspan><tspan
+       style="font-size:65%;baseline-shift:sub;fill:#bf8040;fill-opacity:1;stroke:#bf8040;stroke-opacity:1"
+       id="tspan22">E1−B,b</tspan><tspan
+       style="fill:#bf8040;fill-opacity:1;stroke:#bf8040;stroke-opacity:1"
+       id="tspan34">(t)</tspan></text>
+  <text
+     class="smallmath"
+     x="345.99707"
+     y="40.233887"
+     id="text9" />
+  <!-- Upper output into adder -->
+  <!-- Bottom input -->
+  <line
+     class="wire"
+     x1="65.99707"
+     y1="367.23389"
+     x2="495.99707"
+     y2="367.23389"
+     id="line11" />
+  <text
+     class="math"
+     x="-1.0029297"
+     y="345.23389"
+     id="text11"><tspan
+       style="fill:#0000ff;fill-opacity:1;stroke:#0000ff;stroke-opacity:1"
+       id="tspan27">C<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan29">E1−C</tspan>(t)</tspan></text>
+  <!-- Bottom multiplier -->
+  <circle
+     class="op"
+     cx="523.99707"
+     cy="367.23389"
+     r="28"
+     id="circle11" />
+  <line
+     x1="505.99707"
+     y1="349.23389"
+     x2="541.99707"
+     y2="385.23389"
+     stroke="#111111"
+     stroke-width="2.4"
+     id="line12" />
+  <line
+     x1="541.99707"
+     y1="349.23389"
+     x2="505.99707"
+     y2="385.23389"
+     stroke="#111111"
+     stroke-width="2.4"
+     id="line13" />
+  <!-- e_E1-C(t) -->
+  <text
+     class="math"
+     x="355.99707"
+     y="342.23389"
+     id="text13">e<tspan
+   baseline-shift="sub"
+   font-size="18px"
+   id="tspan13">E1−C</tspan>(t)</text>
+  <text
+     class="math"
+     x="920.41553"
+     y="135.37325"
+     id="text13-2"
+     style="font-style:italic;font-size:27px;font-family:'STIX Two Text', 'Times New Roman', serif;fill:#111111">sin(2π<tspan
+   style="fill:#ff1493;fill-opacity:1;stroke:#ff1493;stroke-opacity:1"
+   id="tspan38">f<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan39">E1</tspan></tspan>t)</text>
+  <!-- Bottom spreading-code combination -->
+  <line
+     class="wire"
+     x1="523.99707"
+     y1="512.23389"
+     x2="523.99707"
+     y2="397.23389"
+     id="line14" />
+  <text
+     class="smallmath"
+     x="404.23706"
+     y="541.62823"
+     id="text14"><tspan
+       style="fill:#bf8040;fill-opacity:1;stroke:#bf8040;stroke-opacity:1"
+       id="tspan35">α sc</tspan><tspan
+       style="font-size:65%;baseline-shift:sub;fill:#bf8040;fill-opacity:1;stroke:#bf8040;stroke-opacity:1"
+       id="tspan25">E1−C,a</tspan><tspan
+       style="fill:#bf8040;fill-opacity:1;stroke:#bf8040;stroke-opacity:1"
+       id="tspan36">(t) − β sc</tspan><tspan
+       style="font-size:65%;baseline-shift:sub;fill:#bf8040;fill-opacity:1;stroke:#bf8040;stroke-opacity:1"
+       id="tspan24">E1−C,b</tspan><tspan
+       style="fill:#bf8040;fill-opacity:1;stroke:#bf8040;stroke-opacity:1"
+       id="tspan37">(t)</tspan></text>
+  <text
+     class="smallmath"
+     x="340.99707"
+     y="492.23389"
+     id="text15" />
+  <!-- Bottom output to subtractor -->
+  <!-- Adder/subtractor -->
+  <text
+     class="sign"
+     x="673.31689"
+     y="248.31744"
+     id="text16">+</text>
+  <text
+     class="sign"
+     x="674.5459"
+     y="330.70801"
+     id="text17">−</text>
+  <!-- From adder to normalization -->
+  <line
+     class="wire"
+     x1="704.99707"
+     y1="277.23389"
+     x2="783.99707"
+     y2="277.23389"
+     id="line17" />
+  <line
+     class="wire"
+     x1="849.19708"
+     y1="277.23389"
+     x2="928.19708"
+     y2="277.23389"
+     id="line17-0"
+     style="fill:none;stroke:#111111;stroke-width:2.4;marker-end:url(#arrow-2)" />
+  <line
+     class="wire"
+     x1="993.39709"
+     y1="277.23389"
+     x2="1072.3971"
+     y2="277.23389"
+     id="line17-0-2"
+     style="fill:none;stroke:#111111;stroke-width:2.4;marker-end:url(#arrow-2-8)" />
+  <line
+     class="wire"
+     x1="818.99707"
+     y1="161.27759"
+     x2="818.99707"
+     y2="240.27759"
+     id="line17-8"
+     style="fill:none;stroke:#111111;stroke-width:2.4;marker-end:url(#arrow-5)" />
+  <line
+     class="wire"
+     x1="961.22314"
+     y1="161.27759"
+     x2="961.22314"
+     y2="240.27759"
+     id="line17-8-4"
+     style="fill:none;stroke:#111111;stroke-width:2.4;marker-end:url(#arrow-5-9)" />
+  <!-- 1/sqrt(2) multiplier -->
+  <g
+     id="g37"
+     transform="translate(-1.6015625e-5)">
+    <circle
+       class="op"
+       cx="818.99707"
+       cy="277.23389"
+       r="28"
+       id="circle17" />
+    <line
+       x1="800.99707"
+       y1="259.23389"
+       x2="836.99707"
+       y2="295.23389"
+       stroke="#111111"
+       stroke-width="2.4"
+       id="line18" />
+    <line
+       x1="836.99707"
+       y1="259.23389"
+       x2="800.99707"
+       y2="295.23389"
+       stroke="#111111"
+       stroke-width="2.4"
+       id="line19" />
+  </g>
+  <g
+     id="g37-7"
+     transform="translate(144.20002)">
+    <circle
+       class="op"
+       cx="818.99707"
+       cy="277.23389"
+       r="28"
+       id="circle17-0"
+       style="fill:#ffffff;stroke:#111111;stroke-width:2.4" />
+    <line
+       x1="800.99707"
+       y1="259.23389"
+       x2="836.99707"
+       y2="295.23389"
+       stroke="#111111"
+       stroke-width="2.4"
+       id="line18-0" />
+    <line
+       x1="836.99707"
+       y1="259.23389"
+       x2="800.99707"
+       y2="295.23389"
+       stroke="#111111"
+       stroke-width="2.4"
+       id="line19-3" />
+  </g>
+  <g
+     id="g26"
+     transform="rotate(45,1013.3278,45.646837)">
+    <circle
+       class="op"
+       cx="929.20001"
+       cy="461.20001"
+       r="28"
+       id="circle17-5"
+       style="fill:#ffffff;stroke:#111111;stroke-width:2.4" />
+    <line
+       x1="911.20001"
+       y1="443.20001"
+       x2="947.20001"
+       y2="479.20001"
+       stroke="#111111"
+       stroke-width="2.4"
+       id="line18-4" />
+    <line
+       x1="947.20001"
+       y1="443.20001"
+       x2="911.20001"
+       y2="479.20001"
+       stroke="#111111"
+       stroke-width="2.4"
+       id="line19-1" />
+  </g>
+  <!-- Final output -->
+  <text
+     class="math"
+     x="1088.219"
+     y="283.72681"
+     id="text21">s<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan40">E1</tspan>(t)</text>
+  <g
+     inkscape:label=""
+     transform="translate(801.20024,106.5845)"
+     id="g25">
+    <g
+       fill="#000000"
+       fill-opacity="1"
+       id="g4"
+       transform="matrix(1.33333,0,0,1.33333,-4.25,-2.20767)">
+      <g
+         id="use3"
+         transform="translate(11.797,15.312)">
+        <path
+           d="m 5.5,-13.203125 c 0,-0.4375 -0.03125,-0.453125 -0.3125,-0.453125 C 4.375,-12.6875 3.15625,-12.375 2,-12.328125 c -0.0625,0 -0.15625,0 -0.1875,0.03125 -0.015625,0.04687 -0.015625,0.09375 -0.015625,0.515625 0.640625,0 1.71875,-0.109375 2.546875,-0.609375 v 10.875 c 0,0.734375 -0.046875,0.984375 -1.828125,0.984375 H 1.90625 V 0 C 2.890625,-0.015625 3.921875,-0.046875 4.921875,-0.046875 5.90625,-0.046875 6.9375,-0.015625 7.9375,0 V -0.53125 H 7.3125 C 5.53125,-0.53125 5.5,-0.765625 5.5,-1.515625 Z m 0,0"
+           id="path6" />
+      </g>
+    </g>
+    <path
+       fill-rule="nonzero"
+       fill="#000000"
+       fill-opacity="1"
+       d="M 0,17.777844 H 26.695312 V 16.660656 H 0 Z m 0,0"
+       id="path4"
+       transform="scale(1.33333)" />
+    <g
+       fill="#000000"
+       fill-opacity="1"
+       id="g5"
+       transform="matrix(1.33333,0,0,1.33333,-4.25,-2.20767)">
+      <g
+         id="use4"
+         transform="translate(3.188,22.201)">
+        <path
+           d="M 8.03125,17.65625 4.40625,9.625 C 4.25,9.296875 4.15625,9.296875 4.09375,9.296875 c -0.03125,0 -0.125,0 -0.359375,0.15625 l -1.953125,1.5 C 1.515625,11.15625 1.515625,11.21875 1.515625,11.28125 1.515625,11.375 1.5625,11.5 1.71875,11.5 c 0.125,0 0.46875,-0.28125 0.703125,-0.453125 0.125,-0.09375 0.421875,-0.328125 0.65625,-0.484375 l 4.0625,8.9375 c 0.15625,0.328125 0.25,0.328125 0.4375,0.328125 0.3125,0 0.375,-0.125 0.515625,-0.40625 L 17.46875,0 C 17.625,-0.296875 17.625,-0.375 17.625,-0.40625 c 0,-0.21875 -0.171875,-0.421875 -0.421875,-0.421875 -0.15625,0 -0.3125,0.109375 -0.46875,0.4375 z m 0,0"
+           id="path7" />
+      </g>
+    </g>
+    <path
+       fill="none"
+       stroke-width="0.826"
+       stroke-linecap="butt"
+       stroke-linejoin="miter"
+       stroke="#000000"
+       stroke-opacity="1"
+       stroke-miterlimit="10"
+       d="m 17.21875,20.133312 h 9.476562"
+       id="path5"
+       transform="scale(1.33333)" />
+    <g
+       fill="#000000"
+       fill-opacity="1"
+       id="g6"
+       transform="matrix(1.33333,0,0,1.33333,-4.25,-2.20767)">
+      <g
+         id="use5"
+         transform="translate(20.407,39.266998)">
+        <path
+           d="m 8.609375,-3.203125 h -0.375 c -0.203125,1.46875 -0.359375,1.71875 -0.453125,1.84375 -0.09375,0.15625 -1.578125,0.15625 -1.875,0.15625 H 1.9375 C 2.6875,-2 4.125,-3.46875 5.890625,-5.171875 c 1.25,-1.1875 2.71875,-2.59375 2.71875,-4.640625 0,-2.4375 -1.9375,-3.84375 -4.109375,-3.84375 -2.265625,0 -3.65625,2 -3.65625,3.859375 0,0.8125 0.609375,0.921875 0.84375,0.921875 0.21875,0 0.828125,-0.125 0.828125,-0.859375 0,-0.640625 -0.53125,-0.828125 -0.828125,-0.828125 -0.125,0 -0.234375,0.03125 -0.328125,0.0625 0.390625,-1.75 1.59375,-2.609375 2.859375,-2.609375 1.796875,0 2.96875,1.421875 2.96875,3.296875 0,1.796875 -1.046875,3.34375 -2.234375,4.6875 L 0.84375,-0.46875 V 0 H 8.125 Z m 0,0"
+           id="path8" />
+      </g>
+    </g>
+  </g>
+  <path
+     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;marker-end:url(#Triangle)"
+     d="m 560.00001,190 h 100 v 50"
+     id="path40" />
+  <path
+     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;marker-end:url(#Triangle-9)"
+     d="m 560.00001,370 h 100 v -50"
+     id="path40-3" />
+</svg>

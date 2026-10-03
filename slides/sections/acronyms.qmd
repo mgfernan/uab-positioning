@@ -11,6 +11,12 @@ acronyms:
       longname: Additive White Gaussian Noise
     - shortname: BDGIM
       longname: BeiDou Global Ionosphere Model
+    - shortname: BOC
+      longname: Binary Offset Carrier
+    - shortname: BPSK
+      longname: Binary Phase Shift Keying
+    - shortname: CBOC
+      longname: Composite Binary Offset Carrier
     - shortname: CDMA
       longname: Code Division Multiple Access
     - shortname: C/N0
@@ -63,6 +69,8 @@ acronyms:
       longname: Group and Phase Ionospheric Correction
     - shortname: GSS
       longname: Galileo Sensor Station
+    - shortname: ICD
+      longname: Interface Control Document
     - shortname: IGSO
       longname: Inclined Geosynchronous Satellite Orbit
     - shortname: ILS
@@ -105,6 +113,8 @@ acronyms:
       longname: Pseudo-Range Correction
     - shortname: PRN
       longname: Pseudo-Random Noise
+    - shortname: PRS
+      longname: Public Regulated Service
     - shortname: PVT
       longname: Position, Velocity and Time
     - shortname: QZSS
