@@ -13,3 +13,9 @@ dist/
 *_solutions.md
 
 **/*.quarto_ipynb
+
+# Jupyter Notebook checkpoints
+.ipython
+.jupyter
+.local
+.npm
