@@ -71,14 +71,15 @@ $$
 
 3. If $f_{L1} = 1\,575.42\ MHz$ and $f_{L2} = 1\,227.6\ MHz$, the corresponding wide and narrow-lane combinations are:
 
-   - Wide-lane combination:
+- Wide-lane combination:
+
 $$
 \lambda_1 = \frac{c}{f_{L1}} \approx 0.190293672\ m
 \lambda_2 = \frac{c}{f_{L2}} \approx 0.244210213\ m
 \lambda_{WL} \approx 0.862\ m
 $$
 
-    - Narrow-lane combination:
+- Narrow-lane combination:
 $$
 \lambda_{NL} \approx 0.107\ m
 $$
