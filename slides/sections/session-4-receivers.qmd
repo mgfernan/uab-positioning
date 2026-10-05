@@ -5,3 +5,5 @@
 - Acquisition stage: identify satellites and tentative measurements.
 - Tracking stage: track changes and get accurate measurements.
 - Demodulation.
+
+{{< include slides/sections/receivers/architecture.qmd >}}

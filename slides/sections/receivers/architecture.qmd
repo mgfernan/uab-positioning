@@ -1,0 +1,47 @@
+## Receiver architecture
+
+- Main tasks of a GNSS receiver:
+  - **Acquire** signals from at least four satellites
+  - **Track** the signals to maintain lock and extract measurements
+  - **Demodulate** the navigation message to obtain ephemeris and clock data
+  - **Compute** the receiver position and clock bias using the measurements
+
+### Architecture overview
+
+![](assets/figures/gnss_receiver_detail.svg){align="center"}
+
+### Architecture implementation
+
+- The final implementation of this architecture is not unique, may depend on:
+  - Number of bands / frequencies supported
+  - Number of constellations supported
+  - Number of channels (parallel tracking loops)
+  - Receiver type (software-defined, hardware-defined, ...)
+  - Cost driven or performance driven design
+  - Portable device or fixed installation
+
+### Design drivers
+
+- *Low power consumption*, i.e. long operational time (for instance
+around 4 hours of continuous operation using external batteries)
+- *Reduced \acr{TTFF}*, the receiver should be able to acquire and track the signals and compute a position as soon as possible.
+- *High accuracy* some applications require very accurate (e.g. cm) positioning.
+- *High acquisition sensitivity*, the receiver should be able to acquire signals even in challenging environments (e.g. low $C/N_0$).
+- *High tracking sensitivity*, the receiver should be able to track signals even with low $C/N_0$
+
+### Receiver types
+
+| Category | Main characteristics | Power cons. | \acr{TTFF} | Accuracy | Acq. sens. | Track. sens. | Approximate cost |
+|----------|---------------------|------------------|
+| Consumer, mass-market | Single freq., single-constellation, Low cost, small size, limited performance | 🔽 | 🔽 | 🔽 | 🔽 | 🔽 | 10-100 € |
+| Professional | Single or multi-constellation, High performance (incl. automotive) | 🔼 | 🔽 | 🔼 | 🔼 | 🔼 | 100-2000 € |
+| Safety-of-life | Multi-constellation, High performance, High reliability | 🔽 | 🔼 | 🔼 | 🔼 | 🔼 | 1000-5000 € |
+| Research, survey, geodesy | Multi-constellation, High performance, High reliability, High accuracy | 🔼 | 🔼 | 🔼 | 🔼 | 🔼 | 5000-10000 € |
+
+- Icon legend:
+    - 🔽 - low
+    - 🔼 - high
+
+### RF front-end
+
+![](assets/figures/gnss_receiver__rf_front-end.svg){align="center"}

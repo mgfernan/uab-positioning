@@ -147,6 +147,8 @@ acronyms:
       longname: Time Difference of Arrival
     - shortname: ToA
       longname: Time of Arrival
+    - shortname: TTFF
+      longname: Time To First Fix
     - shortname: UERE
       longname: User Equivalent Range Error
     - shortname: ULS
