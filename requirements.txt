@@ -10,5 +10,6 @@ pyyaml
 # No aarch64/manylinux wheels or sdist on PyPI; build from source on ARM (e.g. this devcontainer)
 pygnss @ git+https://github.com/mgfernan/pygnss.git
 scipy
+skyfield
 seaborn>=0.13
 tabulate
