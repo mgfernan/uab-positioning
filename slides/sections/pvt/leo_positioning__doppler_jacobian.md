@@ -25,24 +25,24 @@ The estimated state is $\mathbf{x}_u = [\mathbf{r}_u^{T}, \dot{\delta t}_u]^{T}$
 The model is nonlinear in $\mathbf{r}_u$, so it is linearized about an a priori state $\mathbf{x}_0 = [\mathbf{r}_0^{T}, \dot{\delta t}_0]^{T}$ (e.g., a coarse position and zero clock drift). The true state is written as the a priori plus a correction:
 
 $$
-\mathbf{r}_u = \mathbf{r}_0 + \delta\mathbf{r},
+\mathbf{r}_u = \mathbf{r}_0 + \Delta\mathbf{r},
 \qquad
 \dot{\delta t}_u = \dot{\delta t}_0 + \delta\dot{t},
 \qquad
-\delta\mathbf{x} = \begin{bmatrix} \delta\mathbf{r}^{T}, & \delta\dot{t} \end{bmatrix}^{T}.
+\Delta\mathbf{x} = \begin{bmatrix} \Delta\mathbf{r}^{T}, & \Delta\dot{t} \end{bmatrix}^{T}.
 $$
 
 Denote the modelled Doppler by $f_{D,i,k}(\mathbf{x}_u)$. A first-order Taylor expansion around $\mathbf{x}_0$ gives
 
 $$
 f_{D,i,k}(\mathbf{x}_u) \approx f_{D,i,k}(\mathbf{x}_0) + \left.\frac{\partial f_{D,i,k}}{\partial \mathbf{x}_u}\right|_{\mathbf{x}_0} \delta\mathbf{x}
-= f_{D,i,k}(\mathbf{x}_0) + \mathbf{H}_{i,k}\,\delta\mathbf{x}.
+= f_{D,i,k}(\mathbf{x}_0) + \mathbf{H}_{i,k}\,\Delta\mathbf{x}.
 $$
 
 Moving the a priori prediction to the left-hand side yields the observed-minus-computed residual, which is the measurement of the linearized problem:
 
 $$
-z_{i,k} = f_{D,i,k}^{\text{obs}} - f_{D,i,k}(\mathbf{x}_0) = \mathbf{H}_{i,k}\,\delta\mathbf{x} + \varepsilon_{D,i,k}.
+z_{i,k} = f_{D,i,k}^{\text{obs}} - f_{D,i,k}(\mathbf{x}_0) = \mathbf{H}_{i,k}\,\Delta\mathbf{x} + \varepsilon_{D,i,k}.
 $$
 
 All geometric quantities below ($\rho_{i,k}$, $\mathbf{e}_{i,k}$, ...) are therefore evaluated at the a priori position, using the known satellite-to-a-priori offset
@@ -55,7 +55,7 @@ $$
 \mathbf{e}_{i,k} = \frac{\mathbf{d}_{i,k}}{\rho_{i,k}}.
 $$
 
-The offset $\mathbf{d}_{i,k}$ is known and is not the unknown correction $\delta\mathbf{r}$. They are related through the true line of sight, $\mathbf{r}_{i,k} - \mathbf{r}_u = \mathbf{d}_{i,k} - \delta\mathbf{r}$, so $\mathbf{d}_{i,k}$ is the true line of sight when $\delta\mathbf{r} = \mathbf{0}$.
+The offset $\mathbf{d}_{i,k}$ is known and is not the unknown correction $\Delta\mathbf{r}$. They are related through the true line of sight, $\mathbf{r}_{i,k} - \mathbf{r}_u = \mathbf{d}_{i,k} - \Delta\mathbf{r}$, so $\mathbf{d}_{i,k}$ is the true line of sight when $\Delta\mathbf{r} = \mathbf{0}$.
 
 ## Derivative with respect to user position
 
@@ -131,11 +131,11 @@ $$
 Stacking all satellites and epochs gives
 
 $$
-\mathbf{z} = \mathbf{H}\,\delta\mathbf{x} + \boldsymbol{\varepsilon},
+\mathbf{z} = \mathbf{H}\,\Delta\mathbf{x} + \boldsymbol{\varepsilon},
 \qquad
-\delta\hat{\mathbf{x}} = (\mathbf{H}^{T}\mathbf{W}\mathbf{H})^{-1}\mathbf{H}^{T}\mathbf{W}\,\mathbf{z},
+\Delta\hat{\mathbf{x}} = (\mathbf{H}^{T}\mathbf{W}\mathbf{H})^{-1}\mathbf{H}^{T}\mathbf{W}\,\mathbf{z},
 $$
 
-with $\mathbf{W}$ the measurement weight matrix. The state is then updated as $\mathbf{x}_0 \leftarrow \mathbf{x}_0 + \delta\hat{\mathbf{x}}$, and the process is iterated (recomputing $\mathbf{z}$ and $\mathbf{H}$ at the new $\mathbf{x}_0$) until $\|\delta\hat{\mathbf{r}}\|$ is below a threshold.
+with $\mathbf{W}$ the measurement weight matrix. The state is then updated as $\mathbf{x}_0 \leftarrow \mathbf{x}_0 + \Delta\hat{\mathbf{x}}$, and the process is iterated (recomputing $\mathbf{z}$ and $\mathbf{H}$ at the new $\mathbf{x}_0$) until $\|\Delta\hat{\mathbf{r}}\|$ is below a threshold.
 
 

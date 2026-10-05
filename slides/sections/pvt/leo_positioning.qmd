@@ -69,9 +69,9 @@ H_5^{(x)} & H_5^{(y)} & H_5^{(z)} & -\frac{f_0}{c}
 }_{\mathbf{H}, Jacobian\ matrix}
 \underbrace{
 \begin{bmatrix}
-\delta x_u\\
-\delta y_u\\
-\delta z_u\\
+\Delta x_u\\
+\Delta y_u\\
+\Delta z_u\\
 \delta\dot{t}_u
 \end{bmatrix}
 }_{\delta\mathbf{x}}
