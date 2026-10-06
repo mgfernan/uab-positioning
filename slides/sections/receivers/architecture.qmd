@@ -31,16 +31,18 @@ around 4 hours of continuous operation using external batteries)
 
 ### Receiver types
 
-| Category | Main characteristics | Power cons. | \acr{TTFF} | Accuracy | Acq. sens. | Track. sens. | Approximate cost |
-|----------|---------------------|------------------|
-| Consumer, mass-market | Single freq., single-constellation, Low cost, small size, limited performance | 🔽 | 🔽 | 🔽 | 🔽 | 🔽 | 10-100 € |
-| Professional | Single or multi-constellation, High performance (incl. automotive) | 🔼 | 🔽 | 🔼 | 🔼 | 🔼 | 100-2000 € |
-| Safety-of-life | Multi-constellation, High performance, High reliability | 🔽 | 🔼 | 🔼 | 🔼 | 🔼 | 1000-5000 € |
-| Research, survey, geodesy | Multi-constellation, High performance, High reliability, High accuracy | 🔼 | 🔼 | 🔼 | 🔼 | 🔼 | 5000-10000 € |
+::: {.receiver-types}
+| Category | Main characteristics | 🔋 | ⏱️ | 🎯 | 🔎 | 📡 | Cost |
+|----------|---------------------|----|----|----|----|----|------|
+| Consumer</br>mass-market | Single freq., single-constellation,</br>Low cost, small size, limited performance | $\color{green}{\downarrow}$ | $\color{green}{\downarrow}$ | $\color{green}{\downarrow}$ | $\color{green}{\downarrow}$ | $\color{green}{\downarrow}$ | 10-100 € |
+| Professional | Single or multi-constellation,</br>High performance (incl. automotive) | $\color{red}{\uparrow}$ | $\color{green}{\downarrow}$ | $\color{red}{\uparrow}$ | $\color{red}{\uparrow}$ | $\color{red}{\uparrow}$ | 100-2000 € |
+| Safety-of-life | Multi-constellation</br>High performance, High reliability | $\color{green}{\downarrow}$ | $\color{red}{\uparrow}$ | $\color{red}{\uparrow}$ | $\color{red}{\uparrow}$ | $\color{red}{\uparrow}$ | 1000-5000 € |
+| Research</br>survey, geodesy | Multi-constellation</br>High performance, High reliability, High accuracy | $\color{red}{\uparrow}$ | $\color{red}{\uparrow}$ | $\color{red}{\uparrow}$ | $\color{red}{\uparrow}$ | $\color{red}{\uparrow}$ | 5000-10000 € |
 
-- Icon legend:
-    - 🔽 - low
-    - 🔼 - high
+**Legend:** 🔋 Power consumption · ⏱️ Time to first fix (TTFF) · 🎯 Accuracy · 🔎 Acquisition sensitivity · 📡 Tracking sensitivity.
+
+Arrows indicate relative level ($\color{red}{\uparrow}$ higher, $\color{green}{\downarrow}$ lower).
+:::
 
 ### RF front-end
 
