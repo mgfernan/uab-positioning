@@ -39,10 +39,74 @@ around 4 hours of continuous operation using external batteries)
 | Safety-of-life | Multi-constellation</br>High performance, High reliability | $\color{green}{\downarrow}$ | $\color{red}{\uparrow}$ | $\color{red}{\uparrow}$ | $\color{red}{\uparrow}$ | $\color{red}{\uparrow}$ | 1000-5000 € |
 | Research</br>survey, geodesy | Multi-constellation</br>High performance, High reliability, High accuracy | $\color{red}{\uparrow}$ | $\color{red}{\uparrow}$ | $\color{red}{\uparrow}$ | $\color{red}{\uparrow}$ | $\color{red}{\uparrow}$ | 5000-10000 € |
 
-**Legend:** 🔋 Power consumption · ⏱️ Time to first fix (TTFF) · 🎯 Accuracy · 🔎 Acquisition sensitivity · 📡 Tracking sensitivity.
+[**Legend:** 🔋 Power consumption · ⏱️ Time to first fix (TTFF) · 🎯 Accuracy · 🔎 Acquisition sensitivity · 📡 Tracking sensitivity]{style="font-size: 0.8em;"}
 
-Arrows indicate relative level ($\color{red}{\uparrow}$ higher, $\color{green}{\downarrow}$ lower).
+[Arrows indicate relative level ($\color{red}{\uparrow}$ higher, $\color{green}{\downarrow}$ lower)]{style="font-size: 0.8em;"}
 :::
+
+### Example: Novatel PwrPak7
+
+
+::: {.columns}
+
+::: {.column}
+
+- Example of an enclosed, professional grade (high precision) GNSS receiver [Novatel PwrPak7](https://novatel.com/products/receivers/enclosures/pwrpak7)
+
+![](assets/figures/gnss_receivers__PwrPak7.jpeg)
+:::
+
+::: {.column}
+
+![](assets/figures/gnss_receivers__PwrPak7_specs.png)
+
+:::
+
+:::
+
+
+
+### Example: u-blox ZED-F20P
+
+
+::: {.columns}
+
+::: {.column}
+
+- Example of a chipset for a professional (high-precision) GNSS receiver: [u-blox ZED-F20P](https://www.u-blox.com/en/product/zed-f20p-module)
+
+![](assets/figures/gnss_receivers__ZED-F20P.webp)
+
+:::
+
+::: {.column}
+![](assets/figures/gnss_receivers__ZED-F20P_specs.png)
+:::
+
+:::
+
+### Example: Magellan Trx7
+
+::: {.columns}
+
+::: {.column}
+
+- Example of a consumer grade (low-cost) GNSS receiver: [Magellan Trx7](https://www.magellangps.com/store/trx-off-road-navigators/magellan-trx7-cs-pro-dual-mount-trail-and-street-gps-navigator-with-a-camera-highlight)
+
+![](assets/figures/gnss_receivers__magellan_trx7.jpg)
+:::
+
+::: {.column}
+
+![](assets/figures/gnss_receivers__magellan_trx7_specs.png)
+
+[Note how specs in a consumer grade receiver are less about GNSS performance and more about the device features (e.g. screen size, battery life, camera, etc.)]{style="font-size: 0.6em;"}
+:::
+
+:::
+
+
+
 
 ### RF front-end
 
