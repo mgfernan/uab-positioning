@@ -8,7 +8,7 @@
 
 ### Architecture overview
 
-![](assets/figures/gnss_receiver_detail.svg){align="center"}
+![](assets/figures/gnss_receiver_detailed.svg){align="center"}
 
 ### Architecture implementation
 

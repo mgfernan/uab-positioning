@@ -2,12 +2,12 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="206.63945mm"
+   width="210.40976mm"
    height="113.52551mm"
-   viewBox="0 0 780.9995 429.07282"
+   viewBox="0 0 795.24949 429.07282"
    version="1.1"
    id="svg1"
-   inkscape:version="1.4.4 (1:1.4.4+202605061436+dcaf3e7d9e)"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
    sodipodi:docname="gnss_receiver_detailed.svg"
    xml:space="preserve"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -23,20 +23,20 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="1"
-     inkscape:cx="374.5"
-     inkscape:cy="140.5"
-     inkscape:window-width="1920"
-     inkscape:window-height="1011"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
+     inkscape:zoom="4"
+     inkscape:cx="138.625"
+     inkscape:cy="72.875"
+     inkscape:window-width="1332"
+     inkscape:window-height="932"
+     inkscape:window-x="465"
+     inkscape:window-y="49"
+     inkscape:window-maximized="0"
      inkscape:current-layer="layer1"
      showgrid="true"><inkscape:grid
        id="grid7"
        units="mm"
-       originx="1.1424843e-06"
-       originy="0.49999535"
+       originx="14.250002"
+       originy="0.4999907"
        spacingx="1"
        spacingy="1"
        empcolor="#0099e5"
@@ -152,7 +152,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-124.22189,-257.24539)"><rect
+     transform="translate(-109.97189,-257.24539)"><rect
        style="fill:#e8e8e8;fill-opacity:1;stroke:#9e9e9e;stroke-width:1.00445;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        id="rect7"
        width="659.99774"
@@ -182,7 +182,7 @@
        inkscape:randomized="0"
        d="m 224.2354,201.42542 -47.69044,-82.60227 95.38088,0 z"
        inkscape:transform-center-y="13.767044"
-       transform="translate(-51.023623,140.42271)" /><rect
+       transform="translate(-65.273623,140.42271)" /><rect
        style="fill:none;stroke:#0066b8;stroke-width:3;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:0.898039"
        id="rect1"
        width="166.49814"
@@ -268,7 +268,7 @@
              style="font-size:16px;fill:#0065b8;fill-opacity:0.898039;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:0.898039"
              id="tspan7">Conversion</tspan></text></g></g><path
        style="fill:none;fill-opacity:0.898039;stroke:#9200ca;stroke-width:3;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:0.898039;marker-end:url(#ArrowWide)"
-       d="m 173.21177,260.48903 v 104.88162 h 60.42272"
+       d="m 159.22189,260.48903 v 104.88162 h 74.4126"
        id="path2"
        sodipodi:nodetypes="ccc" /><path
        style="fill:#ffc9ae;fill-opacity:0.898039;stroke:#0066b8;stroke-width:3.00094;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5)"
