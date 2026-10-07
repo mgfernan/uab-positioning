@@ -8,7 +8,7 @@
 
 $$
 \scriptsize
-P_{RX} = P_{TX} + G_{TX} - 10 \cdot \log_{10}(4 \pi d^2 ) + 10\ \log_{10}(A_{eff}) - L_{a} \quad [\text{dBW}]
+P_{RX} = P_{TX} + G_{TX} - \underbrace{20 \cdot \log_{10}(4 \pi d / \lambda )}_{FSPL} + 10\ \log_{10}(A_{eff}) - L_{a} \quad [\text{dBW}]
 $$
 
 [where:]{style="font-size: 0.8em;"}
@@ -21,7 +21,7 @@ $$
 
 ### Signal transmission
 
-![](assets/figures/gps_signal_transmission.svg){align="center"}
+![](assets/figures/gps_signal_transmission.svg){fig-align="center"}
 
 $$
 \scriptsize
@@ -36,17 +36,212 @@ d &= - R_{Earth} \sin(El) + \sqrt{R_{sat}^2 - R_{Earth}^2 \cos^2(El)} \quad [\te
 \end{aligned}
 $$
 
+### Link budget
+
+- Assumptions:
+
+```{python}
+import math
+from IPython.display import Markdown, display
+
+
+EARTH_RADIUS_KM = 6_371.0
+SATELLITE_RADIUS_KM = 26_560.0
+SPEED_OF_LIGHT_M_S = 299_792_458.0
+
+
+frequency_hz = 1_575.42e6
+transmit_power_dbw = 14.0
+atmospheric_loss_db = 0.0
+wavelength_m = SPEED_OF_LIGHT_M_S / frequency_hz
+
+table_rows = [
+	"| Frequency | wavelength | $P_{TX}$ | $L_{a}$ |",
+	"|:---:|:---:|:---:|:---:|",
+    f"| {frequency_hz/1e6:.2f} MHz | {wavelength_m*100.0:.2f} cm | {transmit_power_dbw:.1f} dBW | {atmospheric_loss_db:.1f} dB |",
+]
+display(Markdown("\n".join(table_rows)))
+```
+
+- Link budget computation for different elevation angles:
+
+```{python}
+
+def compute_link_budget(
+	elevation_deg: float,
+	frequency_hz: float,
+	transmit_power_dbw: float,
+	receiver_effective_area_m2: float,
+	atmospheric_loss_db: float = 0.0,
+	boresight_directivity_dbi: float = 13.0,
+	edge_directivity_increase_db: float = 2.0,
+) -> dict[str, float]:
+	if not 0.0 <= elevation_deg <= 90.0:
+		raise ValueError("Elevation must be between 0 and 90 degrees.")
+	if frequency_hz <= 0.0 or receiver_effective_area_m2 <= 0.0:
+		raise ValueError("Frequency and receiver effective area must be positive.")
+
+	elevation_rad = math.radians(elevation_deg)
+	distance_km = (
+		-EARTH_RADIUS_KM * math.sin(elevation_rad)
+		+ math.sqrt(
+			SATELLITE_RADIUS_KM**2
+			- EARTH_RADIUS_KM**2 * math.cos(elevation_rad) ** 2
+		)
+	)
+	alpha_rad = math.atan(
+		(EARTH_RADIUS_KM / SATELLITE_RADIUS_KM)
+		* math.sin(elevation_rad + math.pi / 2.0)
+	)
+	earth_edge_alpha_rad = math.atan(EARTH_RADIUS_KM / SATELLITE_RADIUS_KM)
+	transmitter_directivity_dbi = (
+		boresight_directivity_dbi
+		+ edge_directivity_increase_db * alpha_rad / earth_edge_alpha_rad
+	)
+
+	distance_m = distance_km * 1_000.0
+	free_space_path_loss_db = 20.0 * math.log10(4.0 * math.pi * distance_m / wavelength_m)
+	receiver_gain_dbi = 10.0 * math.log10(
+		4.0 * math.pi * receiver_effective_area_m2 / wavelength_m**2
+	)
+	received_power_dbw = (
+		transmit_power_dbw
+		+ transmitter_directivity_dbi
+		+ receiver_gain_dbi
+		- free_space_path_loss_db
+		- atmospheric_loss_db
+	)
+
+	return {
+		"distance_km": distance_km,
+		"alpha_rad": alpha_rad,
+		"free_space_path_loss_db": free_space_path_loss_db,
+		"transmitter_directivity_dbi": transmitter_directivity_dbi,
+		"receiver_gain_dbi": receiver_gain_dbi,
+		"received_power_dbw": received_power_dbw,
+	}
+
+
+receiver_effective_area_m2 = wavelength_m**2 / (4.0 * math.pi)
+elevations_deg = (0.0, 40.0, 90.0)
+
+results = [
+	(
+		elevation_deg,
+		compute_link_budget(
+			elevation_deg=elevation_deg,
+			frequency_hz=frequency_hz,
+			transmit_power_dbw=transmit_power_dbw,
+			receiver_effective_area_m2=receiver_effective_area_m2,
+			atmospheric_loss_db=atmospheric_loss_db,
+		),
+	)
+	for elevation_deg in elevations_deg
+]
+
+table_rows = [
+	"| Elevation | $\\alpha$ | TX directivity (dBi) | Distance (km) | FSPL (dB) | Received power (dBW) |",
+	"|:---:|:---:|:---:|:---:|:---:|:---:|",
+]
+table_rows.extend(
+	f"| ${elevation_deg:.0f}^\circ$ "
+    f"| ${math.degrees(result['alpha_rad']):.0f}^\circ$ "
+	f"| {result['transmitter_directivity_dbi']:.2f} "
+    f"| {result['distance_km']:.0f} "
+	f"| {result['free_space_path_loss_db']:.1f} "
+	f"| {result['received_power_dbw']:.1f} |"
+	for elevation_deg, result in results
+)
+
+display(Markdown("\n".join(table_rows)))
+```
+
+### Signal-to-noise ratio
+
+[The impact of noise on the received signal is usually expressed in terms of \acr{SNR}: ratio of the
+received signal power ($P_{RX}$) and noise power ($N$):]{style="font-size: 0.6em;"}
+
+$$
+\scriptsize
+SNR = \frac{P_{RX}}{N} \quad [\text{linear}]
+$$
+
+$$
+\scriptsize
+N = k_{Boltzmann} \cdot T_{noise} \cdot B_{RF} \quad [\text{W}]; \qquad k_{Boltzmann} = 1.38 \cdot 10^{-23} \quad [\text{J/K}]
+$$
+
+[Note that, for an example of a receiver with a $B_{RF} = 4\ \text{MHz}$, and $T_{noise} = 180\ \text{K}$, the noise power is:]{style="font-size: 0.6em;"}
+
+$$
+\scriptsize
+N = 1.38 \cdot 10^{-23} \cdot 180 \cdot 4 \cdot 10^6 = 9.936 \cdot 10^{-15} \quad \text{W} = -140 \quad \text{dBW}
+$$
+
+[Hence, for a received power of $P_{RX} = -155\ \text{dBW}$, the \acr{SNR} is: $SNR = -155 - (-140) = -15\ \text{dB} \Rightarrow$ Signal is below the noise floor!]{style="font-size: 0.6em;"}
 
 ### Noise spectral density
 
-- Receiver noise is considered as \acr{AWGN} with a flat \acr{PSD} over the receiver bandwidth.
+[The impact of noise on the received signal is usually expressed in terms of \acr{SNR} and \acr{C/N0}: ratio of the
+received signal power ($P_{RX}$) and noise power ($N$) in a given bandwidth ($B_{RF}$)]{style="font-size: 0.6em;"}
 
 $$
-N_0 = k_{Boltzmann} \cdot T_{noise} \quad [\text{W/Hz}]; \qquad k_{Boltzmann} = 1.38 \cdot 10^{-23} \quad [\text{J/K}]
+\scriptsize
+SNR = \frac{P_{RX}}{N} = \frac{P_{RX}}{N_0 \cdot B_{RF}} = \frac{C}{N_0}\ \frac{1}{B_{RF}} \quad [\text{linear}]
 $$
 
-- The noise power in the receiver bandwidth ($B_{RF}$) is:
+[If we assume the receiver noise as \acr{AWGN} with a flat \acr{PSD} over the receiver bandwidth:]{style="font-size: 0.6em;"}
 
 $$
-N = N_0 \cdot B_{RF} \quad [\text{W}]
+\scriptsize
+N_0 = k_{Boltzmann} \cdot T_{noise} \quad [\text{W/Hz}]; \qquad
 $$
+
+- Example, for a $B_{RF} = 4\ \text{MHz} = 10\ log_{10}(4e6) = 66 dBHz$:
+  - $C/N_0 = 37\ \text{dB-Hz} \Rightarrow SNR = 37 - 66 = -29 \ \text{dB}$
+  - $C/N_0 = 45\ \text{dB-Hz} \Rightarrow SNR = 45 - 66 = -21 \ \text{dB}$
+
+### Noise temperature
+
+- The noise temperature $T_{noise}$ is a measure of the noise power in a system.
+
+$$
+\scriptsize
+T_{noise} = T_{antenna} + T_{receiver} \quad [\text{K}]
+$$
+
+- The receiver noise temperature $T_{receiver}$ is a measure of the noise introduced by the receiver itself, and is related to the receiver noise figure $F$
+
+$$
+\scriptsize
+T_{receiver} = (F - 1) \cdot T_0 \quad [\text{K}]; \qquad T_0 = 290 \quad [\text{K}]
+$$
+
+
+### Noise figure
+
+- Friis formula to compute the noise figure $F$ of a generic receiver architecture (each block has a gain $G_i$ and a noise figure $F_i$):
+
+```{mermaid}
+graph LR
+    A[ ] --> B1["G1,F1"]
+    B1 --> B2["G2,F2"]
+    B2 --> B3["G3,F3"]
+    B3 --> B4["G4,F4"]  --> V[ ]
+    classDef empty fill:transparent,stroke:none;
+    class V empty;
+    class A empty;
+```
+
+- The overall noise figure of merit (noise temperature) is given by:
+
+$$
+\scriptsize
+F = F_1 +  \frac{F_2 - 1}{G_1} + \frac{F_3 - 1}{G_1 G_2} + \frac{F_4 - 1}{G_1 G_2 G_3}
+$$
+
+- Main takeaway: The first block in the receiver chain...
+  - is the most important one, as **it will determine the overall noise figure** of the receiver
+  - should have a **low noise figure** and a **high gain**, to minimize the impact of the following blocks.
+
+

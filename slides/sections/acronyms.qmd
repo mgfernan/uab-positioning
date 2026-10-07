@@ -47,6 +47,8 @@ acronyms:
       longname: Frequency Division Multiple Access
     - shortname: FHSS
       longname: Frequency Hopping Spread Spectrum
+    - shortname: FSPL
+      longname: Free Space Path Loss
     - shortname: FOC
       longname: Full Operational Capability
     - shortname: GAGAN
