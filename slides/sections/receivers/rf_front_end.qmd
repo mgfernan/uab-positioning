@@ -1,0 +1,52 @@
+## RF front end
+
+![](assets/figures/gnss_receiver__rf_front-end.svg){align="center"}
+
+### Received power
+
+- The received power at the receiver antenna is given by:
+
+$$
+\scriptsize
+P_{RX} = P_{TX} + G_{TX} - 10 \cdot \log_{10}(4 \pi d^2 ) + 10\ \log_{10}(A_{eff}) - L_{a} \quad [\text{dBW}]
+$$
+
+[where:]{style="font-size: 0.8em;"}
+
+- $P_{TX}$ is the transmitted power [dBW]
+- $G_{TX}$ is the transmitter antenna gain [dB]
+- $d$ is the distance between the transmitter and the receiver
+- $A_{eff}$ is the effective area of the receiver antenna
+- $L_{a}$ is the atmospheric loss [dB]
+
+### Signal transmission
+
+![](assets/figures/gps_signal_transmission.svg){align="center"}
+
+$$
+\scriptsize
+R_{Earth} = 6\ 371 \quad [\text{km}]; \qquad R_{sat} = 26\ 560 \quad [\text{km}]
+$$
+
+$$
+\scriptsize
+\begin{aligned}
+d &= - R_{Earth} \sin(El) + \sqrt{R_{sat}^2 - R_{Earth}^2 \cos^2(El)} \quad [\text{km}] \\
+\alpha &= \arctan \left (\frac{R_{Earth}}{R_{sat}}\ \sin{\left( El + \frac{\pi}{2}\right)} \right ) \quad [\text{rad}]
+\end{aligned}
+$$
+
+
+### Noise spectral density
+
+- Receiver noise is considered as \acr{AWGN} with a flat \acr{PSD} over the receiver bandwidth.
+
+$$
+N_0 = k_{Boltzmann} \cdot T_{noise} \quad [\text{W/Hz}]; \qquad k_{Boltzmann} = 1.38 \cdot 10^{-23} \quad [\text{J/K}]
+$$
+
+- The noise power in the receiver bandwidth ($B_{RF}$) is:
+
+$$
+N = N_0 \cdot B_{RF} \quad [\text{W}]
+$$

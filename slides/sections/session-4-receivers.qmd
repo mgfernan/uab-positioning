@@ -7,3 +7,5 @@
 - Demodulation.
 
 {{< include slides/sections/receivers/architecture.qmd >}}
+
+{{< include slides/sections/receivers/rf_front_end.qmd >}}

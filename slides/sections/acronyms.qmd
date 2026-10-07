@@ -115,6 +115,8 @@ acronyms:
       longname: Pseudo-Random Noise
     - shortname: PRS
       longname: Public Regulated Service
+    - shortname: PSD
+      longname: Power Spectral Density
     - shortname: PVT
       longname: Position, Velocity and Time
     - shortname: QZSS

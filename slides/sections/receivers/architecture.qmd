@@ -106,8 +106,3 @@ around 4 hours of continuous operation using external batteries)
 :::
 
 
-
-
-### RF front-end
-
-![](assets/figures/gnss_receiver__rf_front-end.svg){align="center"}
