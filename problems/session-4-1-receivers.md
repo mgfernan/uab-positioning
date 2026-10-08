@@ -94,3 +94,149 @@ $$
 
 9. Carrier to spectral noise density at the output of the reciever: $(C/N_0)_{out} = P_{out} - N_{0,out} = -59 - (-103.17) = 44.17\ dB\ Hz$
 
+## Ambiguity function
+
+1. Proof that the power amplitude of the ambiguity function can be expressed as:
+
+$$
+P(\Delta \tau, \Delta f_D) \propto \Lambda \left ( \frac{\Delta \tau}{T_{chip}} \right)\cdot \text{sinc}^2(\Delta f_D \cdot T_{integration})
+$$
+
+## Answers
+
+Consider the complex correlation between the received GNSS signal and a local replica:
+
+$$
+R(\Delta\tau,\Delta f)
+=
+\int_0^T
+c(t-\tau_0)c(t-\hat{\tau})
+e^{j2\pi\Delta f t}\,dt
+$$
+
+where
+
+$$
+\Delta\tau=\hat{\tau}-\tau_0,
+\qquad
+\Delta f=f_D-\hat f_D.
+$$
+
+### 1. Code-delay contribution
+
+For rectangular chips of duration \(T_c\), the autocorrelation of one chip is triangular:
+
+$$
+R_c(\Delta\tau)
+\propto
+\Lambda\left(\frac{\Delta\tau}{T_c}\right)
+$$
+
+with
+
+$$
+\Lambda(x)=
+\begin{cases}
+1-|x|, & |x|\leq 1,\\
+0, & |x|>1.
+\end{cases}
+$$
+
+Thus, around the main correlation peak,
+
+$$
+R_c(\Delta\tau)
+\propto
+\Lambda\left(\frac{\Delta\tau}{T_c}\right).
+$$
+
+### 2. Doppler contribution
+
+For a perfectly aligned code, the residual Doppler produces
+
+$$
+R_f(\Delta f)
+=
+\int_0^T e^{j2\pi\Delta f t}\,dt.
+$$
+
+Evaluating the integral,
+
+$$
+R_f(\Delta f)
+=
+T e^{j\pi\Delta fT}
+\frac{\sin(\pi\Delta fT)}
+{\pi\Delta fT}.
+$$
+
+Using
+
+$$
+\operatorname{sinc}(x)
+=
+\frac{\sin(\pi x)}{\pi x},
+$$
+
+we obtain
+
+$$
+R_f(\Delta f)
+=
+T e^{j\pi\Delta fT}
+\operatorname{sinc}(\Delta fT).
+$$
+
+The phase term has unit magnitude, so
+
+$$
+|R_f(\Delta f)|
+\propto
+\left|\operatorname{sinc}(\Delta fT)\right|.
+$$
+
+### 3. Combined correlation
+
+Assuming the code-delay and Doppler effects are separable around the main peak,
+
+$$
+R(\Delta\tau,\Delta f)
+\propto
+\Lambda\left(\frac{\Delta\tau}{T_c}\right)
+e^{j\pi\Delta fT}
+\operatorname{sinc}(\Delta fT).
+$$
+
+Therefore, the magnitude of the correlation is
+
+$$
+|R(\Delta\tau,\Delta f)|
+\propto
+\left|\Lambda\left(\frac{\Delta\tau}{T_c}\right)\right|
+\left|\operatorname{sinc}(\Delta fT)\right|.
+$$
+
+### 4. Acquisition power metric
+
+GNSS acquisition normally uses the squared magnitude of the correlation:
+
+$$
+P(\Delta\tau,\Delta f)
+=
+|R(\Delta\tau,\Delta f)|^2.
+$$
+
+Consequently,
+
+$$
+\boxed{
+P(\Delta\tau,\Delta f)
+\propto
+\Lambda^2\left(\frac{\Delta\tau}{T_c}\right)
+\operatorname{sinc}^2(\Delta fT)
+}
+$$
+
+which proves that the **GNSS acquisition power metric is proportional to the product of a squared triangular function in code delay and a squared sinc function in Doppler frequency**.
+
+The triangular term comes from the correlation of the rectangular PRN chips, while the sinc term comes from coherent integration over the finite interval \(T\).

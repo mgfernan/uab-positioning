@@ -1,0 +1,208 @@
+## Digital Signal Processing
+
+- **Acquisition**: Detection of the available PRNs
+  - initial rough estimate of the delay between the incoming signal and the local replica and of the Doppler shift on the carrier
+- **Tracking**: Receive and process many PRNs simultaneously
+  - Measurement of delays for each PRN
+- **Decoding**: Extraction of the navigation message
+- **PVT**: Computation of the position
+
+### Acquisition: purpose
+
+- Objective: for the satellites in view, find
+  - $\tau_0$ rough estimate of the delay between the incoming signal and the local replica
+  - $f_D$ rough estimate of the Doppler shift on the carrier
+  - $\phi_0$ rough estimate of the phase of the carrier
+
+- Types of start conditions:
+  - **Cold start**: no information whatsoever about the satellites in view
+  - **Warm start**: rough information about the satellites in view, e.g., from a previous fix and almanac/ephemeris
+  - **Hot start**: very accurate information about the satellites in view
+
+- \acr{TTFF} greatly influenced by the acquisition start conditions!
+
+### Acquisition: estimating $\tau_0$ and $f_D$
+
+- Use of the **correlation** between the incoming signal and a local replica of the PRN code
+  - Correlation function peaks at $\tau_0$
+  - As shown in [the signal autocorrelation section](#auto-correlation-of-dsss-alignment)
+
+- Main assumption: the incoming signal has no Doppler shift, i.e., $f_D = 0$ (or it has been compensated for)
+  - This is not the case in practice $\Rightarrow$ Doppler shift $f_D$ must be estimated as well!
+
+### Acquisition: Ambiguity function
+
+- The **ambiguity function** is a 2D function of the delay $\tau$ and the Doppler shift $f_D$ that measures the correlation between the incoming signal and a local replica of the PRN code, as a function of $\tau$ and $f_D$.
+- The power function of the ambiguity function ($P_{AF}$) is defined as:
+
+$$
+P_{AF}(\Delta \tau, \Delta f_D) \propto \Lambda \left ( \frac{\Delta \tau}{T_{chip}} \right)\cdot \text{sinc}^2(\Delta f_D \cdot T_{integration})
+$$
+
+### Acquisition: Ambiguity function (cont'd)
+
+```{python}
+import numpy as np
+import plotly.graph_objects as go
+from IPython.display import HTML
+
+delay_chips = np.linspace(-2, 2, 201)
+doppler_bins = np.linspace(-3, 3, 241)
+delay_grid, doppler_grid = np.meshgrid(delay_chips, doppler_bins)
+
+code_correlation = np.maximum(1 - np.abs(delay_grid), 0)
+power = code_correlation * np.sinc(doppler_grid) ** 2
+
+fig = go.Figure(
+    data=[
+        go.Surface(
+            x=delay_chips,
+            y=doppler_bins,
+            z=power,
+            colorscale="Viridis",
+            colorbar=dict(title="Normalized power"),
+        )
+    ]
+)
+fig.add_trace(
+    go.Scatter3d(
+        x=delay_chips,
+        y=np.full_like(delay_chips, doppler_bins[0]),
+        z=power[doppler_bins.size // 2, :],
+        mode="lines",
+        name="Power vs. code delay",
+        line=dict(color="black", width=6),
+    )
+)
+fig.add_trace(
+    go.Scatter3d(
+        x=np.full_like(doppler_bins, delay_chips[-1]),
+        y=doppler_bins,
+        z=power[:, delay_chips.size // 2],
+        mode="lines",
+        name="Power vs. Doppler",
+        line=dict(color="black", width=6),
+    )
+)
+fig.update_layout(
+    title="GPS Acquisition Ambiguity Function",
+    scene=dict(
+        xaxis_title="Code delay Δτ / Tchip (chips)",
+        yaxis_title="Doppler ΔfD · Tintegration (bins)",
+        zaxis_title="Normalized power",
+    ),
+    height=600,
+    margin=dict(l=0, r=0, t=50, b=0),
+)
+
+HTML(fig.to_html(full_html=False, include_plotlyjs="cdn", include_mathjax=False))
+```
+### Acquisition: Ambiguity function under noise
+
+```{python}
+import numpy as np
+import plotly.graph_objects as go
+from IPython.display import HTML
+
+rng = np.random.default_rng(7)
+num_chips = 1023
+samples_per_chip = 8
+num_samples = num_chips * samples_per_chip
+sample_indices = np.arange(num_samples)
+normalized_time = sample_indices / num_samples
+
+prn_chips = rng.choice([-1.0, 1.0], size=num_chips)
+local_code = np.repeat(prn_chips, samples_per_chip)
+true_delay_samples = samples_per_chip // 2
+true_doppler_bins = 0.5
+signal = np.roll(local_code, true_delay_samples) * np.exp(
+    2j * np.pi * true_doppler_bins * normalized_time
+)
+
+input_snr_db = -27
+noise_power = 10 ** (-input_snr_db / 10)
+noise = np.sqrt(noise_power / 2) * (
+    rng.standard_normal(num_samples) + 1j * rng.standard_normal(num_samples)
+)
+received_signal = signal + noise
+
+delay_samples = np.arange(-2 * samples_per_chip, 2 * samples_per_chip + 1)
+noisy_delay_chips = delay_samples / samples_per_chip
+noisy_doppler_bins = np.linspace(-3, 3, 121)
+doppler_wipeoff = np.exp(
+    -2j * np.pi * np.outer(noisy_doppler_bins, normalized_time)
+)
+correlation = np.empty(
+    (noisy_doppler_bins.size, noisy_delay_chips.size), dtype=np.complex128
+)
+
+for delay_index, delay in enumerate(delay_samples):
+    local_replica = np.roll(local_code, delay)
+    correlation[:, delay_index] = (
+        received_signal * np.conj(local_replica)
+    ) @ doppler_wipeoff.T
+
+noisy_power = np.abs(correlation) ** 2 / num_samples**2
+noisy_fig = go.Figure(
+    data=[
+        go.Surface(
+            x=noisy_delay_chips,
+            y=noisy_doppler_bins,
+            z=noisy_power,
+            colorscale="Viridis",
+            colorbar=dict(title="Power / noiseless peak"),
+        )
+    ]
+)
+noisy_fig.update_layout(
+    title=f"Acquisition Ambiguity Function with AWGN (input SNR = {input_snr_db} dB)",
+    scene=dict(
+        xaxis_title="Code delay Δτ / Tchip (chips)",
+        yaxis_title="Doppler ΔfD · Tintegration (bins)",
+        zaxis_title="Power / noiseless peak",
+    ),
+    height=600,
+    margin=dict(l=0, r=0, t=50, b=0),
+)
+
+HTML(noisy_fig.to_html(full_html=False, include_plotlyjs="cdn", include_mathjax=False))
+```
+
+### Acquisition: Search area
+
+- In **cold start** conditions, no information available $\Rightarrow$ search area is the whole 2D space of delay and Doppler
+  - Delay: $0 \leq \tau_0 < T_{code}$ (e.g. for GPS C/A, $T_{code} = 1\ ms = 1023\ chips$)
+  - Doppler: $-f_{D,max} \leq f_D < f_{D,max}$ (usually $f_{D,max} \approx 6\ kHz$ for GPS L1 C/A)
+
+
+::: {.columns}
+
+::: {.column}
+![](assets/figures/acquisition__search_area.svg){fig-align="left"}
+:::
+
+::: {.column}
+$$
+\scriptsize
+\begin{aligned}
+T_{CODE} &= 1023\ T_{CHIP}\\
+f_{D,max} &= 6\ kHz \\
+T_{integration} &= T = 4\ ms \\
+N_{search\ bins} &= \frac{1023\ T_{CHIP}}{T_{CHIP}/2} \cdot \frac{2 \cdot 6000}{1 / (2\ T)} = 49104\ bins
+\end{aligned}
+$$
+:::
+
+:::
+
+### Acquisition: Search area (cont'd)
+
+- If integration time $\uparrow \Rightarrow$ SNR $\uparrow$...
+
+  - The Doppler resolution $\downarrow$ wich allows to a finer search in the Doppler domain, but...
+  - The number of Doppler bins $\uparrow \Rightarrow$ acquisition time $\uparrow$
+
+- Ideally, the shortest possible integration time is preferred in order to reduce the searching
+space (lower number of search bins) and have a fast acquisition.
+    - This reduces the \acr{TTFF}
+    - and the reacquisition time in case of signal loss (e.g., due to blockage or interference)
