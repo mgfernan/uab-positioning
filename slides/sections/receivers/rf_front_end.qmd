@@ -244,4 +244,28 @@ $$
   - is the most important one, as **it will determine the overall noise figure** of the receiver
   - should have a **low noise figure** and a **high gain**, to minimize the impact of the following blocks.
 
+### Examples of antennas
+
+
+::: {.columns}
+::: {.column}
+![Smartphone antenna, source: [@shen2024determining]](assets/figures/antenna__smartphone.png){height="200px"}
+:::
+
+::: {.column}
+![[Ceramic patch antennae ~5€](https://www.taoglas.com/product/dsgp182b-18-x-18-x-2-mm-gps-l1-galileo-e1-beidou-b1c-1575-42mhz-ceramic-patch/)](assets/figures/antenna__taoglass_L1_patch.png)
+:::
+:::
+
+
+::: {.columns}
+::: {.column}
+![[External Active Triple band magnetic mount ~50€](https://www.taoglas.com/product/aa-205-gnss-l1-l2-l5-external-magnetic-mount-antenna-with-1500mm-rg-174-and-smamst/)](assets/figures/antenna__taoglass_L1L2L5_magmount.png){height="200px"}
+:::
+
+::: {.column}
+![[Full band active antenna ~1000€](https://www.calian.com/advanced-technologies/gnss_product/vsp6037l-mar-verostar-marine-full-gnss-precision-antenna-l-band/)](assets/figures/antenna__vsp6037l.png){height="200px"}
+:::
+:::
+
 
