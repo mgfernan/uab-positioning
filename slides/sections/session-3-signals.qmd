@@ -390,6 +390,48 @@ $$
 
 ![](assets/figures/spread_spectrum_autocorrelation_misaligned.svg){fig-align="center"}
 
+### Auto-correlation of DSSS: demo
+
+![](assets/figures/spread_spectrum_autocorrelation_detailed_process_01.svg){fig-align="center"}
+
+### Auto-correlation of DSSS: demo
+
+![](assets/figures/spread_spectrum_autocorrelation_detailed_process_02.svg){fig-align="center"}
+
+
+### Auto-correlation of DSSS: demo
+
+![](assets/figures/spread_spectrum_autocorrelation_detailed_process_03.svg){fig-align="center"}
+
+### Auto-correlation of DSSS: demo
+
+![](assets/figures/spread_spectrum_autocorrelation_detailed_process_04.svg){fig-align="center"}
+
+
+### Auto-correlation of DSSS: demo
+
+![](assets/figures/spread_spectrum_autocorrelation_detailed_process_05.svg){fig-align="center"}
+
+### Auto-correlation of DSSS: demo
+
+![](assets/figures/spread_spectrum_autocorrelation_detailed_process_06.svg){fig-align="center"}
+
+
+### Auto-correlation of DSSS: demo
+
+![](assets/figures/spread_spectrum_autocorrelation_detailed_process_07.svg){fig-align="center"}
+
+### Auto-correlation of DSSS: demo
+
+![](assets/figures/spread_spectrum_autocorrelation_detailed_process_08.svg){fig-align="center"}
+
+
+### Auto-correlation of DSSS: demo
+
+![](assets/figures/spread_spectrum_autocorrelation_detailed_process_09.svg){fig-align="center"}
+
+
+
 ### Auto-correlation of DSSS: function
 
 - \acr{GPS} uses *Gold codes* for spreading, which are a family of 32 different sequences of length 1023 chips that have good auto-correlation properties: max at $\tau = 0$ and low for $\tau \neq 0$). See example:
