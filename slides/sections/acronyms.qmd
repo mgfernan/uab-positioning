@@ -3,6 +3,8 @@ acronyms:
   insert_loa: false
   loa_title: ''
   keys:
+    - shortname: ADC
+      longname: Analog-to-Digital Converter
     - shortname: ADS-B
       longname: Automatic Dependent Surveillance-Broadcast
     - shortname: AoA
@@ -73,6 +75,8 @@ acronyms:
       longname: Galileo Sensor Station
     - shortname: ICD
       longname: Interface Control Document
+    - shortname: IF
+      longname: Intermediate Frequency
     - shortname: IGSO
       longname: Inclined Geosynchronous Satellite Orbit
     - shortname: ILS

@@ -268,4 +268,39 @@ $$
 :::
 :::
 
+### Downconversion
+
+- Downconversion moves the GNSS signal from an inconvenient RF frequency (L-band, GHz) to a frequency where we can efficiently sample, filter, correlate, and track it (\acr{IF} or baseband, MHz).
+
+![](assets/figures/gnss_receiver__rf_front-end__mixer.svg){fig-align="center"}
+
+- Then, the \acr{ADC} can operate at tens of MHz rather than several GHz.
+
+- Trying to digitize at L-band (GHz) directly would generate enormous data rates
+
+
+### Analog-to-digital conversion
+
+![](assets/figures/adc_sampling_quantization.svg){fig-align="center"}
+
+- The ADC samples and quantizes the signal:
+  - $F_s$ is the sampling frequency (Nyquist criterion)
+  - $N$ is the number of quantization bits
+
+### Analog-to-digital: $N$ and $F_s$
+
+- Sampling Frequency $F_s$:
+  - Must be at least twice the bandwidth of the signal (Nyquist criterion)
+  - For GNSS signals, $F_s$ is typically in the range of 2-20 MHz
+  - Special case for high bandwidth signals (e.g. AltBOC signals require $F_s$ of 50 MHz or more)
+- Number of quantization bits $N$:
+  - For GNSS signals, $N$ is typically in the range of 1-4 bits
+  - Even with 1 bit (sign bit) it is possible to track: enough to perform signal correlation.
+  - More bits increase the dynamic range and reduce quantization noise, but also increase power consumption and data rate
+
+| Quantization | Information retained | GNSS consequence |
+|---|---|---|
+| **1 bit** | Sign only | Very simple, but amplitude information lost |
+| **2 bits** | Sign + coarse amplitude | Good compromise |
+| **3–4 bits** | Better amplitude resolution | Better robustness to varying signal/noise levels |
 

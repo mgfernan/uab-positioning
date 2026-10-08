@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1464"
+   height="487.52069"
+   viewBox="0 0 1464 487.52069"
+   version="1.1"
+   id="svg42"
+   sodipodi:docname="adc_sampling_quantization.svg"
+   inkscape:version="1.4.4 (1:1.4.4+202605061436+dcaf3e7d9e)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview42"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.5225"
+     inkscape:cx="375.11962"
+     inkscape:cy="200"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg42" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Dot"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Dot"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 5,0 C 5,2.76 2.76,5 0,5 -2.76,5 -5,2.76 -5,0 c 0,-2.76 2.3,-5 5,-5 2.76,0 5,2.24 5,5 z"
+         sodipodi:nodetypes="sssss"
+         id="path17" />
+    </marker>
+    <marker
+       inkscape:stockid="Distance end"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="DistanceEnd"
+       style="overflow:visible"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <g
+         transform="scale(0.6)"
+         id="g16">
+        <path
+           d="m 0,-40 v 0"
+           id="path14" />
+        <path
+           d="M 0,0 -8,5 V -5 Z"
+           style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+           id="path15" />
+        <path
+           d="M 0,-8 V 40"
+           style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:square"
+           id="path16" />
+      </g>
+    </marker>
+    <marker
+       inkscape:stockid="Distance start"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="DistanceStart"
+       style="overflow:visible"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <g
+         transform="scale(0.6)"
+         id="g13">
+        <path
+           d="m 0,-40 v 0"
+           id="path11" />
+        <path
+           d="M 0,0 8,5 V -5 Z"
+           style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+           sodipodi:nodetypes="ccccc"
+           id="path12" />
+        <path
+           d="M 0,-8 V 40"
+           style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:square"
+           id="path13" />
+      </g>
+    </marker>
+    <marker
+       id="arrow"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#444444"
+         id="path1" />
+    </marker>
+    <style
+       id="style1">
+    .title { font: 700 28px Arial, sans-serif; fill:#222; }
+    .label { font: 20px Arial, sans-serif; fill:#333; }
+    .small { font: 17px Arial, sans-serif; fill:#555; }
+    .axis { stroke:#555; stroke-width:2; }
+    .grid { stroke:#ddd; stroke-width:1; }
+  </style>
+    <marker
+       style="overflow:visible"
+       id="Dot-3"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Dot"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 5,0 C 5,2.76 2.76,5 0,5 -2.76,5 -5,2.76 -5,0 c 0,-2.76 2.3,-5 5,-5 2.76,0 5,2.24 5,5 z"
+         sodipodi:nodetypes="sssss"
+         id="path17-6" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Dot-3-3"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Dot"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 5,0 C 5,2.76 2.76,5 0,5 -2.76,5 -5,2.76 -5,0 c 0,-2.76 2.3,-5 5,-5 2.76,0 5,2.24 5,5 z"
+         sodipodi:nodetypes="sssss"
+         id="path17-6-1" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Dot-8"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Dot"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 5,0 C 5,2.76 2.76,5 0,5 -2.76,5 -5,2.76 -5,0 c 0,-2.76 2.3,-5 5,-5 2.76,0 5,2.24 5,5 z"
+         sodipodi:nodetypes="sssss"
+         id="path17-4" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Dot-8-6"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Dot"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 5,0 C 5,2.76 2.76,5 0,5 -2.76,5 -5,2.76 -5,0 c 0,-2.76 2.3,-5 5,-5 2.76,0 5,2.24 5,5 z"
+         sodipodi:nodetypes="sssss"
+         id="path17-4-1" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Dot-8-6-2"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Dot"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 5,0 C 5,2.76 2.76,5 0,5 -2.76,5 -5,2.76 -5,0 c 0,-2.76 2.3,-5 5,-5 2.76,0 5,2.24 5,5 z"
+         sodipodi:nodetypes="sssss"
+         id="path17-4-1-0" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Dot-8-6-2-5"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Dot"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 5,0 C 5,2.76 2.76,5 0,5 -2.76,5 -5,2.76 -5,0 c 0,-2.76 2.3,-5 5,-5 2.76,0 5,2.24 5,5 z"
+         sodipodi:nodetypes="sssss"
+         id="path17-4-1-0-4" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Dot-8-4"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Dot"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 5,0 C 5,2.76 2.76,5 0,5 -2.76,5 -5,2.76 -5,0 c 0,-2.76 2.3,-5 5,-5 2.76,0 5,2.24 5,5 z"
+         sodipodi:nodetypes="sssss"
+         id="path17-4-4" />
+    </marker>
+  </defs>
+  <line
+     x1="1010"
+     y1="96.970703"
+     x2="1440"
+     y2="96.970703"
+     class="grid"
+     id="line12" />
+  <line
+     x1="1010"
+     y1="206.9707"
+     x2="1440"
+     y2="206.9707"
+     class="grid"
+     id="line13" />
+  <line
+     x1="1010"
+     y1="316.9707"
+     x2="1440"
+     y2="316.9707"
+     class="grid"
+     id="line14" />
+  <line
+     x1="1010"
+     y1="429.4707"
+     x2="1440"
+     y2="429.4707"
+     class="grid"
+     id="line14-4"
+     style="stroke:#dddddd;stroke-width:1" />
+  <!-- INPUT -->
+  <g
+     id="g46"
+     transform="translate(-97.797327,-83.029297)">
+    <text
+       x="327.06628"
+       y="103.31836"
+       text-anchor="middle"
+       class="title"
+       id="text1"
+       style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:28px;line-height:normal;font-family:Arial, sans-serif">Analog input (IF / baseband)</text>
+    <text
+       x="327.06628"
+       y="133.31836"
+       text-anchor="middle"
+       class="small"
+       id="text2"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17px;line-height:normal;font-family:Arial, sans-serif">x(t) = A₁ sin(2πf<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan44">IF</tspan>t)</text>
+  </g>
+  <line
+     x1="0"
+     y1="261.9707"
+     x2="500"
+     y2="261.9707"
+     class="axis"
+     marker-end="url(#arrow)"
+     id="line2" />
+  <path
+     id="line3"
+     class="axis"
+     style="stroke:#555555;stroke-width:2;marker-end:url(#arrow)"
+     d="M 20,486.87501 V 66.970703"
+     sodipodi:nodetypes="cc" />
+  <text
+     x="451.88995"
+     y="294.18652"
+     class="label"
+     id="text3"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, sans-serif">t</text>
+  <!-- analog sinusoids -->
+  <path
+     d="m 21.853295,266.47024 c 50.213496,-224.048455 100.426985,-224.048455 150.640455,0 50.21349,224.04845 100.42699,224.04845 150.64048,0 12.55337,-56.01212 25.10674,-98.0212 37.66012,-126.02726 12.55336,-28.00606 25.10674,-42.009077 37.66011,-42.009077 12.55337,0 25.10674,14.003017 37.66011,42.009077"
+     fill="none"
+     stroke="#1677ff"
+     stroke-width="7.07276"
+     id="path4"
+     style="stroke-width:3;stroke-dasharray:none"
+     sodipodi:nodetypes="cssssc" />
+  <!-- ADC -->
+  <line
+     x1="520"
+     y1="262.9707"
+     x2="580"
+     y2="262.9707"
+     stroke="#555555"
+     stroke-width="2.5"
+     marker-end="url(#arrow)"
+     id="line5" />
+  <rect
+     x="590"
+     y="167.9707"
+     width="280"
+     height="190"
+     rx="5"
+     fill="#eaf2ff"
+     stroke="#333333"
+     stroke-width="2.5"
+     id="rect5" />
+  <text
+     x="730"
+     y="252.9707"
+     text-anchor="middle"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:44px;line-height:normal;font-family:Arial, sans-serif;fill:#111111"
+     id="text5">ADC</text>
+  <text
+     x="730"
+     y="292.9707"
+     text-anchor="middle"
+     class="label"
+     id="text6"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, sans-serif">(e.g. 2 bits)</text>
+  <line
+     x1="880"
+     y1="262.9707"
+     x2="940"
+     y2="262.9707"
+     stroke="#555555"
+     stroke-width="2.5"
+     marker-end="url(#arrow)"
+     id="line6" />
+  <!-- sampling frequency -->
+  <line
+     x1="730"
+     y1="412.9707"
+     x2="730"
+     y2="362.9707"
+     stroke="#555555"
+     stroke-width="2.5"
+     marker-end="url(#arrow)"
+     id="line7" />
+  <text
+     x="730"
+     y="452.9707"
+     text-anchor="middle"
+     class="label"
+     id="text7"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, sans-serif">Sampling frequency</text>
+  <text
+     x="730"
+     y="482.9707"
+     text-anchor="middle"
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22px;line-height:normal;font-family:Georgia, serif;fill:#333333"
+     id="text8">F<tspan
+   baseline-shift="sub"
+   font-size="15px"
+   id="tspan7">s</tspan></text>
+  <!-- OUTPUT -->
+  <g
+     id="g45"
+     transform="translate(-70,-71.28125)">
+    <text
+       x="1301.7517"
+       y="91.570312"
+       text-anchor="middle"
+       class="title"
+       id="text9"
+       style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:28px;line-height:normal;font-family:Arial, sans-serif">Quantized, sampled output</text>
+    <text
+       x="1301.7517"
+       y="121.57031"
+       text-anchor="middle"
+       class="small"
+       id="text10"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17px;line-height:normal;font-family:Arial, sans-serif">2 bits → 4 levels</text>
+  </g>
+  <!-- output axes -->
+  <path
+     id="line10-5-9"
+     style="fill:#1677ff;stroke:#1677ff;stroke-width:3;marker-end:url(#Dot)"
+     class="axis"
+     d="M 1080,261.9707 V 96.970703"
+     sodipodi:nodetypes="cc" />
+  <path
+     id="line10-5-9-0"
+     style="fill:#1677ff;stroke:#1677ff;stroke-width:3;marker-end:url(#Dot-8)"
+     class="axis"
+     d="m 1030,261.9707 v -55"
+     sodipodi:nodetypes="cc" />
+  <path
+     id="line10-5-9-0-0"
+     style="fill:#1677ff;stroke:#1677ff;stroke-width:3;marker-end:url(#Dot-8-4)"
+     class="axis"
+     d="m 1130,262.37109 v -55"
+     sodipodi:nodetypes="cc" />
+  <path
+     id="line10-5-9-0-6"
+     style="fill:#1677ff;stroke:#1677ff;stroke-width:3;marker-end:url(#Dot-8-6)"
+     class="axis"
+     d="m 1180,262.63672 v 55"
+     sodipodi:nodetypes="cc" />
+  <path
+     id="line10-5-9-0-6-1"
+     style="fill:#1677ff;stroke:#1677ff;stroke-width:3;marker-end:url(#Dot-8-6-2)"
+     class="axis"
+     d="m 1330,261.9707 v -55"
+     sodipodi:nodetypes="cc" />
+  <path
+     id="line10-5-9-0-6-1-6"
+     style="fill:#1677ff;stroke:#1677ff;stroke-width:3;marker-end:url(#Dot-8-6-2-5)"
+     class="axis"
+     d="m 1280,262.63672 v 55"
+     sodipodi:nodetypes="cc" />
+  <path
+     id="line10-5-9-2-4"
+     style="fill:#1677ff;stroke:#1677ff;stroke-width:3;marker-end:url(#Dot-3-3)"
+     class="axis"
+     d="M 1380,261.9707 V 96.970703"
+     sodipodi:nodetypes="cc" />
+  <path
+     id="line10-5-9-2"
+     style="fill:#1677ff;stroke:#1677ff;stroke-width:3;marker-end:url(#Dot-3)"
+     class="axis"
+     d="m 1230,264.4707 v 165"
+     sodipodi:nodetypes="cc" />
+  <line
+     x1="1010"
+     y1="476.9707"
+     x2="1010"
+     y2="41.970703"
+     class="axis"
+     marker-end="url(#arrow)"
+     id="line11" />
+  <!-- levels -->
+  <line
+     x1="30"
+     y1="96.970703"
+     x2="460"
+     y2="96.970703"
+     class="grid"
+     id="line12-6"
+     style="stroke:#dddddd;stroke-width:1" />
+  <line
+     x1="30"
+     y1="436.9707"
+     x2="460"
+     y2="436.9707"
+     class="grid"
+     id="line12-6-4"
+     style="stroke:#dddddd;stroke-width:1" />
+  <text
+     x="985"
+     y="103.9707"
+     text-anchor="end"
+     class="label"
+     id="text14"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, sans-serif">+3</text>
+  <text
+     x="985"
+     y="213.9707"
+     text-anchor="end"
+     class="label"
+     id="text15"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, sans-serif">+1</text>
+  <text
+     x="985"
+     y="323.9707"
+     text-anchor="end"
+     class="label"
+     id="text16"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, sans-serif">−1</text>
+  <text
+     x="985"
+     y="433.9707"
+     text-anchor="end"
+     class="label"
+     id="text17"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, sans-serif">−3</text>
+  <!-- quantized blue waveform, sampled at Ts -->
+  <!-- quantized orange waveform -->
+  <!-- sample markers -->
+  <circle
+     cx="1280"
+     cy="316.9707"
+     r="6"
+     id="circle23"
+     style="fill:#1677ff" />
+  <!-- Ts marks -->
+  <text
+     x="1050.8666"
+     y="344.39658"
+     id="text35"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17px;line-height:normal;font-family:Arial, sans-serif;text-anchor:middle;fill:#000000;fill-opacity:1">Tₛ</text>
+  <text
+     x="1079.8506"
+     y="295.9707"
+     id="text36"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17px;line-height:normal;font-family:Arial, sans-serif;text-anchor:middle;fill:#555555">n+1</text>
+  <text
+     x="1129.863"
+     y="295.9707"
+     id="text36-6"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17px;line-height:normal;font-family:Arial, sans-serif;text-anchor:middle;fill:#555555">n+2</text>
+  <text
+     x="1179.8091"
+     y="245.80469"
+     id="text36-6-1"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17px;line-height:normal;font-family:Arial, sans-serif;text-anchor:middle;fill:#555555"><tspan
+       sodipodi:role="line"
+       id="tspan43"
+       x="1179.8091"
+       y="245.80469">n+3</tspan></text>
+  <text
+     x="1379.863"
+     y="295.9707"
+     id="text36-6-0"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17px;line-height:normal;font-family:Arial, sans-serif;text-anchor:middle;fill:#555555">n+7</text>
+  <text
+     x="1329.8091"
+     y="295.80469"
+     id="text36-6-6"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17px;line-height:normal;font-family:Arial, sans-serif;text-anchor:middle;fill:#555555">n+6</text>
+  <text
+     x="1279.7925"
+     y="245.80469"
+     id="text36-6-2"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17px;line-height:normal;font-family:Arial, sans-serif;text-anchor:middle;fill:#555555">n+5</text>
+  <text
+     x="1229.6846"
+     y="245.9707"
+     id="text36-6-8"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17px;line-height:normal;font-family:Arial, sans-serif;text-anchor:middle;fill:#555555">n+4</text>
+  <text
+     x="1029.9875"
+     y="295.9707"
+     id="text36-5"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17px;line-height:normal;font-family:Arial, sans-serif;text-anchor:middle;fill:#555555">n</text>
+  <path
+     style="fill:#ff3d00;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;marker-start:url(#DistanceEnd);marker-end:url(#DistanceStart)"
+     d="m 1077.9,358.42324 h -50"
+     id="path44"
+     sodipodi:nodetypes="cc" />
+  <line
+     x1="990"
+     y1="262.9707"
+     x2="1460"
+     y2="262.9707"
+     class="axis"
+     marker-end="url(#arrow)"
+     id="line10" />
+</svg>
