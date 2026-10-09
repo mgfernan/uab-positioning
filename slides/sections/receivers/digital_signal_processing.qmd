@@ -206,3 +206,16 @@ $$
 space (lower number of search bins) and have a fast acquisition.
     - This reduces the \acr{TTFF}
     - and the reacquisition time in case of signal loss (e.g., due to blockage or interference)
+
+
+### Tracking: basic principle
+
+- The acquisition stage provides a rough estimate of the delay and Doppler shift for each satellite in view.
+- The tracking stage refines these estimates and provides accurate measurements of the delay and Doppler shift $\Rightarrow$ the peaks of the subsequent correlation functions are tracked over time.
+
+![](assets/figures/acquisition__and_tracking.svg){fig-align="center"}
+
+### Tracking: parallel processing
+
+![](assets/figures/tracking__overview.svg){fig-align="center"}
+
