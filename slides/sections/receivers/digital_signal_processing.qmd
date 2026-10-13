@@ -219,3 +219,16 @@ space (lower number of search bins) and have a fast acquisition.
 
 ![](assets/figures/tracking__overview.svg){fig-align="center"}
 
+
+### Tracking: early-prompt-late principle
+
+- The early-prompt-late (EPL) principle is a common approach in tracking
+- It involves using three correlators: early, prompt, and late, to estimate the code delay, phase and frequency of the received signal.
+
+![](assets/figures/tracking__early_late_correlators.svg){fig-align="center"}
+
+- This is a closed-loop architecture, where the output of the correlators is used to adjust the local replica of the PRN code and carrier frequency to maintain lock on the incoming signal.
+
+### Tracking: early-prompt-late correlators
+
+

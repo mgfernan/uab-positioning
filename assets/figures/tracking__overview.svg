@@ -8,7 +8,7 @@
    version="1.1"
    id="svg47"
    sodipodi:docname="tracking__overview.svg"
-   inkscape:version="1.4.4 (1:1.4.4+202605061436+dcaf3e7d9e)"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -25,13 +25,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="0.40666667"
-     inkscape:cx="451.22951"
-     inkscape:cy="84.836066"
-     inkscape:window-width="1196"
-     inkscape:window-height="991"
+     inkscape:zoom="2.3004541"
+     inkscape:cx="700.94857"
+     inkscape:cy="264.0783"
+     inkscape:window-width="1768"
+     inkscape:window-height="932"
      inkscape:window-x="26"
-     inkscape:window-y="23"
+     inkscape:window-y="30"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg47"
      showgrid="true">
@@ -468,16 +468,16 @@
        xml:space="preserve"><tspan
          x="490"
          y="86"
-         id="tspan5"><tspan
-           style="font-weight:normal;font-size:21.3333px;font-family:'Nimbus Sans';-inkscape-font-specification:'Nimbus Sans';fill:#004d14;stroke:#004d14"
-           id="tspan4">Acquisition</tspan><tspan
-           y="86"
-           id="tspan6"> </tspan></tspan><tspan
+         id="tspan3"><tspan
+   style="font-weight:normal;font-size:21.3333px;font-family:'Nimbus Sans';-inkscape-font-specification:'Nimbus Sans';fill:#004d14;stroke:#004d14"
+   id="tspan1">Acquisition</tspan><tspan
+   y="86"
+   id="tspan22"> </tspan></tspan><tspan
          x="490"
-         y="114.26458"
-         id="tspan8"><tspan
+         y="113.74282"
+         id="tspan24"><tspan
            style="font-weight:normal;font-size:21.3333px;font-family:'Nimbus Sans';-inkscape-font-specification:'Nimbus Sans';fill:#004d14;stroke:#004d14"
-           id="tspan7">stage</tspan></tspan></text>
+           id="tspan23">stage</tspan></tspan></text>
   </g>
   <path
      style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5)"
@@ -501,7 +501,7 @@
      sodipodi:nodetypes="cc" />
   <path
      style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5-4-7-6)"
-     d="M 838.48342,361.63194 H 951.5166"
+     d="m 848.24902,361.63194 103.26758,0"
      id="path8-2-0-2-9"
      sodipodi:nodetypes="cc" />
   <path
@@ -557,9 +557,9 @@
          xml:space="preserve"><tspan
            x="490"
            y="86"
-           id="tspan10"><tspan
+           id="tspan26"><tspan
              style="font-weight:normal;font-size:16px;font-family:'Nimbus Sans';-inkscape-font-specification:'Nimbus Sans';fill:#004d14"
-             id="tspan9">Tracking channel 1</tspan></tspan></text>
+             id="tspan25">Tracking channel 1</tspan></tspan></text>
     </g>
     <g
        id="g50-2"
@@ -582,9 +582,9 @@
          xml:space="preserve"><tspan
            x="490"
            y="86"
-           id="tspan12"><tspan
+           id="tspan28"><tspan
              style="font-weight:normal;font-size:16px;font-family:'Nimbus Sans';-inkscape-font-specification:'Nimbus Sans';fill:#004d14"
-             id="tspan11">Tracking channel 2</tspan></tspan></text>
+             id="tspan27">Tracking channel 2</tspan></tspan></text>
     </g>
     <g
        id="g51">
@@ -609,9 +609,9 @@
            xml:space="preserve"><tspan
              x="490"
              y="86"
-             id="tspan14"><tspan
+             id="tspan30"><tspan
                style="font-weight:normal;font-size:16px;font-family:'Nimbus Sans';-inkscape-font-specification:'Nimbus Sans';fill:#004d14"
-               id="tspan13">Tracking channel 3</tspan></tspan></text>
+               id="tspan29">Tracking channel 3</tspan></tspan></text>
       </g>
     </g>
     <g
@@ -638,9 +638,9 @@
            xml:space="preserve"><tspan
              x="490"
              y="86"
-             id="tspan16"><tspan
+             id="tspan32"><tspan
                style="font-weight:normal;font-size:16px;font-family:'Nimbus Sans';-inkscape-font-specification:'Nimbus Sans';fill:#004d14"
-               id="tspan15">Tracking channel N</tspan></tspan></text>
+               id="tspan31">Tracking channel N</tspan></tspan></text>
       </g>
     </g>
   </g>
@@ -680,12 +680,12 @@
      transform="translate(-53.264726,137.20246)"><tspan
        x="817.35907"
        y="216.00146"
-       id="tspan17">Positioning<tspan
+       id="tspan33">Positioning<tspan
    y="216.00146"
-   id="tspan18"> </tspan></tspan><tspan
+   id="tspan34"> </tspan></tspan><tspan
        x="817.35907"
-       y="242.13484"
-       id="tspan19">engine</tspan></text>
+       y="242.13483"
+       id="tspan35">engine</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:18.6667px;line-height:1.4;font-family:Sans;-inkscape-font-specification:'Sans, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;white-space:pre;inline-size:125.282;display:inline;fill:#ee0c00;fill-opacity:1;stroke:#ee0c00;stroke-width:1;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:0.898039"
@@ -695,7 +695,7 @@
      transform="translate(104.4402,129.60911)"><tspan
        x="817.35907"
        y="216.00146"
-       id="tspan21"><tspan
+       id="tspan37"><tspan
          style="fill:#000000;stroke:#000000"
-         id="tspan20">PVT</tspan></tspan></text>
+         id="tspan36">PVT</tspan></tspan></text>
 </svg>

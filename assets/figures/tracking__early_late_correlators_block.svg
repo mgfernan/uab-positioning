@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1288"
+   height="964"
+   viewBox="0 0 1288 964"
+   version="1.1"
+   id="svg54"
+   sodipodi:docname="tracking__early_late_correlators_block.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview54"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.68322981"
+     inkscape:cx="644"
+     inkscape:cy="482.26818"
+     inkscape:window-width="1683"
+     inkscape:window-height="932"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg54" />
+  <title
+     id="title1">GNSS early-prompt-late correlator tracking loop</title>
+  <desc
+     id="desc1">Editable vector redraw of the supplied GNSS early and late correlator diagram, with the prompt branch shown in grey.</desc>
+  <defs
+     id="defs1">
+    <marker
+       id="arrow"
+       markerWidth="10"
+       markerHeight="8"
+       refX="8"
+       refY="4"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M0,0 L9,4 L0,8 Z"
+         fill="context-stroke"
+         id="path1" />
+    </marker>
+    <style
+       id="style1">
+      .wire{fill:none;stroke:#111;stroke-width:2.2;stroke-linecap:square;stroke-linejoin:miter;marker-end:url(#arrow)}
+      .line{fill:none;stroke:#111;stroke-width:2.2;stroke-linecap:square;stroke-linejoin:miter}
+      .grey{stroke:#888;fill:none;stroke-width:2.2;stroke-linecap:square;stroke-linejoin:miter}
+      .box{fill:#fff;stroke:#111;stroke-width:2.2}
+      .gbox{fill:#fff;stroke:#888;stroke-width:2.2}
+      .txt{font-family:&quot;Times New Roman&quot;,Times,serif;font-style:italic;fill:#080808;font-size:21px}
+      .small{font-size:19px}
+      .bold{font-weight:700}
+      .graytxt{fill:#888}
+      .wire[stroke=&quot;#5cb65cff&quot;],.line[stroke=&quot;#5cb65cff&quot;],.box[stroke=&quot;#5cb65cff&quot;]{stroke:#5cb65cff}
+      .wire[stroke=&quot;#b2000cff&quot;],.line[stroke=&quot;#b2000cff&quot;],.box[stroke=&quot;#b2000cff&quot;]{stroke:#b2000cff}
+    </style>
+  </defs>
+  <rect
+     class="box"
+     x="469"
+     y="118"
+     width="256"
+     height="154"
+     stroke="#5cb65cff"
+     id="rect14"
+     style="stroke:#5cb65c;stroke-opacity:1" />
+  <!-- Received signal and common distribution -->
+  <text
+     class="txt bold"
+     x="83"
+     y="96"
+     id="text1"><tspan
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman', Times, serif;-inkscape-font-specification:'Times New Roman, Times, serif Italic';fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1"
+       id="tspan55">r(t) = C x(t−τ) + n(t)</tspan></text>
+  <path
+     class="line"
+     d="M145 119 V852"
+     id="path2" />
+  <path
+     class="wire"
+     d="M145 186 H313"
+     id="path3" />
+  <path
+     class="line"
+     d="M145 459 H196"
+     id="path4"
+     style="stroke:#b2000c;stroke-opacity:1" />
+  <path
+     class="wire"
+     d="M145 459 H196"
+     id="path5"
+     style="stroke:#b2000c;stroke-opacity:1" />
+  <path
+     class="line"
+     d="M145 852 H247"
+     id="path6" />
+  <path
+     class="wire"
+     d="M145 852 H247"
+     id="path7" />
+  <!-- Early multiplier -->
+  <circle
+     cx="350"
+     cy="186"
+     r="34"
+     fill="#fff"
+     stroke="#5cb65cff"
+     stroke-width="2.2"
+     id="circle7"
+     style="stroke:#5cb65c;stroke-opacity:1" />
+  <path
+     class="line"
+     d="M334 170 L366 202 M366 170 L334 202"
+     stroke="#5cb65cff"
+     id="path8"
+     style="stroke:#5cb65c;stroke-opacity:1" />
+  <!-- Late multiplier -->
+  <circle
+     cx="230"
+     cy="459"
+     r="34"
+     fill="#fff"
+     stroke="#b2000cff"
+     stroke-width="2.2"
+     id="circle8"
+     style="stroke:#b2000c;stroke-opacity:1" />
+  <path
+     class="line"
+     d="M214 443 L246 475 M246 443 L214 475"
+     stroke="#b2000cff"
+     id="path9"
+     style="stroke:#b2000c;stroke-opacity:1" />
+  <!-- Early replica feed from code generator -->
+  <path
+     class="wire"
+     d="M350 596 V223"
+     stroke="#5cb65cff"
+     id="path10" />
+  <path
+     class="line"
+     d="M350 596 H691"
+     stroke="#5cb65cff"
+     id="path11"
+     style="stroke:#b2000c;stroke-opacity:1" />
+  <text
+     class="txt bold"
+     x="359"
+     y="586"
+     id="text11"
+     style="stroke:#b2000c;stroke-opacity:1">x(t−τ̂ + d Tc/2)   early replica</text>
+  <!-- Late replica feed -->
+  <path
+     class="wire"
+     d="M230 697 V493"
+     stroke="#b2000cff"
+     id="path12" />
+  <path
+     class="line"
+     d="M230 697 H690"
+     stroke="#b2000cff"
+     id="path13" />
+  <text
+     class="txt bold"
+     x="359"
+     y="687"
+     id="text13">x(t−τ̂ − d Tc/2)   late replica</text>
+  <!-- Correlators -->
+  <text
+     class="txt bold"
+     x="469"
+     y="101"
+     id="text14"
+     style="stroke:#5cb65c;stroke-opacity:1"><tspan
+       style="fill:#5cb65c;fill-opacity:1;stroke:none"
+       id="tspan54">Early correlator</tspan></text>
+  <text
+     class="txt bold"
+     x="469"
+     y="374"
+     id="text19"
+     style="stroke:#b2000c;stroke-opacity:1">Late correlator</text>
+  <rect
+     class="box"
+     x="469"
+     y="391"
+     width="256"
+     height="154"
+     stroke="#b2000cff"
+     id="rect19"
+     style="stroke:#b2000c;stroke-opacity:1" />
+  <text
+     class="txt bold"
+     x="483"
+     y="463"
+     font-size="32"
+     id="text20"
+     style="stroke:#b2000c;stroke-opacity:1">1</text>
+  <path
+     class="line"
+     d="M482 463 H503"
+     stroke="#b2000cff"
+     id="path20"
+     style="stroke:#b2000c;stroke-opacity:1" />
+  <text
+     class="txt bold"
+     x="533"
+     y="418"
+     id="text21"
+     style="stroke:#b2000c;stroke-opacity:1">T</text>
+  <path
+     class="line"
+     d="M525 427 C511 437 539 474 525 493"
+     stroke="#b2000cff"
+     id="path21"
+     style="stroke:#b2000c;stroke-opacity:1" />
+  <text
+     class="txt"
+     x="532"
+     y="499"
+     id="text22"
+     style="stroke:#b2000c;stroke-opacity:1">0</text>
+  <text
+     class="txt bold"
+     x="619"
+     y="484"
+     font-size="35"
+     id="text23"
+     style="stroke:#b2000c;stroke-opacity:1">dt</text>
+  <!-- Multipliers to correlators -->
+  <path
+     class="wire"
+     d="M384 186 H466"
+     stroke="#5cb65cff"
+     id="path23"
+     style="stroke:#5cb65c;stroke-opacity:1" />
+  <path
+     class="wire"
+     d="M264 459 H466"
+     stroke="#b2000cff"
+     id="path24"
+     style="stroke:#b2000c;stroke-opacity:1" />
+  <!-- Prompt branch in grey -->
+  <path
+     class="grey"
+     d="M145 852 H247"
+     id="path25" />
+  <circle
+     cx="282"
+     cy="852"
+     r="34"
+     fill="#fff"
+     stroke="#888"
+     stroke-width="2.2"
+     id="circle25" />
+  <path
+     class="grey"
+     d="M266 836 L298 868 M298 836 L266 868"
+     id="path26" />
+  <path
+     class="grey"
+     d="M282 818 V646 H691"
+     id="path27" />
+  <path
+     d="M282 886 V920"
+     class="grey"
+     marker-end="url(#arrow)"
+     id="path28" />
+  <text
+     class="txt bold graytxt"
+     x="305"
+     y="638"
+     id="text28">x(t−τ̂)   prompt replica</text>
+  <text
+     class="txt bold graytxt"
+     x="469"
+     y="766"
+     id="text29">Prompt correlator</text>
+  <rect
+     class="gbox"
+     x="469"
+     y="783"
+     width="256"
+     height="154"
+     id="rect29" />
+  <text
+     class="txt bold graytxt"
+     x="483"
+     y="855"
+     font-size="32"
+     id="text30">1</text>
+  <path
+     class="grey"
+     d="M482 855 H503"
+     id="path30" />
+  <text
+     class="txt bold graytxt"
+     x="533"
+     y="810"
+     id="text31">T</text>
+  <path
+     class="grey"
+     d="M525 819 C511 829 539 866 525 885"
+     id="path31" />
+  <text
+     class="txt graytxt"
+     x="532"
+     y="891"
+     id="text32">0</text>
+  <text
+     class="txt bold graytxt"
+     x="619"
+     y="876"
+     font-size="35"
+     id="text33">dt</text>
+  <path
+     class="grey"
+     d="M316 852 H466"
+     marker-end="url(#arrow)"
+     id="path33" />
+  <!-- Early and late sampled outputs and switches -->
+  <path
+     class="wire"
+     d="M725 186 H806"
+     stroke="#5cb65cff"
+     id="path34"
+     style="stroke:#5cb65c;stroke-opacity:1" />
+  <text
+     class="txt bold"
+     x="776"
+     y="137"
+     id="text34"
+     style="stroke:#5cb65c;stroke-opacity:1">t=T</text>
+  <path
+     class="line"
+     d="M811 153 L861 186 H947 V255"
+     stroke="#5cb65cff"
+     id="path35"
+     style="stroke:#5cb65c;stroke-opacity:1" />
+  <path
+     class="wire"
+     d="M947 255 V284"
+     stroke="#5cb65cff"
+     id="path36"
+     style="stroke:#5cb65c;stroke-opacity:1" />
+  <text
+     class="txt bold"
+     x="758"
+     y="221"
+     id="text36"
+     style="stroke:#5cb65c;stroke-opacity:1">ZE = SE + NE</text>
+  <path
+     class="wire"
+     d="M725 459 H806"
+     stroke="#b2000cff"
+     id="path37"
+     style="stroke:#b2000c;stroke-opacity:1" />
+  <text
+     class="txt bold"
+     x="758"
+     y="493"
+     id="text37"
+     style="stroke:#b2000c;stroke-opacity:1">ZL = SL + NL</text>
+  <text
+     class="txt bold"
+     x="758"
+     y="407"
+     id="text38"
+     style="stroke:#b2000c;stroke-opacity:1">t=T</text>
+  <path
+     class="line"
+     d="M811 425 L861 459 H947 V403"
+     stroke="#b2000cff"
+     id="path38"
+     style="stroke:#b2000c;stroke-opacity:1" />
+  <path
+     class="wire"
+     d="M947 403 V395"
+     stroke="#b2000cff"
+     id="path39"
+     style="stroke:#b2000c;stroke-opacity:1" />
+  <!-- Prompt output grey -->
+  <path
+     class="grey"
+     d="M725 852 H806"
+     id="path40" />
+  <text
+     class="txt bold graytxt"
+     x="758"
+     y="886"
+     id="text40">ZP = SP + NP</text>
+  <text
+     class="txt bold graytxt"
+     x="758"
+     y="801"
+     id="text41">t=T</text>
+  <path
+     class="grey"
+     d="M811 818 L861 852 H1064"
+     marker-end="url(#arrow)"
+     id="path41" />
+  <!-- Summation node -->
+  <rect
+     class="box"
+     x="895"
+     y="288"
+     width="103"
+     height="103"
+     id="rect41"
+     style="stroke:#000000;stroke-opacity:1" />
+  <text
+     x="927"
+     y="357"
+     font-family="Times New Roman,Times,serif"
+     font-style="italic"
+     font-size="49"
+     fill="#111"
+     id="text42"
+     style="stroke:#000000;stroke-opacity:1">Σ</text>
+  <text
+     class="txt bold"
+     x="963"
+     y="273"
+     id="text43"
+     style="stroke:#5cb65c;stroke-opacity:1">+</text>
+  <text
+     class="txt bold"
+     x="963"
+     y="414"
+     id="text44"
+     style="stroke:#b2000c;stroke-opacity:1">−</text>
+  <path
+     class="wire"
+     d="m 998,340 h 68"
+     id="path44"
+     style="stroke:#000000;stroke-opacity:1"
+     sodipodi:nodetypes="cc" />
+  <!-- DLL filter and control -->
+  <rect
+     class="box"
+     x="1066"
+     y="288"
+     width="103"
+     height="103"
+     id="rect44"
+     style="stroke:#000000;stroke-opacity:1" />
+  <text
+     class="txt bold"
+     x="1082"
+     y="324"
+     id="text45"
+     style="stroke:none;stroke-opacity:1;-inkscape-font-specification:'Times New Roman, Times, serif Italic';font-family:'Times New Roman', Times, serif;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal">DLL</text>
+  <text
+     class="txt bold"
+     x="1082"
+     y="348"
+     id="text46"
+     style="stroke:none;stroke-opacity:1"><tspan
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman', Times, serif;-inkscape-font-specification:'Times New Roman, Times, serif Italic'"
+       id="tspan56">filter</tspan></text>
+  <text
+     class="txt"
+     x="1082"
+     y="376"
+     id="text47"
+     style="stroke:none;stroke-opacity:1">Bτ,1</text>
+  <path
+     class="wire"
+     d="M1117 391 V594"
+     id="path47"
+     style="stroke:#000000;stroke-opacity:1" />
+  <rect
+     class="box"
+     x="1024.0773"
+     y="595"
+     width="185.84546"
+     height="103"
+     id="rect47" />
+  <text
+     class="txt bold"
+     x="1060.0959"
+     y="632.5722"
+     id="text48"
+     style="line-height:1"><tspan
+       sodipodi:role="line"
+       id="tspan57"
+       x="1060.0959"
+       y="632.5722"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:1;font-family:'Times New Roman', Times, serif;-inkscape-font-specification:'Times New Roman, Times, serif Italic'">Speed up and</tspan><tspan
+       sodipodi:role="line"
+       id="tspan58"
+       x="1060.0959"
+       y="653.66748"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:1;font-family:'Times New Roman', Times, serif;-inkscape-font-specification:'Times New Roman, Times, serif Italic'">slow down</tspan><tspan
+       sodipodi:role="line"
+       x="1060.0959"
+       y="674.76276"
+       id="tspan59"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:1;font-family:'Times New Roman', Times, serif;-inkscape-font-specification:'Times New Roman, Times, serif Italic'">commands</tspan></text>
+  <path
+     class="wire"
+     d="M 1024.0773,646 H 829"
+     id="path49"
+     sodipodi:nodetypes="cc" />
+  <rect
+     class="box"
+     x="691"
+     y="578"
+     width="137"
+     height="137"
+     id="rect49" />
+  <text
+     class="txt bold"
+     x="708"
+     y="627"
+     id="text50"
+     style="stroke:#b2000c;stroke-opacity:1">Code</text>
+  <text
+     class="txt bold"
+     x="708"
+     y="654"
+     id="text51">generator</text>
+  <!-- Explicit signal lines to code generator -->
+  <path
+     class="line"
+     d="M691 596 H350 V223"
+     stroke="#5cb65cff"
+     id="path51" />
+  <path
+     class="line"
+     d="M691 697 H230 V493"
+     stroke="#b2000cff"
+     id="path52" />
+  <!-- Minor arrowheads on replica returns -->
+  <path
+     d="M230 503 L225 492 L235 492 Z"
+     stroke="#b2000cff"
+     fill="#111"
+     id="path54"
+     style="stroke:#b2000c;stroke-opacity:1" />
+</svg>
