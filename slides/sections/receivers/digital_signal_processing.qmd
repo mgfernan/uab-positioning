@@ -231,4 +231,141 @@ space (lower number of search bins) and have a fast acquisition.
 
 ### Tracking: early-prompt-late correlators
 
+- \acr{DLL} architecture:
+  - Estimate the delay for the current observation
+  - Adjust the delay of the local replica for the next correlation inverval (e.g. 1ms)
+  - Correlate with the new value
 
+![](assets/figures/tracking__early_late_correlators_block.svg){fig-align="center"}
+
+### Tracking: null seeking
+
+- Two measurements are made
+
+$$
+\scriptsize
+\begin{aligned}
+\text{correlation with early replica} &: \tau = -\frac{d\cdot T_{chip}}{2} + \Delta \tau \\
+\text{correlation with late replica} &: \tau = +\frac{d\cdot T_{chip}}{2} + \Delta \tau
+\end{aligned}
+$$
+
+- The error in delay estimate is $\Delta \tau = \tau_0 - \hat \tau$ and the correlator spacing is $d$ (in fractional chips)
+- Correlation components:
+
+$$
+\scriptsize
+\text{early}: A\cdot \Lambda(\Delta \tau - d\frac{T_{chip}}{2}) \qquad
+\text{late}: A\cdot \Lambda(\Delta \tau + d\frac{T_{chip}}{2})
+$$
+
+
+### Tracking: null seeking interpretation
+
+- The difference between the early and late correlator outputs ($\color{green}{S_E}$ and $\color{crimson}{S_L}$, respectively) leads to the *discriminator* output.
+- This is used to generate a control signal that adjusts the local replica to maintain lock on the incoming signal.
+
+![](assets/figures/tracking__dll_discriminator.svg){fig-align="center"}
+
+
+### Tracking: null seeking for low $\Delta \tau$
+
+- For a sufficiently small $\Delta \tau$ (i.e., lags at either side of the correlation peak
+
+$$
+\scriptsize
+\begin{aligned}
+\color{green}{S_E} &= A\cdot \left (1 + \frac{\Delta \tau}{T_{chip}} - d\frac{T_{chip}}{2} \right) \\
+\color{crimson}{S_L} &= A\cdot \left (1 - \frac{\Delta \tau}{T_{chip}} - d\frac{T_{chip}}{2} \right) \\
+\end{aligned}
+$$
+
+- The discriminator output is linear with respect to $\Delta \tau$.
+$$
+L_T =\color{green}{S_E}  - \color{crimson}{S_L} = 2A\frac{\Delta \tau}{T_{chip}}
+$$
+
+### Tracking: discriminator and correlator spacing
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+def triangular_correlation(delay):
+    """Return the unit-height triangular code correlation."""
+    return np.maximum(1 - np.abs(delay), 0)
+
+
+def dll_discriminator(code_phase_error, d):
+    """Compute the normalized early-minus-late DLL discriminator.
+
+    The spacing d is the full separation between the early and late
+    correlators, in chips.
+    """
+    if d <= 0:
+        raise ValueError("Correlator spacing d must be positive.")
+
+    code_phase_error = np.asarray(code_phase_error, dtype=float)
+    early = triangular_correlation(code_phase_error - d / 2)
+    late = triangular_correlation(code_phase_error + d / 2)
+    total_correlation = early - late
+
+    return total_correlation
+
+
+code_phase_errors = np.linspace(-2, 2, 1001)
+fig, axis = plt.subplots(figsize=(8, 4.5))
+
+for spacing in (1, 0.5, 0.25):
+    axis.plot(
+        code_phase_errors,
+        dll_discriminator(code_phase_errors, spacing),
+        label=f"d = {spacing} chip{'s' if spacing != 1 else ''}",
+    )
+
+axis.axhline(0, color="black", linewidth=0.8)
+axis.axvline(0, color="black", linewidth=0.8)
+axis.set(
+    title="Normalized early-minus-late DLL discriminator",
+    xlabel="Code phase error (chips)",
+    ylabel="Discriminator output",
+    xlim=(-2, 2),
+    ylim=(-1.05, 1.05),
+)
+axis.grid(True, alpha=0.3)
+axis.legend()
+fig.tight_layout()
+plt.show()
+```
+
+### Tracking: null seeking with noise
+
+- The presence of noise ($\color{green}{N_E}$ and $\color{crimson}{N_L}$) causes a *pseudorange error*
+
+::: {.columns}
+
+::: {.column}
+![](assets/figures/tracking__dll_with_noise.svg){fig-align="center"}
+:::
+
+::: {.column}
+
+$$
+\scriptsize
+\begin{aligned}
+\Delta \tau &= \frac{T_{chip}}{2\cdot A} \left ( \color{green}{N_E} - \color{crimson}{N_L} \right ) \\
+\sigma_{\Delta \tau} &= T_{chip}\sqrt{\frac{d}{4\cdot T_{int} \cdot C/N0}}\ [s] \\
+\end{aligned}
+$$
+
+
+- Better noise performance when:
+    - $T_{int} \uparrow$ (longer integration time)
+    - $C/N0 \uparrow$ (stronger signal)
+    - $d \downarrow$ (smaller correlator spacing)
+    - $T_{chip} \downarrow$ (faster codes)
+
+:::
+
+:::

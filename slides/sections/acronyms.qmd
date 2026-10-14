@@ -27,6 +27,8 @@ acronyms:
       longname: Conventional Terrestrial Pole
     - shortname: DGNSS
       longname: Differential Global Navigation Satellite System
+    - shortname: DLL
+      longname: Delay Lock Loop
     - shortname: DOP
       longname: Dilution of Precision
     - shortname: DoS
