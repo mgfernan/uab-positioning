@@ -1,8 +1,6 @@
 # Exercises: PVT
 
-## Problems
-
-### 1. PVT: single point positioning
+## 1. PVT: single point positioning
 
 A receiver receives the signal from three transmitters located at
 
@@ -40,7 +38,13 @@ $$
 
 7. What is the clock offset of the receivers?
 
-### 2. DOP computation
+### 1. Answer
+
+see [this notebook for the solution of the problem](notebooks/pvt_solution_2D.ipynb)
+
+***
+
+## 2. DOP computation
 
 A receiver is located at $(1, 1)$ and receives signals from three transmitters located at:
 
@@ -63,15 +67,48 @@ $$
 
 1. Compute the DOP for both scenarios. Which one is better?
 
-***
-
-## Answers
-
-### 1.
-
-
-see [this notebook for the solution of the problem](notebooks/pvt_solution_2D.ipynb)
-
-### 2.
+### 2. Answer
 
 see [this notebook for the solution of the problem](notebooks/pvt_dop_computation.ipynb)
+
+***
+
+## 3. DOP computation and transmitter selection
+
+Four transmitters are located at:
+
+$$
+T_1 = (5, 2)
+T_2 = (−2, 4)
+T_3 = (0, −4)
+T_4 = (7, 3)
+$$
+
+and the receiver is located approximately at position:
+
+$$
+R = (0, 0)
+$$
+
+Answer these questions:
+
+1. Which is the minimum number of pseudorange measurements that the receiver needs to calculate its position?
+2. This receiver has very limited computing power and can only use three pseudorange measurements to calculate its position. At first glance, which of the four pseudorange measurements would you discard for the calculation? Why?
+3. Calculate the PDOP (Position Dilution of Precision).
+4. Calculate the PDOP for the transmitter combinations
+[1, 2, 3]
+[2, 3, 4]
+5. Why do they have such similar values?
+6. Intuitively, if we use the transmitter combination
+[1, 3, 4]
+will the PDOP be better or worse?
+
+### 3. Answers
+
+The problem is solved in [this notebook](notebooks/pvt_dop_computation_tx_selection.ipynb).
+
+1. The minimum number of pseudorange measurements that the receiver needs to calculate its position in 2D is three. In 3D, it would be four.
+2. Looking at the positions of the transmitters, it is clear that Transmiiter 1 (T1, located at (5, 2)) should be discarded as it is aligned with Transmitter 4 (T4, located at (7, 3)).
+3. Check notebook for the solution of the problem.
+4. Check notebook for the solution of the problem.
+5. Because T1 and T4 are aligned and thus they offer a very similar geometry
