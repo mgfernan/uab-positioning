@@ -1,20 +1,17 @@
 # Exercises: Positioning Errors
 
-## Problems
-
-
-### 1. Error budget and UERE
+## 1. Error budget and UERE
 
 Consider a simplified GNSS pseudorange error budget with the following $1\sigma$ uncertainties:
 
-| Error source | Standard deviation |
-|---|---:|
-| Satellite clock | $0.7\ m$ |
-| Ephemeris | $0.8\ m$ |
-| Ionosphere | $1.5\ m$ |
-| Troposphere | $0.5\ m$ |
-| Receiver noise | $0.4\ m$ |
-| Multipath | $0.8\ m$ |
+|  Error source   | Standard deviation |
+|-----------------|:------------------:|
+| Satellite clock | $0.7\ m$           |
+| Ephemeris       | $0.8\ m$           |
+| Ionosphere      | $1.5\ m$           |
+| Troposphere     | $0.5\ m$           |
+| Receiver noise  | $0.4\ m$           |
+| Multipath       | $0.8\ m$           |
 
 Assume that the errors are statistically independent.
 
@@ -22,37 +19,7 @@ Assume that the errors are statistically independent.
 2. Which error source contributes most to the total variance?
 3. If the ionospheric error is reduced from $1.5\ m$ to $0.5\ m$, calculate the new UERE.
 
-
-### 2. From UERE to position accuracy
-
-A receiver has an estimated UERE of
-
-$$
-\sigma_{UERE}=1.5\ m.
-$$
-
-For a particular satellite geometry, the position dilution of precision is
-
-$$
-PDOP=2.0.
-$$
-
-Assuming the simplified relationship
-
-$$
-\sigma_{pos}\approx PDOP\cdot\sigma_{UERE},
-$$
-
-1. Estimate the 3-D position standard deviation.
-2. Repeat for \(PDOP=5\).
-3. Explain the difference between an **error source** and **geometry amplification**.
-
-
-***
-
-## Answers
-
-### 1.
+### Answers
 
 For independent errors,
 
@@ -114,7 +81,31 @@ $$
 
 ***
 
-### 2.
+## 2. From UERE to position accuracy
+
+A receiver has an estimated UERE of
+
+$$
+\sigma_{UERE}=1.5\ m.
+$$
+
+For a particular satellite geometry, the position dilution of precision is
+
+$$
+PDOP=2.0.
+$$
+
+Assuming the simplified relationship
+
+$$
+\sigma_{pos}\approx PDOP\cdot\sigma_{UERE},
+$$
+
+1. Estimate the 3-D position standard deviation.
+2. Repeat for \(PDOP=5\).
+3. Explain the difference between an **error source** and **geometry amplification**.
+
+### Answers
 
 1.
 
@@ -133,3 +124,5 @@ $$
 $$
 
 3. UERE describes the uncertainty associated with the measurements and their error sources. PDOP describes how the satellite geometry maps those measurement errors into position errors. Thus, poor geometry can amplify the effect of the same underlying measurement errors.
+
+***
