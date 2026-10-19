@@ -16,6 +16,8 @@ from: markdown+emoji
 
 {{< include slides/sections/session-4-receivers.qmd >}}
 
+{{< include slides/sections/session-5-added_value_services.qmd >}}
+
 {{< include slides/sections/references.qmd >}}
 
 {{< include slides/sections/acronyms.qmd >}}

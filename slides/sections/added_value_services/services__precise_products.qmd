@@ -1,0 +1,31 @@
+## Precise products: orbits, clocks and atmosphere (30 min)
+
+### [Core] From global tracking network to precise products
+
+- **Placeholder — processing chain:** reference stations → observation combination/estimation → analysis-centre products → combined products → user solution.
+- **Placeholder — IGS product families:** precise satellite orbits, satellite/station clocks, Earth rotation parameters, station coordinates/velocities, and atmospheric products.
+- **Placeholder — latency and accuracy classes:** ultra-rapid, rapid and final products; explain the trade between timeliness and refinement.
+- **Placeholder — data formats and metadata:** SP3 orbit files, clock products, SINEX and IONEX as examples; identify reference frame, time system, antenna conventions, sampling and product epoch.
+
+### [Core] Orbits and clocks in the observation model
+
+- **Placeholder — derivation:** propagate orbit error into line-of-sight range error; convert satellite clock error into range using speed of light.
+- **Placeholder — precise point positioning:** insert precise satellite states/clocks and signal biases into code/carrier-phase equations.
+- **Placeholder — reference consistency:** antenna phase centre versus centre of mass, terrestrial reference frame, time scale, signal-specific clock datum and differential code/phase biases.
+- **Placeholder — activity:** quantify range error from a stated orbit error and a nanosecond-scale clock error.
+
+### [Core] Troposphere and ionosphere products
+
+- **Placeholder — troposphere:** zenith hydrostatic/wet delay, mapping functions, gradients and why GNSS water-vapour estimation is useful.
+- **Placeholder — ionosphere:** slant/vertical TEC, dispersive frequency dependence, dual-frequency combinations and global ionosphere maps (IONEX).
+- **Placeholder — use cases:** correction, estimation as a nuisance parameter, geophysical/weather monitoring, and space-weather awareness.
+- **Placeholder — caveat:** global products have finite spatial/temporal resolution and may not represent local or disturbed conditions.
+
+### [Optional depth] Real-time products and user estimation
+
+- **Placeholder — real-time streams:** clocks/orbits/atmosphere, latency and continuity requirements; contrast real-time PPP with post-processing.
+- **Placeholder — ambiguity resolution:** phase biases and integer properties; explain why an orbit/clock product alone does not guarantee ambiguity fixing.
+
+### [Lighter view] Reuse-ready product map
+
+- One figure linking each product to the error term it addresses and to a representative user application.

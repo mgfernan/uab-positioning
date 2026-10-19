@@ -1,0 +1,32 @@
+## Authentication and signal security (25 min)
+
+### [Core] Threat model and what authentication proves
+
+- **Placeholder — threat picture:** spoofed or replayed signals can produce plausible but false measurements or navigation data.
+- **Placeholder — distinction:** navigation-message authentication (NMA) validates data origin/integrity; ranging-signal authentication adds evidence about the ranging signal itself.
+- **Placeholder — limitation:** authentication is not encryption, does not guarantee availability, and by itself does not establish that a position is correct or safe.
+- **Placeholder — cryptographic timeline:** signatures/MACs, key disclosure, receiver verification and authentication delay.
+
+### [Core] Galileo OSNMA
+
+- **Placeholder — concept:** delayed disclosure of TESLA-derived key material authenticates Galileo Open Service navigation data.
+- **Placeholder — receiver flow:** buffer data, verify the disclosed key chain, authenticate a navigation-message tag, and manage time synchronization/key-chain state.
+- **Placeholder — worked timeline:** show why authentication is delayed and what a receiver can do while waiting.
+- **Placeholder — limits:** message authentication versus ranging authentication; spoofing/replay considerations and trust bootstrap.
+
+### [Core] QZSS Signal Authentication Service (SAS / QZNMA)
+
+- **Placeholder — terminology:** the navigation-message-authentication part is commonly called QZNMA; describe “QZSS OS-NMA” as a convenient comparison label, not the official service name.
+- **Placeholder — scope:** QZSS navigation message authentication and QZSS-broadcast authentication data for selected GPS/Galileo navigation messages.
+- **Placeholder — mechanism and delivery:** digital-signature data embedded in QZSS signals / distributed through L6E for GNSS message authentication; explain public-key provisioning.
+- **Placeholder — compare:** Galileo OSNMA’s delayed symmetric-key disclosure with signature-based QZSS NMA.
+
+### [Optional depth] GPS CHIMERA
+
+- **Placeholder — concept:** Chips-Message Robust Authentication (CHIMERA) combines navigation-data authentication with pilot-channel watermarks for ranging authentication.
+- **Placeholder — processing:** data signatures, slow/fast markers, key disclosure and correlation against the received pilot signal.
+- **Placeholder — status note:** present as a GPS L1C authentication technology/development path, and check the current test/deployment status before describing operational availability.
+
+### [Lighter view] Authentication in one diagram
+
+- Show “authentic data?”, “authentic ranging signal?” and “is the resulting position safe?” as three different questions.

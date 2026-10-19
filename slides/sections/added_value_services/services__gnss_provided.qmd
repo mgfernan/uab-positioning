@@ -1,0 +1,5 @@
+## Services broadcast or operated by GNSS providers
+
+These capabilities are delivered by a constellation operator, or through its space and ground segments. Galileo HAS and OSNMA, and QZSS augmentation/authentication services, are examples.
+
+<!-- Reusable umbrella section: retain this short framing slide when selecting only some service modules. -->

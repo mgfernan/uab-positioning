@@ -1,0 +1,18 @@
+## Definitions and service architecture (10 min)
+
+### [Core] What is an added-value service?
+
+- **Placeholder — working definition:** a capability built on GNSS signals, measurements or infrastructure that improves a user-relevant property beyond the basic positioning, navigation and timing service.
+- **Placeholder — service dimensions:** accuracy, integrity, authentication, availability, continuity, coverage, latency and resilience.
+- **Placeholder — taxonomy graphic:** broadcast signal-in-space services; augmentation/correction services; precise products; integrity/safety services; authentication services.
+- **Placeholder — distinguish terms:** an *augmentation* supplies information that improves or monitors the basic solution; a *service* is the user-facing capability and performance commitment.
+
+### [Optional depth] Positioning error budget as the common model
+
+- Revisit the measurement model: geometric range + receiver/satellite clocks + orbit + atmosphere + hardware biases + noise/multipath.
+- Show which terms each service can estimate, correct, bound or authenticate.
+- Introduce the distinction between accuracy (closeness to truth) and integrity (trust that the error is bounded, with timely alerting).
+
+### [Lighter view] Service map
+
+- One slide: “more accurate”, “more trustworthy”, “more secure” and “more available”; attach one example to each.

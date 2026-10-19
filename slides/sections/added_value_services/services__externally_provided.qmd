@@ -1,0 +1,15 @@
+## External services and service providers
+
+External providers may generate, combine, distribute or commercialize products and corrections. The provider and the GNSS constellation are not necessarily the same entity.
+
+### [Core] Provider and delivery models
+
+- **Placeholder — comparison:** public scientific products (e.g. IGS), regional/national augmentation, network RTK/PPP-RTK, and commercial correction streams.
+- **Placeholder — delivery paths:** internet/NTRIP, satellite broadcast, local base station, and post-processed file products.
+- **Placeholder — user decision:** coverage, convergence/initialization time, latency, continuity, receiver requirements, cost and licensing.
+
+### [Lighter view] A practical selection example
+
+- Choose a service for a static survey, a moving agricultural vehicle and an integrity-critical aircraft; state the deciding constraint for each.
+
+###

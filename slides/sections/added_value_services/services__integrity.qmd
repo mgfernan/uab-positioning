@@ -1,0 +1,25 @@
+## Integrity and safety services (25 min)
+
+### [Core] Integrity as a user protection level
+
+- **Placeholder — definition:** integrity is confidence in the trustworthiness of information, including the ability to warn the user within a specified time when it should not be used.
+- **Placeholder — aviation metrics:** alert limit, protection level, time-to-alert, integrity risk, availability and continuity.
+- **Placeholder — distinction:** position error is not protection level; a small observed error alone does not establish integrity.
+- **Placeholder — visual:** error distribution, alert limit, protection level and missed-detection/false-alarm regions.
+
+### [Core] SBAS
+
+- **Placeholder — architecture:** reference stations detect errors; master/processing stations estimate corrections and integrity bounds; geostationary satellites broadcast messages to users.
+- **Placeholder — corrections and bounds:** fast/long-term corrections, ionospheric grid corrections, degradation parameters and integrity flags.
+- **Placeholder — user algorithm:** apply corrections, form corrected measurements, propagate uncertainty to a protection level, compare with the alert limit.
+- **Placeholder — examples:** WAAS, EGNOS, MSAS, GAGAN and other regional systems; distinguish regional coverage from global GNSS.
+
+### [Optional depth] RAIM and ARAIM
+
+- **Placeholder — RAIM:** measurement redundancy, fault hypotheses, residual tests and geometry dependence.
+- **Placeholder — ARAIM:** multiple constellations/fault modes and vertical/horizontal protection levels; connect assumptions to integrity risk allocation.
+- **Placeholder — derivation:** a simplified weighted least-squares covariance and an illustrative protection-level calculation.
+
+### [Lighter view] Integrity service decision
+
+- Ask: what is the hazard, what alert limit applies, how quickly must the user be warned, and what failures are included in the model?
