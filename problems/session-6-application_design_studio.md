@@ -192,3 +192,7 @@ use-case requirements.
 - **ArduSimple SimpleRTK2B:** A compact RTK GNSS receiver that supports GPS, GLONASS, Galileo, and BeiDou. It provides centimeter-level accuracy when used with a base station or correction service. [Datasheet link](https://www.ardusimple.com/product/simplertk2b/). You can also find alternative receivers in the [ArduSimple web page](https://www.ardusimple.com/)
 - **Trimble R980:** A high-precision GNSS receiver designed for professional surveying and mapping applications. It supports multiple constellations and offers advanced features for accurate positioning. [Datasheet link](https://geospatial.trimble.com/en/products/hardware/trimble-r980).
 - **NovAtel** receivers: browse the [NovAtel product catalog](https://novatel.com/products/receivers).
+
+## References
+
+- [EUSPA Market report 2026](https://www.euspa.europa.eu/sites/default/files/documents/EU_Space_Market_Report_2026.pdf)
