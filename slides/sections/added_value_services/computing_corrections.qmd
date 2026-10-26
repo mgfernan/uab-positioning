@@ -1,0 +1,12 @@
+## How are corrections generated?
+
+### Orbits and clocks
+
+- In need of a global network of reference stations
+
+<!-- TODO — comparison of IGS orbits and clocks with broadcast ephemerides and clock products. -->
+
+### Ionosphere and troposphere
+
+- In need of a regional network of reference stations
+- Troposphere correction is more complicated because spatial decorrelation is higher than for the ionosphere.

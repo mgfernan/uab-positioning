@@ -1,25 +1,11 @@
 # Added value services {.session-marker}
 
-<!--
-Content-library guide
-- [Core] is the undergraduate path for this two-hour session.
-- [Optional depth] is material to expand for a mathematically strong audience.
-- [Lighter view] is the minimum storyline that can be retained for a high-level course.
-The individual included files are deliberately independent modules for reuse.
--->
 
 ## Session map: 120 minutes
 
-| Module | Time | Core question |
-|---|---:|---|
-| Definitions and service architecture | 10 min | What makes a service “added value”? |
-| High-accuracy services | 25 min | Which errors are corrected, and how does the user apply them? |
-| Authentication | 25 min | What can a receiver authenticate, and what does that not prove? |
-| Precise products and external correction delivery | 30 min | How are precise orbit, clock, troposphere and ionosphere products generated and delivered? |
-| Integrity and safety services | 25 min | How does a system bound the risk of an unsafe position? |
-| Synthesis and questions | 5 min | Which service fits a given user requirement? |
-
 {{< include slides/sections/added_value_services/services__definitions.qmd >}}
+
+{{< include slides/sections/added_value_services/computing_corrections.qmd >}}
 
 {{< include slides/sections/added_value_services/services__gnss_provided.qmd >}}
 

@@ -1,7 +1,0 @@
-# Applications {.session-marker}
-
-- Field of applications of GNSS positioning systems.
-- Market
-- Added value services
-
-

@@ -12,4 +12,33 @@ External providers may generate, combine, distribute or commercialize products a
 
 - Choose a service for a static survey, a moving agricultural vehicle and an integrity-critical aircraft; state the deciding constraint for each.
 
-###
+### Example: u-blox ZED-X20P and PointPerfect
+
+- Comparison of two receivers through its main specifications.
+- Example of integration between a receiver (u-blox) and an external service provider (PointPerfect)
+
+![source: [u-blox](https://www.u-blox.com/en/zed-x20p#index-01)](assets/figures/session_5__added_value_services/ZED-F9P-vs-ZED-X20P-features.png){fig-align="center"}
+
+- PointPerfect [web page](https://www.u-blox.com/en/technologies/ppp-rtk-gnss-correction-services-pointperfect)
+    - Any other service provider can be used with the ZED-X20P
+    - PointPerfect may be better suited for u-blox receivers because of the signal-biases (i.e. corrections computed by a network of u-blox base stations).
+
+
+### Example: PointPerfect compatibility
+
+![source: [u-blox](https://beta.u-blox.com/en/precise-positioning-made-easy)](assets/figures/session_5__added_value_services/u-blox-pointperfect-hardware-compatibility-table.png){fig-align="center"}
+
+### Other external service providers
+
+
+- Ecosystems
+  - Trimple / [CenterPoint RTX](https://positioningservices.trimble.com/en/products/rtx)
+  - NovAtel / [Hexagon TerraStar](https://novatel.com/products/gps-gnss-correction-services)
+  - Topcon / [TopNETlive](https://www.topconpositioning.com/solutions/technology/infrastructure-software-and-services/gnss-correction-services)
+- Corrections only
+  - [Swift Navigation](https://www.swiftnav.com/products/skylark)
+  - [Point One Navigation](https://pointonenav.com/rtknetwork/)
+  - [Onocoy](https://onocoy.com/onocoy-services)
+    - DePIN infrastructure
+  - [Geodnet](https://geodnet.com/network)
+    - DePIN infrastructure
