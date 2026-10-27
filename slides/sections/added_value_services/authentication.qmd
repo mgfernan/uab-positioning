@@ -1,4 +1,4 @@
-## Authentication and signal security (25 min)
+## Authentication and signal security
 
 ### [Core] Threat model and what authentication proves
 

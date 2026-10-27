@@ -11,7 +11,7 @@
 
 {{< include slides/sections/added_value_services/services__high_accuracy.qmd >}}
 
-{{< include slides/sections/added_value_services/services__authentication.qmd >}}
+{{< include slides/sections/added_value_services/authentication.qmd >}}
 
 {{< include slides/sections/added_value_services/services__precise_products.qmd >}}
 
