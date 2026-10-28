@@ -153,6 +153,8 @@ acronyms:
       longname: Space State Representation
     - shortname: TEC
       longname: Total Electron Content
+    - shortname: TESLA
+      longname: Timed Efficient Stream Loss-tolerant Authentication
     - shortname: TDoA
       longname: Time Difference of Arrival
     - shortname: ToA

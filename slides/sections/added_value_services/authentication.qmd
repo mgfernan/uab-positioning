@@ -1,32 +1,64 @@
 ## Authentication and signal security
 
-### [Core] Threat model and what authentication proves
+### Problem statement: spoofing attacks
+
+- "Am I processing authentic GNSS signals, or are they forged (spoofed)?"
+
+
 
 - **Placeholder — threat picture:** spoofed or replayed signals can produce plausible but false measurements or navigation data.
-- **Placeholder — distinction:** navigation-message authentication (NMA) validates data origin/integrity; ranging-signal authentication adds evidence about the ranging signal itself.
-- **Placeholder — limitation:** authentication is not encryption, does not guarantee availability, and by itself does not establish that a position is correct or safe.
-- **Placeholder — cryptographic timeline:** signatures/MACs, key disclosure, receiver verification and authentication delay.
 
-### [Core] Galileo OSNMA
+### Navigation message authentication (NMA)
 
-- **Placeholder — concept:** delayed disclosure of TESLA-derived key material authenticates Galileo Open Service navigation data.
-- **Placeholder — receiver flow:** buffer data, verify the disclosed key chain, authenticate a navigation-message tag, and manage time synchronization/key-chain state.
-- **Placeholder — worked timeline:** show why authentication is delayed and what a receiver can do while waiting.
-- **Placeholder — limits:** message authentication versus ranging authentication; spoofing/replay considerations and trust bootstrap.
+- Used in Galileo (OSNMA) and QZSS (QZNMA)
+- "*Cryptography meets positioning*": Cryptographic material is provided to verify the authenticity of navigation message
+- Based on \acr{TESLA} algorithm (more details in @perrig2000efficient):
+  - Authenticity checks are based on comparing a received tag with a tag computed by the receiver using the navigation message and a key.
+  - **keys** are disclosed later, so the receiver must buffer the data until the key is received and verified.
+  - Why it works? An attacker cannot compute the correct tag without knowing the key, and the key is not known until it is disclosed.
+- Caveats:
+  - Authentication is not encryption: navigation message is still readable by anyone
+  - Authentication does not guarantee the accuracy or safety of the position.
 
-### [Core] QZSS Signal Authentication Service (SAS / QZNMA)
+### NMA process flow
+
+
+::: {.columns}
+
+::: {.column .small-list}
+
+1. Receiver collects [**navigation messages**]{style="color: #4097cfff; "}, OSNMA data ([**tag**]{style="color: #4cbe61ff;"}, [**chain key**]{style="color: #f5a20aff;"}, and [**root key**]{style="color: #d4471fff;"}) and buffers them.
+2. The [**root key**]{style="color: #d4471fff;"} is authenticated with the **public key**.
+3. The [**chain key**]{style="color: #f5a20aff;"} is authenticated with the [**root key**]{style="color: #d4471fff;"} (or a previously **authenticated key**).
+4. Compute the [**tag**]{style="color: #6442a5ff;"} from the [**navigation message**]{style="color: #4097cfff; "} and the [**chain key**]{style="color: #f5a20aff;"}.
+5. Compare the computed [**tag**]{style="color: #6442a5ff;"} with the received [**tag**]{style="color: #4cbe61ff;"}.
+   - If they match, the navigation message is **authenticated**.
+   - If they do not match, the navigation message is **not authenticated** and should be discarded.
+:::
+
+::: {.column}
+![](assets/figures/session_5__added_value_services/osnma_workflow.svg)
+:::
+
+:::
+
+### NMA chain validation
+
 
 - **Placeholder — terminology:** the navigation-message-authentication part is commonly called QZNMA; describe “QZSS OS-NMA” as a convenient comparison label, not the official service name.
 - **Placeholder — scope:** QZSS navigation message authentication and QZSS-broadcast authentication data for selected GPS/Galileo navigation messages.
 - **Placeholder — mechanism and delivery:** digital-signature data embedded in QZSS signals / distributed through L6E for GNSS message authentication; explain public-key provisioning.
 - **Placeholder — compare:** Galileo OSNMA’s delayed symmetric-key disclosure with signature-based QZSS NMA.
 
-### [Optional depth] GPS CHIMERA
+### GPS CHIMERA
+
+
+- **Placeholder — limits:** message authentication versus ranging authentication; spoofing/replay considerations and trust bootstrap.
+
 
 - **Placeholder — concept:** Chips-Message Robust Authentication (CHIMERA) combines navigation-data authentication with pilot-channel watermarks for ranging authentication.
 - **Placeholder — processing:** data signatures, slow/fast markers, key disclosure and correlation against the received pilot signal.
 - **Placeholder — status note:** present as a GPS L1C authentication technology/development path, and check the current test/deployment status before describing operational availability.
 
-### [Lighter view] Authentication in one diagram
+### Galileo SAS
 
-- Show “authentic data?”, “authentic ranging signal?” and “is the resulting position safe?” as three different questions.
