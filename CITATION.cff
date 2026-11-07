@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: >-
+  If you use these course materials, please cite this repository.
+title: GNSS Positioning Systems Course Materials
+authors:
+  - family-names: Garcia
+    given-names: Miquel
+    orcid: "https://orcid.org/0000-0003-4844-6004"
+type: software
+version: 0.65.20
+doi: 10.5281/zenodo.24040851
+abstract: >-
+  Quarto-based teaching materials for the GNSS Positioning Systems course,
+  including slide sources, figures, references, and supporting course resources.
+url: https://github.com/mgfernan/uab-positioning
+repository-code: https://github.com/mgfernan/uab-positioning
