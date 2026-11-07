@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -21,15 +21,21 @@ jobs:
       XDG_CACHE_HOME: .cache
       DENO_DIR: .cache/deno
       QUARTO_CACHE_DIR: .cache/quarto
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      base_version: ${{ steps.version.outputs.base_version }}
+      is_release: ${{ steps.version.outputs.is_release }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: "3.11"
-          cache: pip
+          cache: "pip"
 
       - uses: quarto-dev/quarto-actions/setup@v2
 
@@ -38,16 +44,41 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
 
-      - uses: actions/configure-pages@v6
+      - name: Compute slide version
+        id: version
+        run: |
+          VERSION=$(python scripts/compute_slide_version.py --print-version)
+          BASE_VERSION=$(python scripts/compute_slide_version.py --print-base-version)
+          IS_RELEASE=$(python scripts/compute_slide_version.py --print-is-release)
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "base_version=${BASE_VERSION}" >> "$GITHUB_OUTPUT"
+          echo "is_release=${IS_RELEASE}" >> "$GITHUB_OUTPUT"
+          echo "Computed slide version: ${VERSION} (release=${IS_RELEASE})"
+
+      - name: Create release tag
+        if: steps.version.outputs.is_release == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          TAG="v${{ steps.version.outputs.base_version }}"
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists; skipping creation."
+          else
+            git tag "$TAG"
+            git push origin "$TAG"
+          fi
 
       - name: Render slides
         run: quarto render ami_presentation.qmd
 
       - name: Set Pages entrypoint
+        if: steps.version.outputs.is_release == 'true'
         run: cp dist/ami_presentation.html dist/index.html
 
       - uses: actions/upload-pages-artifact@v4
+        if: steps.version.outputs.is_release == 'true'
         with:
           path: dist
 
       - uses: actions/deploy-pages@v5
+        if: steps.version.outputs.is_release == 'true'
