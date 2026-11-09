@@ -1,12 +1,59 @@
 ## Authentication and signal security
 
+![Spoofing attacks send false signals to receivers](assets/figures/session_5__added_value_services/what_is_spoofing.svg){fig-align="center" width="70%"}
+
 ### Problem statement: spoofing attacks
 
 - "Am I processing authentic GNSS signals, or are they forged (spoofed)?"
 
 
+::: {.columns}
 
-- **Placeholder — threat picture:** spoofed or replayed signals can produce plausible but false measurements or navigation data.
+::: {.column}
+
+![source: CNN [GPS jamming is emerging as an increasingly prevalent — and troubling — weapon of war](https://edition.cnn.com/2026/03/06/science/gps-jamming-ships-planes-iran-war)](assets/figures/session_5__added_value_services/cnn_gps_spoofing.webp){fig-align="center"}
+
+:::
+
+::: {.column}
+
+![source: [GPS wise](https://gpswise.aero/map)](assets/figures/session_5__added_value_services/gps_wise_spoofing_map.png){fig-align="center"}
+:::
+
+:::
+
+### How much does it take to spoof GNSS signals?
+
+
+No more than a few hundred dollars and a few hours of work.
+
+
+::: {.columns}
+
+::: {.column}
+
+![HackRF](assets/figures/session_5__added_value_services/HackRF-One_SPL.webp){fig-align="center"}
+
+Listed price around 250€
+
+:::
+
+::: {.column}
+
+[GPS-SDR-SIM](https://github.com/osqzss/gps-sdr-sim)
+
+- Open-source software to generate GPS baseband signals from a user-defined trajectory and ephemeris data
+
+:::
+
+:::
+
+There are many [tutorials online](https://www.youtube.com/watch?v=3NWn5cQM7q4) available that demonstrate how easy it is to spoof GNSS signals.
+
+::: {.callout-warning title="Spoofing attacks are illegal"}
+This content is provided for educational purposes only.
+:::
+
 
 ### Navigation message authentication (NMA)
 
@@ -22,33 +69,35 @@
 
 ### NMA process flow
 
+![](assets/figures/session_5__added_value_services/osnma_workflow.svg){fig-align="center"}
 
-::: {.columns}
-
-::: {.column .small-list}
-
+::: {.notes}
 1. Receiver collects [**navigation messages**]{style="color: #4097cfff; "}, OSNMA data ([**tag**]{style="color: #4cbe61ff;"}, [**chain key**]{style="color: #f5a20aff;"}, and [**root key**]{style="color: #d4471fff;"}) and buffers them.
 2. The [**root key**]{style="color: #d4471fff;"} is authenticated with the **public key**.
 3. The [**chain key**]{style="color: #f5a20aff;"} is authenticated with the [**root key**]{style="color: #d4471fff;"} (or a previously **authenticated key**).
 4. Compute the [**tag**]{style="color: #6442a5ff;"} from the [**navigation message**]{style="color: #4097cfff; "} and the [**chain key**]{style="color: #f5a20aff;"}.
 5. Compare the computed [**tag**]{style="color: #6442a5ff;"} with the received [**tag**]{style="color: #4cbe61ff;"}.
-   - If they match, the navigation message is **authenticated**.
-   - If they do not match, the navigation message is **not authenticated** and should be discarded.
 :::
 
-::: {.column}
-![](assets/figures/session_5__added_value_services/osnma_workflow.svg)
-:::
 
-:::
+### NMA validation timing
 
-### NMA chain validation
+```{mermaid}
+sequenceDiagram
+    autonumber
+    participant S as GNSS satellite
+    participant R as Receiver
 
+    S->>R: Transmit navigation bits (NMA data)
+    Note over R: Buffer the navigation bits<br/>and wait for the tag
+    Note over S,R: 30 seconds later
+    S->>R: Transmit the hashed tag for the navigation bits
+    Note over R: Store the tag hash<br/>and wait for the key
+    Note over S,R: 30 seconds later
+    S->>R: Reveal the key
+    R->>R: Validate the key, hash message and validate tag
+```
 
-- **Placeholder — terminology:** the navigation-message-authentication part is commonly called QZNMA; describe “QZSS OS-NMA” as a convenient comparison label, not the official service name.
-- **Placeholder — scope:** QZSS navigation message authentication and QZSS-broadcast authentication data for selected GPS/Galileo navigation messages.
-- **Placeholder — mechanism and delivery:** digital-signature data embedded in QZSS signals / distributed through L6E for GNSS message authentication; explain public-key provisioning.
-- **Placeholder — compare:** Galileo OSNMA’s delayed symmetric-key disclosure with signature-based QZSS NMA.
 
 ### GPS CHIMERA
 
@@ -61,4 +110,10 @@
 - **Placeholder — status note:** present as a GPS L1C authentication technology/development path, and check the current test/deployment status before describing operational availability.
 
 ### Galileo SAS
+
+
+### Message Authentication limitations
+
+- Not robust against *meaconing* (replay) attacks, where an attacker receives authentic signals and rebroadcasts them with a delay.
+    - Could be mitigated if the receiver has a trusted time source, but this is not always the case.
 
