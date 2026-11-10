@@ -1,12 +1,79 @@
 ## How are corrections generated?
 
-### Orbits and clocks
+### Orbit corrections: problem statement
 
-- In need of a global network of reference stations
+- Problem statement (further details in Section 3.5.13.5 of @RTCM_10403_3): the corrected orbit position is computed as follows:
+$$
+\mathbf{x_{corrected}} = \mathbf{x_{broadcast}} - \delta \mathbf{x}
+$$
 
-<!-- TODO — comparison of IGS orbits and clocks with broadcast ephemerides and clock products. -->
+- RTCM Messages provide the following information
+  - Reference epoch: $t_0$ (GPS time)
+  - Orbit correction at ref. epoch: $\delta \mathbf{O}(t_0) = \delta O_{radial}, \delta O_{along}, \delta O_{cross}$
+  - Time derivative of orbit correction: $\dot{\delta \mathbf{O}} = \dot{\delta O}_{radial}, \dot{\delta O}_{along}, \dot{\delta O}_{cross}$
 
-### Ionosphere and troposphere
+- The orbit correction (in radial, along and cross components) at any time $t$ is then given by
+$$
+\delta \mathbf{O}(t) = \delta \mathbf{O}(t_0) + \dot{\delta \mathbf{O}} (t - t_0)
+$$
 
-- In need of a regional network of reference stations
-- Troposphere correction is more complicated because spatial decorrelation is higher than for the ionosphere.
+- The orbit correction needs to be transformed from the satellite frame to the ECEF frame using the rotation matrix $\delta \mathbf{e}$, which is derived from the broadcast ephemeris.
+
+$$
+\delta \mathbf{x}(t) = \delta \mathbf{e}(t) \cdot \delta \mathbf{O}(t)
+$$
+
+### Clock corrections: problem statement
+
+- Similar idea to orbit corrections, but simpler: the clock correction is a scalar offset applied to the broadcast clock value.
+- RTCM Messages 1057, 1063 provide the following information:
+  - Reference epoch: $t_0$ (GPS time)
+  - Clock correction polinomial coefficients: $\delta C_i,\ i\in{0, 1, 2}$
+- The clock correction at any time $t$ is then given by
+$$
+\delta C(t) = \delta C_0 + \delta C_1 (t - t_0) + \delta C_2 (t - t_0)^2
+$$
+
+- Then, the corrected clock value is simply:
+
+$$
+C_{corrected}(t) = C_{broadcast}(t) - \frac{\delta C(t)}{c}
+$$
+
+### Global network: satellite orbits and clocks
+
+- Both orbit and clock corrections require a global network of reference stations and a processing centre to estimate the corrections. Example: \acr{GSS} for the Galileo system.
+
+![source: EC](assets/figures/galileo_ground_stations.png){fig-align="center"}
+
+### Global network: satellite orbits and clocks
+
+- Solution of **inverse problem**:
+  - Example: \acr{GSS}, which have known coordinates, collect code and carrier-phase observations from many satellites.
+  - Satellite position a-priori: from broadcast ephemerides
+  - Motion model: orbit dynamics
+- Solve for both orbits, clocks and signal biases.
+- All this process is done in **near real-time**
+
+
+
+### [Core] Regional network: ionosphere and slant TEC
+
+- **Placeholder — observable:** use dual-frequency code and carrier phase to isolate the dispersive ionospheric delay; define slant total electron content (STEC) along each receiver-satellite ray and distinguish it from vertical TEC (VTEC).
+- **Placeholder — network estimate:** combine many ray paths across a regional reference-station network to estimate a spatial/temporal ionosphere model or local STEC corrections; account for phase ambiguities, code noise, elevation angle and changing satellite geometry.
+- **Placeholder — user prediction:** interpolate/model the ionosphere at the user's location and satellite pierce point, then map the estimate to the user's signal path. Show how a TEC error maps to a frequency-dependent range error.
+- **Placeholder — delivery and limits:** corrections may be delivered as gridded ionosphere maps, model coefficients or network-specific messages; explain update rate, latency, coverage and decorrelation with distance or during space weather.
+- **Placeholder — standards link:** contrast regional network corrections with global SSR ionosphere models (for example, IGS-SSR VTEC spherical harmonics); identify RTCM SSR as an evolving message family rather than implying one universal regional STEC message.
+
+### [Core] Regional network: troposphere prediction
+
+- **Placeholder — what is estimated:** estimate zenith total delay (ZTD), often split into hydrostatic and wet components, and optionally horizontal gradients at reference stations; unlike the ionosphere, the neutral-atmosphere delay is largely non-dispersive at GNSS frequencies.
+- **Placeholder — spatial model:** fit/interpolate regional station estimates and map zenith delay to the user's satellite elevation angle. Explain why wet delay changes rapidly and is less spatially correlated than the hydrostatic component.
+- **Placeholder — user correction:** combine a background model with network residuals to predict slant delay for each satellite; distinguish providing a correction from estimating residual troposphere as an unknown in the user's positioning filter.
+- **Placeholder — limits and use:** discuss station spacing, terrain/weather variation, elevation cutoffs, update rate and latency; connect troposphere estimates to precise positioning and water-vapour sensing.
+- **Placeholder — delivery:** note that services can distribute zenith-delay or slant corrections in service-specific/network-RTK formats; do not suggest a single globally adopted RTCM troposphere prediction message.
+
+### [Lighter view] Compare the three correction pipelines
+
+- One diagram/table: **global satellite products** (orbits/clocks; broad coverage, satellite-based corrections) versus **regional atmosphere products** (STEC and troposphere; local interpolation, user-ray corrections).
+- Emphasize the shared pipeline—reference network → estimation/model → quality and latency monitoring → correction messages → user application—and the different spatial scales and error behavior.
