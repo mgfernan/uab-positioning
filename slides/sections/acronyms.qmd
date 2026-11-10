@@ -21,6 +21,8 @@ acronyms:
       longname: Composite Binary Offset Carrier
     - shortname: CDMA
       longname: Code Division Multiple Access
+    - shortname: CHIMERA
+      longname: Chips-Message Robust Authentication
     - shortname: C/N0
       longname: Carrier-to-Noise Density Ratio
     - shortname: CTP
@@ -137,6 +139,8 @@ acronyms:
       longname: Real Time Kinematics
     - shortname: RTT
       longname: Round Trip Time
+    - shortname: SAS
+      longname: Signal Authentication Service
     - shortname: SBAS
       longname: Satellite-Based Augmentation System
     - shortname: SDCM
@@ -159,6 +163,8 @@ acronyms:
       longname: Time Difference of Arrival
     - shortname: ToA
       longname: Time of Arrival
+    - shortname: TTFAF
+      longname: Time To First Authenticated Fix
     - shortname: TTFF
       longname: Time To First Fix
     - shortname: UERE

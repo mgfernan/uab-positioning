@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="697.43182"
+   height="521.15912"
+   viewBox="0 0 697.43183 521.15912"
+   role="img"
+   aria-labelledby="title desc"
+   version="1.1"
+   id="svg32"
+   sodipodi:docname="galileo-nav-message.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs32" />
+  <sodipodi:namedview
+     id="namedview32"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.88"
+     inkscape:cx="386.36364"
+     inkscape:cy="174.43182"
+     inkscape:window-width="1919"
+     inkscape:window-height="1022"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg32" />
+  <title
+     id="title">Galileo E1-B navigation message structure</title>
+  <desc
+     id="desc">Two message layouts. Envelope ID 1 contains page type, Data j (2/2), OSNMA, SAR, spare, CRC, SSP, and Tail fields. Envelope ID 0 contains page type, Data k (1/2), and Tail. Both total 120 bits.</desc>
+  <g
+     fill="#ffffff"
+     stroke="#111111"
+     stroke-width="2"
+     font-family="Arial, Helvetica, sans-serif"
+     text-anchor="middle"
+     id="g32"
+     transform="translate(-20.5,46.159089)">
+    <!-- E1-B band -->
+    <rect
+       x="22"
+       y="14"
+       width="386"
+       height="48"
+       fill="#ffdf23"
+       stroke-width="3"
+       id="rect1" />
+    <text
+       x="215"
+       y="45"
+       fill="#111111"
+       stroke="none"
+       font-size="20px"
+       font-weight="700"
+       id="text1">E1-B</text>
+    <!-- Envelope ID 1 page -->
+    <rect
+       x="22"
+       y="74"
+       width="386"
+       height="192"
+       id="rect2" />
+    <path
+       d="M 64,74 V 266 M 106,74 V 266 M 162,74 V 266 M 210,74 V 266 M 258,74 V 266 M 306,74 V 266 M 354,74 V 266 M 386,74 V 266 M 22,230 h 386"
+       fill="none"
+       id="path2" />
+    <g
+       fill="#111111"
+       stroke="none"
+       font-size="18px"
+       id="g10">
+      <text
+         transform="rotate(-90,98.5,55.5)"
+         id="text2">Envelope ID=1</text>
+      <text
+         transform="rotate(-90,119.5,34.5)"
+         id="text3">Page Type</text>
+      <text
+         transform="rotate(-90,144,10)"
+         id="text4">Data j</text>
+      <text
+         transform="rotate(-90,170,-16)"
+         id="text5">OSNMA</text>
+      <text
+         transform="rotate(-90,194,-40)"
+         id="text6">SAR</text>
+      <text
+         transform="rotate(-90,218,-64)"
+         id="text7">Spare</text>
+      <text
+         transform="rotate(-90,242,-88)"
+         id="text8">CRC</text>
+      <text
+         transform="rotate(-90,262,-108)"
+         id="text9">SSP</text>
+      <text
+         transform="rotate(-90,275.5,-121.5)"
+         id="text10">Tail</text>
+    </g>
+    <text
+       x="134"
+       y="101"
+       fill="#111111"
+       stroke="none"
+       font-size="15px"
+       id="text11">(2/2)</text>
+    <path
+       d="m 22,230 v 36 m 42,-36 v 36 m 42,-36 v 36 m 56,-36 v 36 m 48,-36 v 36 m 48,-36 v 36 m 48,-36 v 36 m 48,-36 v 36 m 32,-36 v 36"
+       fill="none"
+       id="path11" />
+    <g
+       fill="#111111"
+       stroke="none"
+       font-size="18px"
+       id="g20">
+      <text
+         x="43"
+         y="254"
+         id="text12">1</text>
+      <text
+         x="85"
+         y="254"
+         id="text13">1</text>
+      <text
+         x="134"
+         y="254"
+         id="text14">16</text>
+      <text
+         x="186"
+         y="254"
+         id="text15">40</text>
+      <text
+         x="234"
+         y="254"
+         id="text16">22</text>
+      <text
+         x="282"
+         y="254"
+         id="text17">2</text>
+      <text
+         x="330"
+         y="254"
+         id="text18">24</text>
+      <text
+         x="370"
+         y="254"
+         id="text19">8</text>
+      <text
+         x="397"
+         y="254"
+         id="text20">6</text>
+    </g>
+    <rect
+       x="420"
+       y="74"
+       width="52"
+       height="192"
+       id="rect20" />
+    <text
+       transform="rotate(-90,310.5,-140.5)"
+       fill="#111111"
+       stroke="none"
+       font-size="18px"
+       font-weight="700"
+       id="text21">Total (bits)</text>
+    <rect
+       x="420"
+       y="230"
+       width="52"
+       height="36"
+       id="rect21" />
+    <text
+       x="446"
+       y="254"
+       fill="#111111"
+       stroke="none"
+       font-size="18px"
+       id="text22">120</text>
+    <!-- Envelope ID 0 page -->
+    <rect
+       x="22"
+       y="282"
+       width="386"
+       height="192"
+       id="rect22" />
+    <path
+       d="M 64,282 V 474 M 106,282 V 474 M 366,282 V 474 M 386,282 V 474 M 22,438 h 386"
+       fill="none"
+       id="path22" />
+    <g
+       fill="#111111"
+       stroke="none"
+       font-size="18px"
+       id="g25">
+      <text
+         transform="rotate(-90,202.5,159.5)"
+         id="text23">Envelope ID=0</text>
+      <text
+         transform="rotate(-90,223.5,138.5)"
+         id="text24">Page Type</text>
+      <text
+         transform="rotate(-90,374,-12)"
+         id="text25">Tail</text>
+    </g>
+    <text
+       x="236"
+       y="369"
+       fill="#111111"
+       stroke="none"
+       font-size="20px"
+       id="text26">Data k (1/2)</text>
+    <path
+       d="m 22,438 v 36 m 42,-36 v 36 m 42,-36 v 36 m 260,-36 v 36 m 20,-36 v 36"
+       fill="none"
+       id="path26" />
+    <g
+       fill="#111111"
+       stroke="none"
+       font-size="18px"
+       id="g30">
+      <text
+         x="43"
+         y="462"
+         id="text27">1</text>
+      <text
+         x="85"
+         y="462"
+         id="text28">1</text>
+      <text
+         x="236"
+         y="462"
+         id="text29">112</text>
+      <text
+         x="386"
+         y="462"
+         id="text30">6</text>
+    </g>
+    <rect
+       x="420"
+       y="282"
+       width="52"
+       height="192"
+       id="rect30" />
+    <text
+       transform="rotate(-90,414.5,-36.5)"
+       fill="#111111"
+       stroke="none"
+       font-size="18px"
+       font-weight="700"
+       id="text31">Total (bits)</text>
+    <rect
+       x="420"
+       y="438"
+       width="52"
+       height="36"
+       id="rect31" />
+    <text
+       x="446"
+       y="462"
+       fill="#111111"
+       stroke="none"
+       font-size="18px"
+       id="text32">120</text>
+  </g>
+  <rect
+     style="fill:none;fill-opacity:0.996078;stroke:#111111;stroke-width:2;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:1"
+     id="rect33"
+     width="52"
+     height="156"
+     x="521.70453"
+     y="67.318176"
+     rx="0" />
+  <rect
+     style="fill:none;fill-opacity:0.996078;stroke:#111111;stroke-width:2;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:1"
+     id="rect33-7"
+     width="52"
+     height="35.795471"
+     x="521.70453"
+     y="223.31818"
+     rx="0" />
+  <text
+     transform="rotate(-90)"
+     id="text5-1"
+     x="-186.41591"
+     y="554.49036"
+     style="font-size:18.6667px">HKROOT</text>
+  <text
+     id="text5-1-6"
+     x="541.77094"
+     y="248.00627"
+     style="font-size:18.6667px">8</text>
+  <rect
+     style="fill:none;fill-opacity:0.996078;stroke:#111111;stroke-width:2;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:1"
+     id="rect33-4"
+     width="52"
+     height="156"
+     x="573.70453"
+     y="67.318176"
+     rx="0" />
+  <rect
+     style="fill:none;fill-opacity:0.996078;stroke:#111111;stroke-width:2;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:1"
+     id="rect33-7-1"
+     width="52"
+     height="35.795471"
+     x="573.70453"
+     y="223.31818"
+     rx="0" />
+  <text
+     transform="rotate(-90)"
+     id="text5-1-61"
+     x="-173.35925"
+     y="606.49036"
+     style="font-size:18.6667px">MACK</text>
+  <text
+     id="text5-1-6-2"
+     x="587.68237"
+     y="248.00627"
+     style="font-size:18.6667px">32</text>
+  <rect
+     style="fill:none;fill-opacity:0.996078;stroke:#111111;stroke-width:2;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:1"
+     id="rect33-4-3"
+     width="52"
+     height="156"
+     x="633.70453"
+     y="67.318176"
+     rx="0" />
+  <rect
+     style="fill:none;fill-opacity:0.996078;stroke:#111111;stroke-width:2;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:1"
+     id="rect33-7-1-2"
+     width="52"
+     height="35.795471"
+     x="633.70453"
+     y="223.31818"
+     rx="0" />
+  <text
+     transform="rotate(-90)"
+     id="text5-1-61-6"
+     x="-195.54083"
+     y="666.49036"
+     style="font-size:16px"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
+       id="tspan34">Total (bits)</tspan></text>
+  <text
+     id="text5-1-6-2-8"
+     x="648.10162"
+     y="248.00171"
+     style="font-size:18.6667px">40</text>
+  <rect
+     x="522.20453"
+     y="10.818176"
+     width="103.61364"
+     height="48"
+     fill="#ffdf23"
+     stroke-width="3"
+     id="rect1-4"
+     style="stroke:#111111;stroke-opacity:1" />
+  <text
+     x="532.31213"
+     y="42.088684"
+     fill="#111111"
+     stroke="none"
+     font-size="20px"
+     font-weight="700"
+     id="text1-1"><tspan
+       sodipodi:role="line"
+       id="tspan32"
+       x="532.31213"
+       y="42.088684">OSNMA</tspan><tspan
+       sodipodi:role="line"
+       id="tspan33"
+       x="532.31213"
+       y="67.088684" /></text>
+  <rect
+     style="fill:none;fill-opacity:0.996078;stroke:#ff0000;stroke-width:2;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:0.996078"
+     id="rect32"
+     width="59.52272"
+     height="205.97729"
+     x="135.88637"
+     y="112.90909"
+     rx="12" />
+  <rect
+     style="fill:none;fill-opacity:0.996078;stroke:#ff0000;stroke-width:2;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:0.996078"
+     id="rect32-2"
+     width="182.24998"
+     height="270.75003"
+     x="514.18182"
+     y="1"
+     rx="12" />
+  <path
+     style="fill:none;fill-opacity:0.996078;stroke:#ff0000;stroke-width:2;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:1"
+     d="M 142.20135,114.32954 520.43623,2.4700988"
+     id="path34"
+     sodipodi:nodetypes="cc" />
+  <path
+     style="fill:none;fill-opacity:0.996078;stroke:#ff0000;stroke-width:2;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:1"
+     d="M 181.87069,318.48154 687.86691,271.70807"
+     id="path34-6"
+     sodipodi:nodetypes="cc" />
+  <metadata
+     id="metadata34">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Galileo E1-B navigation message structure</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

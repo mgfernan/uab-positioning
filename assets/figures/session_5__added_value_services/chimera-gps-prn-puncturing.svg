@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1342" height="361" viewBox="0 0 1342 361" role="img" aria-labelledby="title desc">
+  <title id="title">CHIMERA GPS PRN code puncturing concept</title>
+  <desc id="desc">Marker sequence, primary sequence, and punctured sequence shown as aligned step waveforms at levels plus one, zero, and minus one. Red segments mark punctured chips.</desc>
+  <rect width="1342" height="361" fill="#fff"/>
+  <g stroke="#777" stroke-width="1.5" stroke-dasharray="3 4" fill="none">
+    <path d="M101 31H1114 M101 70H1114 M101 106H1114"/>
+    <path d="M101 149H1114 M101 186H1114 M101 222H1114"/>
+    <path d="M101 268H1114 M101 307H1114 M101 343H1114"/>
+  </g>
+  <g fill="#111" font-family="Arial, Helvetica, sans-serif" font-size="20" text-anchor="end">
+    <text x="87" y="36">+1</text><text x="87" y="76">0</text><text x="87" y="112">-1</text>
+    <text x="87" y="155">+1</text><text x="87" y="192">0</text><text x="87" y="228">-1</text>
+    <text x="87" y="274">+1</text><text x="87" y="313">0</text><text x="87" y="349">-1</text>
+  </g>
+  <!-- Marker sequence: sparse positive and negative pulses -->
+  <path d="M109 70 H232 V31 H273 V70 H602 V31 H644 V70 H977 V106 H1018 V70 H1103" fill="none" stroke="#d91515" stroke-width="3" stroke-linejoin="miter"/>
+  <!-- Primary sequence -->
+  <path d="M147 222 V149 H230 V222 H271 V149 H312 V222 H395 V149 H479 V222 H521 V149 H562 V222 H603 V149 H644 V222 H727 V149 H769 V222 H810 V149 H893 V222 H976 V149 H1017 V222 H1058 V149 H1101" fill="none" stroke="#111" stroke-width="2" stroke-linejoin="miter"/>
+  <!-- Punctured sequence -->
+  <path d="M147 343 V268 H230 V343 H312 V343 H395 V268 H479 V343 H521 V268 H562 V343 H603 V268 H644 V343 H727 V268 H769 V343 H810 V268 H893 V343 H976 V343 H1058 V268 H1101" fill="none" stroke="#111" stroke-width="2" stroke-linejoin="miter"/>
+  <!-- Red highlights indicate removed/punctured chips -->
+  <g fill="none" stroke="#ed1717" stroke-width="4">
+    <path d="M230 268 H271"/>
+    <path d="M603 268 H644"/>
+    <path d="M976 343 H1017"/>
+  </g>
+  <g fill="#111" font-family="Arial, Helvetica, sans-serif" font-size="28" text-anchor="middle">
+    <text x="1216" y="58">Marker</text><text x="1216" y="95">Sequence</text>
+    <text x="1216" y="178">Primary</text><text x="1216" y="215">Sequence</text>
+    <text x="1216" y="297">Punctured</text><text x="1216" y="334">Sequence</text>
+  </g>
+</svg>

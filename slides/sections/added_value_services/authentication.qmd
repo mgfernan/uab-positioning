@@ -63,9 +63,7 @@ This content is provided for educational purposes only.
   - Authenticity checks are based on comparing a received tag with a tag computed by the receiver using the navigation message and a key.
   - **keys** are disclosed later, so the receiver must buffer the data until the key is received and verified.
   - Why it works? An attacker cannot compute the correct tag without knowing the key, and the key is not known until it is disclosed.
-- Caveats:
-  - Authentication is not encryption: navigation message is still readable by anyone
-  - Authentication does not guarantee the accuracy or safety of the position.
+
 
 ### NMA process flow
 
@@ -79,6 +77,11 @@ This content is provided for educational purposes only.
 5. Compare the computed [**tag**]{style="color: #6442a5ff;"} with the received [**tag**]{style="color: #4cbe61ff;"}.
 :::
 
+### Where is OSNMA in Galileo?
+
+- OSNMA is broadcast in the Galileo E1B signal, in the I/NAV message, see Section 4.3 of the [Galileo SiS ICD](https://www.gsc-europa.eu/sites/default/files/sites/all/files/Galileo_OS_SIS_ICD_in_force.pdf).
+
+![OSNMA bits in Galileo, source: [Galileo OSNMA ICD](https://www.gsc-europa.eu/sites/default/files/sites/all/files/Galileo-OSNMA-SIS-ICD_in_force.pdf)](assets/figures/session_5__added_value_services/galileo-osnma-bits.svg){fig-align="center"}
 
 ### NMA validation timing
 
@@ -99,21 +102,26 @@ sequenceDiagram
 ```
 
 
-### GPS CHIMERA
+### Other authentication approaches
+
+- \acr{CHIMERA} (in \acr{GPS}, [@ISAGT100A]) uses navigation message and pilot-channel watermarks (*markers*) for ranging authentication.
+  - **Slow markers**: Once the navigation message is authenticated, a key is derived and used to generate a pseudo-random sequence of markers that are added to the pilot channel.
+  - **Fast markers**: Alternatively, an *out-of-band* channel can be used to transmit the markers, e.g., via a cellular network.
+
+![GPS Chimera adds markers to the pilot channel in L1C](assets/figures/session_5__added_value_services/chimera-gps-prn-puncturing.svg){fig-align="center"}
+
+- Galileo \acr{SAS} leverages OSNMA keys to encrypt the E6-C ranging signal.
 
 
-- **Placeholder — limits:** message authentication versus ranging authentication; spoofing/replay considerations and trust bootstrap.
-
-
-- **Placeholder — concept:** Chips-Message Robust Authentication (CHIMERA) combines navigation-data authentication with pilot-channel watermarks for ranging authentication.
-- **Placeholder — processing:** data signatures, slow/fast markers, key disclosure and correlation against the received pilot signal.
-- **Placeholder — status note:** present as a GPS L1C authentication technology/development path, and check the current test/deployment status before describing operational availability.
-
-### Galileo SAS
-
+:::{.notes}
+- GPS CHIMERA:
+  - When signal is not authenticated, the receiver will experience a small correlation loss, that can be anyway compensated because the integration time for pilot channel can be increased.
+:::
 
 ### Message Authentication limitations
 
 - Not robust against *meaconing* (replay) attacks, where an attacker receives authentic signals and rebroadcasts them with a delay.
     - Could be mitigated if the receiver has a trusted time source, but this is not always the case.
-
+- Authentication is not encryption: navigation message is still readable by anyone
+- Authentication does not guarantee the accuracy or safety of the position.
+- Authenticated position fixes (e.g. \acr{TTFAF}) will be in general delayed due to the time needed to receive the authentication data
