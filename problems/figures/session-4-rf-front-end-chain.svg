@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1540" height="270" viewBox="0 0 1540 270" role="img" aria-labelledby="title desc">
+  <title id="title">RF front-end gain and noise figure chain</title>
+  <desc id="desc">Left-to-right chain from antenna through two LNAs, bandpass filter, another LNA, mixer, and final LNA. Each stage shows gain, noise figure, and equivalent temperature placeholder.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0L10 4L0 8Z" fill="#333"/>
+    </marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #222; }
+      .node { fill: #fff; stroke: #333; stroke-width: 1.5; }
+      .wire { fill: none; stroke: #333; stroke-width: 1.5; marker-end: url(#arrow); }
+      .head { font-size: 18px; font-weight: 700; }
+      .data { font-size: 16px; }
+    </style>
+  </defs>
+  <rect width="1540" height="270" fill="#fff"/>
+
+  <!-- Signal path arrows -->
+  <g class="wire">
+    <path d="M192 135H230"/><path d="M390 135H426"/><path d="M586 135H622"/>
+    <path d="M806 135H846"/><path d="M1006 135H1047"/><path d="M1205 135H1244"/>
+  </g>
+
+  <!-- Antenna -->
+  <rect class="node" x="22" y="82" width="170" height="106" rx="2"/>
+  <text x="107" y="111" text-anchor="middle" class="head">Antenna</text>
+  <text x="107" y="138" text-anchor="middle" class="data">Pin = -160 dBW</text>
+  <text x="107" y="163" text-anchor="middle" class="data">TA = 100 K</text>
+
+  <!-- LNA 1 -->
+  <rect class="node" x="230" y="68" width="160" height="134" rx="2"/>
+  <text x="310" y="97" text-anchor="middle" class="head">LNA</text>
+  <text x="310" y="125" text-anchor="middle" class="data">G1 = 15 dB</text>
+  <text x="310" y="150" text-anchor="middle" class="data">F1 = 2 dB</text>
+  <text x="310" y="175" text-anchor="middle" class="data">T1 = ?</text>
+
+  <!-- LNA 2 -->
+  <rect class="node" x="426" y="68" width="160" height="134" rx="2"/>
+  <text x="506" y="97" text-anchor="middle" class="head">LNA</text>
+  <text x="506" y="125" text-anchor="middle" class="data">G2 = 35 dB</text>
+  <text x="506" y="150" text-anchor="middle" class="data">F2 = 3 dB</text>
+  <text x="506" y="175" text-anchor="middle" class="data">T2 = ?</text>
+
+  <!-- Bandpass filter -->
+  <rect class="node" x="622" y="54" width="184" height="162" rx="2"/>
+  <text x="714" y="83" text-anchor="middle" class="head">Bandpass Filter</text>
+  <text x="714" y="111" text-anchor="middle" class="data">B = 20 MHz</text>
+  <text x="714" y="136" text-anchor="middle" class="data">G3 = -4 dB</text>
+  <text x="714" y="161" text-anchor="middle" class="data">F3 = 4 dB</text>
+  <text x="714" y="186" text-anchor="middle" class="data">T3 = ?</text>
+
+  <!-- LNA 4 -->
+  <rect class="node" x="846" y="68" width="160" height="134" rx="2"/>
+  <text x="926" y="97" text-anchor="middle" class="head">LNA</text>
+  <text x="926" y="125" text-anchor="middle" class="data">G4 = 30 dB</text>
+  <text x="926" y="150" text-anchor="middle" class="data">F4 = 3.5 dB</text>
+  <text x="926" y="175" text-anchor="middle" class="data">T4 = ?</text>
+
+  <!-- Mixer -->
+  <circle class="node" cx="1126" cy="135" r="79"/>
+  <text x="1126" y="106" text-anchor="middle" class="head">Mixer</text>
+  <text x="1126" y="134" text-anchor="middle" class="data">G5 = -15 dB</text>
+  <text x="1126" y="159" text-anchor="middle" class="data">F5 = 15 dB</text>
+  <text x="1126" y="184" text-anchor="middle" class="data">T5 = ?</text>
+
+  <!-- LNA 6 -->
+  <rect class="node" x="1244" y="68" width="160" height="134" rx="2"/>
+  <text x="1324" y="97" text-anchor="middle" class="head">LNA</text>
+  <text x="1324" y="125" text-anchor="middle" class="data">G6 = 40 dB</text>
+  <text x="1324" y="150" text-anchor="middle" class="data">F6 = 6 dB</text>
+  <text x="1324" y="175" text-anchor="middle" class="data">T6 = ?</text>
+</svg>

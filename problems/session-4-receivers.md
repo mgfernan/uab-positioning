@@ -130,28 +130,7 @@ $$
 
 In the following system:
 
-```{mermaid}
-flowchart LR
-    ANT["<b>Antenna</b><br/>Pin = -160 dBW<br/>TA = 100 K"]
-    G1["<b>LNA</b><br/>G1 = 15 dB<br/>F1 = 2 dB<br/>T1 = ?"]
-    G2["<b>LNA</b><br/>G2 = 35 dB<br/>F2 = 3 dB<br/>T2 = ?"]
-    FILT["<b>Bandpass Filter</b><br/>B = 20 MHz<br/>G3 = -4 dB<br/>F3 = 4 dB<br/>T3 = ?"]
-    G4["<b>LNA</b><br/>G4 = 30 dB<br/>F4 = 3.5 dB<br/>T4 = ?"]
-    MIX(("<b>Mixer</b><br/>G5 = -15 dB<br/>F5 = 15 dB<br/>T5 = ?"))
-    G6["<b>LNA</b><br/>G6 = 40 dB<br/>F6 = 6 dB<br/>T6 = ?"]
-
-    ANT --> G1 --> G2 --> FILT --> G4 --> MIX --> G6
-
-    classDef antenna fill:#fff,stroke:#333,stroke-width:1.5px
-    classDef amp fill:#fff,stroke:#333,stroke-width:1.5px
-    classDef filter fill:#fff,stroke:#333,stroke-width:1.5px
-    classDef mixer fill:#fff,stroke:#333,stroke-width:1.5px
-
-    class ANT antenna
-    class G1,G2,G4,G6 amp
-    class FILT filter
-    class MIX mixer
-```
+![RF front-end chain](./figures/session-4-rf-front-end-chain.svg)
 
 
 Compute the following parameters:
