@@ -1,0 +1,103 @@
+## Navigation message decoding
+
+- Navigation message decoding is the last stage of the GNSS receiver processing chain.
+- When tracking loops are locked, the receiver can extract the navigation message from the incoming signal.
+
+![](assets/figures/session_4__receivers/signal_to_nav_message.svg){fig-align="center"}
+
+- The *navigation message decoder* takes the symbols extracted from the output of
+the tracking loops and performs *bit* and *frame synchronization* in order
+to decode the navigation message.
+
+### Bit synchronization
+
+- Problem statement: "How to determine the start of a navigation message bit?"
+  - **Main assumption**: The DLL delivers a stream of symbols that are aligned to the start of each PRN sequence (1 ms for GPS L1 C/A).
+  - For GPS L1 C/A, the navigation message is modulated at 50 bps, which means that each bit lasts 20 ms.
+  - Then, each navigation message bit contains 20 PRN sequences (recall that 1 PRN sequence is 1 ms for GPS L1 C/A).
+  - With 1 ms integration, each navigation bit yields 20 correlation values.
+  - Bit transitions can reveal the bit boundaries, but consecutive bits can have the same value.
+
+### Bit synchronization (cont'd)
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+chips_per_ms = 1023
+bit_duration_ms = 20
+nav_bits = np.array([1, -1, 1, -1, 1])
+duration_ms = len(nav_bits) * bit_duration_ms
+
+
+def generate_prn1():
+    """Generate the 1023 chips of GPS L1 C/A PRN 1."""
+    g1 = np.ones(10, dtype=int)
+    g2 = np.ones(10, dtype=int)
+    code = np.empty(chips_per_ms, dtype=int)
+    for i in range(chips_per_ms):
+        code[i] = g1[9] ^ g2[1] ^ g2[5]
+        feedback_g1 = g1[2] ^ g1[9]
+        feedback_g2 = g2[1] ^ g2[2] ^ g2[5] ^ g2[7] ^ g2[8] ^ g2[9]
+        g1[1:] = g1[:-1].copy()
+        g1[0] = feedback_g1
+        g2[1:] = g2[:-1].copy()
+        g2[0] = feedback_g2
+    return 1 - 2 * code
+
+
+prn = generate_prn1()
+reference = np.tile(prn, duration_ms)
+message = np.repeat(nav_bits, bit_duration_ms * chips_per_ms)
+signal = message * reference
+
+# Assume code and carrier tracking are locked; only the bit phase is unknown.
+despread = signal * reference
+correlation_1ms = despread.reshape(duration_ms, chips_per_ms).mean(axis=1)
+correlation_times_ms = np.arange(duration_ms) + 0.5
+
+fig, axes = plt.subplots(2, 1, figsize=(11, 5), sharex=True, sharey=True)
+for ax, start_ms, title in [
+    (axes[0], 5, "Unknown bit phase: assumed 20 ms groups start 5 ms late"),
+    (axes[1], 0, "Known bit phase: 20 ms groups aligned to bits"),
+]:
+    starts = np.arange(start_ms, duration_ms - bit_duration_ms + 1, bit_duration_ms)
+    for i, start in enumerate(starts):
+        ax.axvspan(start, start + bit_duration_ms, color="C0", alpha=0.06 if i % 2 == 0 else 0.14)
+        ax.axvline(start, color="C0", linestyle=":", alpha=0.7,
+                   label="Assumed group boundaries" if i == 0 else None)
+    ax.axvline(starts[-1] + bit_duration_ms, color="C0", linestyle=":", alpha=0.7)
+    ax.vlines(correlation_times_ms, 0, correlation_1ms, color="C0", linewidth=0.6)
+    ax.scatter(correlation_times_ms, correlation_1ms, color="C0", s=12, zorder=3,
+               label="1 ms correlation")
+    for boundary in range(0, duration_ms + 1, bit_duration_ms):
+        ax.axvline(boundary, color="C3", linestyle="--", alpha=0.7,
+                   label="True bit boundaries" if boundary == 0 else None)
+    ax.axhline(0, color="black", linewidth=0.6)
+    ax.set_title(title)
+    ax.set_ylabel("Normalized\ncorrelation")
+    ax.set_ylim(-1.3, 1.3)
+    ax.grid(axis="y", alpha=0.3)
+
+axes[0].legend(loc="upper right", ncol=3, fontsize="small")
+axes[1].set_xlim(0, duration_ms)
+axes[1].set_xlabel("Time (ms)")
+plt.tight_layout()
+plt.show()
+```
+
+- In GPS L1 C/A, if $T_{integration} = 1$ ms, the offset to the start of the navigation message bit can be computed as $\text{offset} = \arg\max_{0 \leq k < 20} \sum_{i=0}^{N_{nav\ bits}} c_{k + 20i}$, where $c_j$ is the correlation value at time $j$ ms.
+
+### Frame synchronization
+
+- Next step: "How to determine the start of a navigation message frame?"
+  - **Main assumption**: The bit synchronization is already done, so the receiver knows the start of each navigation message bit.
+  - For GPS L1 C/A, the navigation message is organized in frames of 1500 bits (30 seconds).
+  - Each frame is divided into 5 subframes of 300 bits (6 seconds).
+  - Each subframe contains a header with a known **preamble** sequence (8 bits for GPS L1 C/A).
+
+![](assets/figures/session_4__receivers/tlm-how-words.svg){fig-align="center"}
+
+::: {.notes}
+- Preamble double check: The preamble is repeated each 6 seconds (serves as a double check since the preamble sequence can happen anywhere in the navigation message).
+:::

@@ -1,0 +1,859 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="652"
+   height="418"
+   viewBox="0 0 652 418"
+   role="img"
+   aria-labelledby="title desc"
+   version="1.1"
+   id="svg100"
+   sodipodi:docname="tlm-how-words.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview100"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.95437725"
+     inkscape:cx="359.39666"
+     inkscape:cy="18.336564"
+     inkscape:window-width="1800"
+     inkscape:window-height="1022"
+     inkscape:window-x="209"
+     inkscape:window-y="86"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg100" />
+  <title
+     id="title">GPS TLM and HOW word bit layouts</title>
+  <desc
+     id="desc">Two diagrams showing the 30-bit TLM word and handover word (HOW), their fields, reserved bits, flags, and parity.</desc>
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="ArrowWide"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path101" />
+    </marker>
+    <style
+       id="style1">
+      text{font-family:Arial,Helvetica,sans-serif;fill:#111;font-size:11px}
+      .small{font-size:10px}.tiny{font-size:9px}.blue{fill:#064b82}
+      .line{stroke:#111;stroke-width:1;fill:none}.thin{stroke:#111;stroke-width:.8;fill:none}
+      .box{stroke:#111;stroke-width:1;fill:white}.shade{fill:#dcecf5;stroke:none}
+      .dim{stroke:#111;stroke-width:2.5;fill:none;marker-start:url(#arrow);marker-end:url(#arrow)}
+      .lead{stroke:#111;stroke-width:1.7;fill:none;marker-end:url(#arrow)}
+    </style>
+    <marker
+       style="overflow:visible"
+       id="ArrowWide-3"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path101-1" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="ArrowWide-3-2"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:butt"
+         d="M 3,-3 0,0 3,3"
+         transform="rotate(180,0.125,0)"
+         sodipodi:nodetypes="ccc"
+         id="path101-1-5" />
+    </marker>
+  </defs>
+  <rect
+     class="box"
+     x="34"
+     y="326"
+     width="575"
+     height="39"
+     id="rect56" />
+  <!-- TLM word dimension and leaders -->
+  <path
+     class="line"
+     d="M34 20V98 M610 20V98"
+     id="path2" />
+  <path
+     class="dim"
+     d="M38 35H606"
+     id="path3"
+     style="stroke-width:2;stroke-dasharray:none;marker-end:url(#ArrowWide);marker-start:url(#ArrowWide)" />
+  <path
+     class="dim"
+     d="m 498.18181,85.292893 110.40398,0"
+     id="path3-8"
+     style="fill:none;stroke:#111111;stroke-width:2;stroke-dasharray:none;marker-start:url(#ArrowWide-3);marker-end:url(#ArrowWide-3)"
+     sodipodi:nodetypes="cc" />
+  <rect
+     x="269"
+     y="27"
+     width="59"
+     height="15"
+     fill="white"
+     id="rect3" />
+  <rect
+     x="530.92242"
+     y="77"
+     width="44.922726"
+     height="15"
+     fill="#ffffff"
+     id="rect3-1" />
+  <text
+     x="298.5"
+     y="38"
+     text-anchor="middle"
+     id="text3">TLM Word</text>
+  <text
+     x="436"
+     y="53"
+     font-size="16"
+     id="text4">①</text>
+  <text
+     x="451"
+     y="52"
+     id="text5">= Reserved Bits</text>
+  <text
+     x="436"
+     y="72"
+     font-size="16"
+     id="text6">②</text>
+  <text
+     x="451"
+     y="71"
+     id="text7">= Integrity Status Flag</text>
+  <text
+     x="166"
+     y="97"
+     text-anchor="middle"
+     id="text8">MSB</text>
+  <text
+     x="430"
+     y="97"
+     text-anchor="middle"
+     id="text9">LSB</text>
+  <text
+     x="553.00781"
+     y="88"
+     text-anchor="middle"
+     id="text10">Parity</text>
+  <!-- TLM grid: bits 1-30 -->
+  <rect
+     class="box"
+     x="34"
+     y="104"
+     width="575"
+     height="38"
+     id="rect10" />
+  <rect
+     class="box"
+     x="34"
+     y="104"
+     width="152.68182"
+     height="38"
+     id="rect10-2"
+     style="fill:#ffffff;stroke:#111111;stroke-width:1" />
+  <rect
+     class="box"
+     x="34"
+     y="326"
+     width="325.31363"
+     height="39"
+     id="rect10-2-91"
+     style="fill:#ffffff;stroke:#111111;stroke-width:1" />
+  <rect
+     class="box"
+     x="456.75909"
+     y="104"
+     width="19.318188"
+     height="38"
+     id="rect10-2-9"
+     style="fill:#ffffff;stroke:#111111;stroke-width:1" />
+  <rect
+     class="box"
+     x="359.31363"
+     y="326"
+     width="19.82655"
+     height="39"
+     id="rect10-2-9-4"
+     style="fill:#ffffff;stroke:#111111;stroke-width:1" />
+  <rect
+     class="box"
+     x="378.63181"
+     y="326"
+     width="19.318176"
+     height="39"
+     id="rect10-2-9-4-1"
+     style="fill:#ffffff;stroke:#111111;stroke-width:1" />
+  <rect
+     class="box"
+     x="454.36365"
+     y="326"
+     width="19.318176"
+     height="39"
+     id="rect10-2-9-4-7"
+     style="fill:#ffffff;stroke:#111111;stroke-width:1"
+     rx="0"
+     ry="0" />
+  <rect
+     class="box"
+     x="473.68182"
+     y="326"
+     width="19.318176"
+     height="39"
+     id="rect10-2-9-4-1-8"
+     style="fill:#ffffff;stroke:#111111;stroke-width:1" />
+  <rect
+     class="box"
+     x="476.07727"
+     y="104"
+     width="19.318188"
+     height="38"
+     id="rect10-2-9-2"
+     style="fill:#ffffff;stroke:#111111;stroke-width:1" />
+  <text
+     class="tiny blue"
+     x="114"
+     y="119"
+     text-anchor="middle"
+     id="text11"
+     style="fill:#000000;fill-opacity:1">Preamble</text>
+  <text
+     class="tiny"
+     x="43.583"
+     y="138"
+     text-anchor="middle"
+     id="text12">1</text>
+  <text
+     class="tiny"
+     x="62.640137"
+     y="138"
+     text-anchor="middle"
+     id="text13">0</text>
+  <text
+     class="tiny"
+     x="81.921394"
+     y="138"
+     text-anchor="middle"
+     id="text14">0</text>
+  <text
+     class="tiny"
+     x="100.82372"
+     y="138"
+     text-anchor="middle"
+     id="text15">0</text>
+  <text
+     class="tiny"
+     x="119.64355"
+     y="138"
+     text-anchor="middle"
+     id="text16">1</text>
+  <text
+     class="tiny"
+     x="139.38185"
+     y="138"
+     text-anchor="middle"
+     id="text17">0</text>
+  <text
+     class="tiny"
+     x="158.02928"
+     y="138"
+     text-anchor="middle"
+     id="text18">1</text>
+  <text
+     class="tiny"
+     x="177.13477"
+     y="138"
+     text-anchor="middle"
+     id="text19">1</text>
+  <text
+     class="small"
+     x="314"
+     y="126"
+     text-anchor="middle"
+     id="text20">TLM Message</text>
+  <g
+     id="g100"
+     transform="translate(14.418188)">
+    <circle
+       cx="452"
+       cy="123"
+       r="8"
+       fill="#ffffff"
+       stroke="#111111"
+       id="circle20" />
+    <text
+       class="small"
+       x="452"
+       y="127"
+       text-anchor="middle"
+       id="text21">2</text>
+  </g>
+  <g
+     id="g101"
+     transform="translate(13.736364)">
+    <circle
+       cx="472"
+       cy="123"
+       r="8"
+       fill="#ffffff"
+       stroke="#111111"
+       id="circle21" />
+    <text
+       class="small"
+       x="472"
+       y="127"
+       text-anchor="middle"
+       id="text22">1</text>
+  </g>
+  <text
+     class="tiny blue"
+     x="43.583"
+     y="157"
+     text-anchor="middle"
+     id="text23">1</text>
+  <text
+     class="tiny blue"
+     x="62.750"
+     y="157"
+     text-anchor="middle"
+     id="text24">2</text>
+  <text
+     class="tiny blue"
+     x="81.917"
+     y="157"
+     text-anchor="middle"
+     id="text25">3</text>
+  <text
+     class="tiny blue"
+     x="101.083"
+     y="157"
+     text-anchor="middle"
+     id="text26">4</text>
+  <text
+     class="tiny blue"
+     x="120.250"
+     y="157"
+     text-anchor="middle"
+     id="text27">5</text>
+  <text
+     class="tiny blue"
+     x="139.417"
+     y="157"
+     text-anchor="middle"
+     id="text28">6</text>
+  <text
+     class="tiny blue"
+     x="158.583"
+     y="157"
+     text-anchor="middle"
+     id="text29">7</text>
+  <text
+     class="tiny blue"
+     x="177.750"
+     y="157"
+     text-anchor="middle"
+     id="text30">8</text>
+  <text
+     class="tiny blue"
+     x="196.917"
+     y="157"
+     text-anchor="middle"
+     id="text31">9</text>
+  <text
+     class="tiny blue"
+     x="216.083"
+     y="157"
+     text-anchor="middle"
+     id="text32">10</text>
+  <text
+     class="tiny blue"
+     x="235.250"
+     y="157"
+     text-anchor="middle"
+     id="text33">11</text>
+  <text
+     class="tiny blue"
+     x="254.417"
+     y="157"
+     text-anchor="middle"
+     id="text34">12</text>
+  <text
+     class="tiny blue"
+     x="273.583"
+     y="157"
+     text-anchor="middle"
+     id="text35">13</text>
+  <text
+     class="tiny blue"
+     x="292.750"
+     y="157"
+     text-anchor="middle"
+     id="text36">14</text>
+  <text
+     class="tiny blue"
+     x="311.917"
+     y="157"
+     text-anchor="middle"
+     id="text37">15</text>
+  <text
+     class="tiny blue"
+     x="331.083"
+     y="157"
+     text-anchor="middle"
+     id="text38">16</text>
+  <text
+     class="tiny blue"
+     x="350.250"
+     y="157"
+     text-anchor="middle"
+     id="text39">17</text>
+  <text
+     class="tiny blue"
+     x="369.417"
+     y="157"
+     text-anchor="middle"
+     id="text40">18</text>
+  <text
+     class="tiny blue"
+     x="388.583"
+     y="157"
+     text-anchor="middle"
+     id="text41">19</text>
+  <text
+     class="tiny blue"
+     x="407.750"
+     y="157"
+     text-anchor="middle"
+     id="text42">20</text>
+  <text
+     class="tiny blue"
+     x="426.917"
+     y="157"
+     text-anchor="middle"
+     id="text43">21</text>
+  <text
+     class="tiny blue"
+     x="446.083"
+     y="157"
+     text-anchor="middle"
+     id="text44">22</text>
+  <text
+     class="tiny blue"
+     x="465.250"
+     y="157"
+     text-anchor="middle"
+     id="text45">23</text>
+  <text
+     class="tiny blue"
+     x="484.417"
+     y="157"
+     text-anchor="middle"
+     id="text46">24</text>
+  <text
+     class="tiny blue"
+     x="503.583"
+     y="157"
+     text-anchor="middle"
+     id="text47">25</text>
+  <text
+     class="tiny blue"
+     x="522.750"
+     y="157"
+     text-anchor="middle"
+     id="text48">26</text>
+  <text
+     class="tiny blue"
+     x="541.917"
+     y="157"
+     text-anchor="middle"
+     id="text49">27</text>
+  <text
+     class="tiny blue"
+     x="561.083"
+     y="157"
+     text-anchor="middle"
+     id="text50">28</text>
+  <text
+     class="tiny blue"
+     x="580.250"
+     y="157"
+     text-anchor="middle"
+     id="text51">29</text>
+  <text
+     class="tiny blue"
+     x="599.417"
+     y="157"
+     text-anchor="middle"
+     id="text52">30</text>
+  <!-- HOW dimension -->
+  <path
+     class="line"
+     d="M34 200V319 M610 200V319"
+     id="path52" />
+  <path
+     class="dim"
+     d="M38 218H606"
+     id="path53"
+     style="marker-end:url(#ArrowWide);marker-start:url(#ArrowWide);stroke-width:2;stroke-dasharray:none" />
+  <rect
+     x="278"
+     y="210"
+     width="53"
+     height="16"
+     fill="white"
+     id="rect53" />
+  <text
+     x="304.5"
+     y="221"
+     text-anchor="middle"
+     id="text53">HOW</text>
+  <text
+     x="164"
+     y="319"
+     text-anchor="middle"
+     id="text54">MSB</text>
+  <text
+     x="327.59009"
+     y="319"
+     text-anchor="middle"
+     id="text55">LSB</text>
+  <!-- HOW field grid -->
+  <text
+     class="small"
+     x="185"
+     y="343"
+     text-anchor="middle"
+     id="text57">TOW-Count Message</text>
+  <text
+     class="small"
+     x="185"
+     y="355"
+     text-anchor="middle"
+     id="text58">(Truncated)</text>
+  <text
+     class="small"
+     x="427.67801"
+     y="343.28488"
+     text-anchor="middle"
+     id="text59"><tspan
+       sodipodi:role="line"
+       id="tspan102"
+       x="427.67801"
+       y="343.28488">Subframe</tspan><tspan
+       sodipodi:role="line"
+       id="tspan103"
+       x="427.67801"
+       y="355.78488">ID</tspan></text>
+  <text
+     class="tiny"
+     x="580.21265"
+     y="350"
+     text-anchor="middle"
+     id="text62">0</text>
+  <text
+     class="tiny"
+     x="599.41919"
+     y="350"
+     text-anchor="middle"
+     id="text63">0</text>
+  <text
+     class="tiny blue"
+     x="43.583"
+     y="382"
+     text-anchor="middle"
+     id="text64">1</text>
+  <text
+     class="tiny blue"
+     x="62.750"
+     y="382"
+     text-anchor="middle"
+     id="text65">2</text>
+  <text
+     class="tiny blue"
+     x="81.917"
+     y="382"
+     text-anchor="middle"
+     id="text66">3</text>
+  <text
+     class="tiny blue"
+     x="101.083"
+     y="382"
+     text-anchor="middle"
+     id="text67">4</text>
+  <text
+     class="tiny blue"
+     x="120.250"
+     y="382"
+     text-anchor="middle"
+     id="text68">5</text>
+  <text
+     class="tiny blue"
+     x="139.417"
+     y="382"
+     text-anchor="middle"
+     id="text69">6</text>
+  <text
+     class="tiny blue"
+     x="158.583"
+     y="382"
+     text-anchor="middle"
+     id="text70">7</text>
+  <text
+     class="tiny blue"
+     x="177.750"
+     y="382"
+     text-anchor="middle"
+     id="text71">8</text>
+  <text
+     class="tiny blue"
+     x="196.917"
+     y="382"
+     text-anchor="middle"
+     id="text72">9</text>
+  <text
+     class="tiny blue"
+     x="216.083"
+     y="382"
+     text-anchor="middle"
+     id="text73">10</text>
+  <text
+     class="tiny blue"
+     x="235.250"
+     y="382"
+     text-anchor="middle"
+     id="text74">11</text>
+  <text
+     class="tiny blue"
+     x="254.417"
+     y="382"
+     text-anchor="middle"
+     id="text75">12</text>
+  <text
+     class="tiny blue"
+     x="273.583"
+     y="382"
+     text-anchor="middle"
+     id="text76">13</text>
+  <text
+     class="tiny blue"
+     x="292.750"
+     y="382"
+     text-anchor="middle"
+     id="text77">14</text>
+  <text
+     class="tiny blue"
+     x="311.917"
+     y="382"
+     text-anchor="middle"
+     id="text78">15</text>
+  <text
+     class="tiny blue"
+     x="331.083"
+     y="382"
+     text-anchor="middle"
+     id="text79">16</text>
+  <text
+     class="tiny blue"
+     x="350.250"
+     y="382"
+     text-anchor="middle"
+     id="text80">17</text>
+  <text
+     class="tiny blue"
+     x="369.417"
+     y="382"
+     text-anchor="middle"
+     id="text81">18</text>
+  <text
+     class="tiny blue"
+     x="388.583"
+     y="382"
+     text-anchor="middle"
+     id="text82">19</text>
+  <text
+     class="tiny blue"
+     x="407.750"
+     y="382"
+     text-anchor="middle"
+     id="text83">20</text>
+  <text
+     class="tiny blue"
+     x="426.917"
+     y="382"
+     text-anchor="middle"
+     id="text84">21</text>
+  <text
+     class="tiny blue"
+     x="446.083"
+     y="382"
+     text-anchor="middle"
+     id="text85">22</text>
+  <text
+     class="tiny blue"
+     x="465.250"
+     y="382"
+     text-anchor="middle"
+     id="text86">23</text>
+  <text
+     class="tiny blue"
+     x="484.417"
+     y="382"
+     text-anchor="middle"
+     id="text87">24</text>
+  <text
+     class="tiny blue"
+     x="503.583"
+     y="382"
+     text-anchor="middle"
+     id="text88">25</text>
+  <text
+     class="tiny blue"
+     x="522.750"
+     y="382"
+     text-anchor="middle"
+     id="text89">26</text>
+  <text
+     class="tiny blue"
+     x="541.917"
+     y="382"
+     text-anchor="middle"
+     id="text90">27</text>
+  <text
+     class="tiny blue"
+     x="561.083"
+     y="382"
+     text-anchor="middle"
+     id="text91">28</text>
+  <text
+     class="tiny blue"
+     x="580.250"
+     y="382"
+     text-anchor="middle"
+     id="text92">29</text>
+  <text
+     class="tiny blue"
+     x="599.417"
+     y="382"
+     text-anchor="middle"
+     id="text93">30</text>
+  <!-- HOW flag callouts -->
+  <text
+     x="232"
+     y="251"
+     text-anchor="middle"
+     id="text94">Anti-Spoof Flag</text>
+  <path
+     class="line"
+     d="m 283,250 h 86.22727 v 70"
+     id="path94"
+     style="marker-end:url(#ArrowWide);stroke-width:2;stroke-dasharray:none"
+     sodipodi:nodetypes="ccc" />
+  <text
+     x="289"
+     y="289"
+     text-anchor="middle"
+     id="text95">“Alert” Flag</text>
+  <path
+     class="line"
+     d="m 318,286 h 71.22727 v 34"
+     id="path96"
+     style="marker-end:url(#ArrowWide);stroke-width:2;stroke-dasharray:none"
+     sodipodi:nodetypes="ccc" />
+  <text
+     x="407"
+     y="249"
+     id="text97">Solved for bits to preserve</text>
+  <text
+     x="407"
+     y="261"
+     id="text98">parity check with zeros in</text>
+  <text
+     x="407"
+     y="273"
+     id="text99">bits 29 and 30</text>
+  <path
+     class="lead"
+     d="m 440,278 24.33636,42"
+     id="path99"
+     style="marker-end:url(#ArrowWide);stroke-width:2;stroke-dasharray:none"
+     sodipodi:nodetypes="cc" />
+  <path
+     class="lead"
+     d="m 440,278 44.33636,42"
+     id="path100"
+     style="marker-end:url(#ArrowWide);stroke-width:2;stroke-dasharray:none"
+     sodipodi:nodetypes="cc" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none"
+     d="M 495.73636,100 V 74.536364"
+     id="path102" />
+  <path
+     class="dim"
+     d="M 496.44545,305.29289 H 606.84943"
+     id="path3-8-1"
+     style="fill:none;stroke:#111111;stroke-width:2;stroke-dasharray:none;marker-start:url(#ArrowWide-3-2);marker-end:url(#ArrowWide-3-2)"
+     sodipodi:nodetypes="cc" />
+  <rect
+     x="529.18604"
+     y="297"
+     width="44.922726"
+     height="15"
+     fill="#ffffff"
+     id="rect3-1-8" />
+  <text
+     x="551.27148"
+     y="308"
+     text-anchor="middle"
+     id="text10-4"
+     style="font-size:11px;font-family:Arial, Helvetica, sans-serif;fill:#111111">Parity</text>
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none"
+     d="M 494,320 V 294.53636"
+     id="path102-0" />
+</svg>

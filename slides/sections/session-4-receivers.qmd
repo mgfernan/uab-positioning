@@ -11,3 +11,6 @@
 {{< include slides/sections/receivers/rf_front_end.qmd >}}
 
 {{< include slides/sections/receivers/digital_signal_processing.qmd >}}
+
+{{< include slides/sections/receivers/nav_message_decoding.qmd >}}
+
